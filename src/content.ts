@@ -121,6 +121,11 @@ export const heroPhotos: { photo: Photo; alt: string }[] = [
   { photo: "hall", alt: "A packed lecture hall at the HooHacks 2026 opening ceremony" },
   { photo: "winners-stage", alt: "A winning team holding their prizes on stage" },
   { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
+  { photo: "late-night", alt: "A team coding together late at night" },
+  { photo: "speaker", alt: "A speaker talking to a full lecture hall" },
+  { photo: "fair-crowd", alt: "Students crowding the sponsorship fair" },
+  { photo: "judging", alt: "Judges looking at a team's demo" },
+  { photo: "crowd-smiles", alt: "Hackers smiling in the audience" },
 ];
 
 export const weekend: { photo: Photo; when: string; title: string; body: string }[] = [
