@@ -12,7 +12,7 @@ export function Hero() {
           {event.dateLine}
         </p>
         <h1 data-enter style={i(1)}>
-          Every March, UVA builds for <span className="nowrap">24 hours</span> straight.
+          Meet the people building what's next.
         </h1>
         <p className="hero__lede" data-enter style={i(2)}>
           HooHacks brings 760+ students from across the country to Charlottesville for one weekend.
