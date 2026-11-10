@@ -146,18 +146,22 @@ h2 {
 }
 
 /* ─── Nav ────────────────────────────────────────────────────────── */
+/* Transparent over the hero glow; frosted once the page scrolls. */
 .nav {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: saturate(1.4) blur(14px);
-  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  background: rgba(255, 255, 255, 0);
   border-bottom: 1px solid transparent;
-  transition: border-color 200ms ease;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease;
 }
 
 .nav[data-scrolled="true"] {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
   border-color: var(--line);
 }
 
@@ -198,10 +202,12 @@ h2 {
   flex-direction: column;
   text-align: center;
   overflow: hidden;
-  height: calc(100svh - var(--nav-h));
-  min-height: 640px;
-  max-height: 900px;
-  padding: clamp(20px, 4vh, 48px) 0 24px;
+  /* Slides up under the transparent nav so the glow reaches the top. */
+  margin-top: calc(-1 * var(--nav-h));
+  height: 100svh;
+  min-height: calc(640px + var(--nav-h));
+  max-height: calc(900px + var(--nav-h));
+  padding: calc(var(--nav-h) + clamp(20px, 4vh, 48px)) 0 24px;
   /* Soft blue and orange light pooling behind the photo row. */
   background:
     radial-gradient(60% 55% at 15% 85%, rgba(174, 185, 238, 0.45), transparent 70%),
