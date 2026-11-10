@@ -113,19 +113,29 @@ export type Photo =
   | "lettuce"
   | "award-handshake"
   | "crowd-smiles"
+  | "opening-crowd"
+  | "booth-talk"
+  | "balloon-group"
+  | "countdown-team"
+  | "air-mattress"
+  | "audience-smiles"
+  | "winners-team"
+  | "team-peace"
+  | "atrium"
   | "speaker";
 
+/** Hero strip. Every photo here is used nowhere else on the page. */
 export const heroPhotos: { photo: Photo; alt: string }[] = [
-  { photo: "booth", alt: "Students talking with recruiters at the Capital One booth" },
   { photo: "team-desk", alt: "A team smiling at their laptops mid-build" },
-  { photo: "hall", alt: "A packed lecture hall at the HooHacks 2026 opening ceremony" },
-  { photo: "winners-stage", alt: "A winning team holding their prizes on stage" },
+  { photo: "opening-crowd", alt: "Hackers filling the lecture hall for the opening ceremony" },
+  { photo: "booth-talk", alt: "Students talking with a sponsor at their booth" },
+  { photo: "balloon-group", alt: "A group of hackers posing under a balloon arch" },
+  { photo: "countdown-team", alt: "A team giving a thumbs up next to a four-hour countdown" },
   { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
-  { photo: "late-night", alt: "A team coding together late at night" },
-  { photo: "speaker", alt: "A speaker talking to a full lecture hall" },
-  { photo: "fair-crowd", alt: "Students crowding the sponsorship fair" },
-  { photo: "judging", alt: "Judges looking at a team's demo" },
-  { photo: "crowd-smiles", alt: "Hackers smiling in the audience" },
+  { photo: "air-mattress", alt: "A hacker coding from an air mattress" },
+  { photo: "team-peace", alt: "A team throwing peace signs at their table" },
+  { photo: "audience-smiles", alt: "Two hackers smiling in the audience" },
+  { photo: "winners-team", alt: "A winning team posing on stage" },
 ];
 
 export const weekend: { photo: Photo; when: string; title: string; body: string }[] = [

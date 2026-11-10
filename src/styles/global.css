@@ -292,7 +292,7 @@ h2 {
   }
 }
 
-/* The photo strip drifts left forever; hover or the button pauses it. */
+/* The photo strip drifts left forever; the button pauses it. */
 .strip {
   position: relative;
   flex: 1;
@@ -321,12 +321,6 @@ h2 {
 
 .strip[data-paused="true"] .strip__track {
   animation-play-state: paused;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .strip:hover .strip__track {
-    animation-play-state: paused;
-  }
 }
 
 @keyframes drift {
