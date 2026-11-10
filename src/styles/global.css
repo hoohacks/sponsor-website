@@ -202,6 +202,12 @@ h2 {
   min-height: 640px;
   max-height: 900px;
   padding: clamp(20px, 4vh, 48px) 0 24px;
+  /* Soft blue and orange light pooling behind the photo row. */
+  background:
+    radial-gradient(60% 55% at 15% 85%, rgba(174, 185, 238, 0.45), transparent 70%),
+    radial-gradient(45% 45% at 88% 80%, rgba(229, 114, 0, 0.16), transparent 70%),
+    radial-gradient(70% 50% at 50% 0%, rgba(174, 185, 238, 0.22), transparent 70%),
+    #fff;
 }
 
 .hero .wrap {
@@ -294,9 +300,12 @@ h2 {
 }
 
 /* ─── Stats sentence ─────────────────────────────────────────────── */
+/* The stats get the one full navy band in the middle of the page. */
 .sentence {
   padding: 150px 0 130px;
   text-align: center;
+  background: var(--ink);
+  color: #fff;
 }
 
 .sentence p {
@@ -321,21 +330,21 @@ h2 {
   margin: 0 0.08em;
   object-fit: cover;
   box-shadow:
-    0 0 0 3px #fff,
+    0 0 0 3px var(--ink),
     0 6px 16px -6px rgba(14, 20, 82, 0.4);
 }
 
 .sentence small {
   display: block;
   font-size: 14px;
-  color: var(--muted);
+  color: var(--mist);
   margin-top: 34px;
   font-weight: 600;
 }
 
 /* ─── Weekend reel ───────────────────────────────────────────────── */
 .reel {
-  padding: 0 0 140px;
+  padding: 130px 0 140px;
 }
 
 .reel__head {
@@ -807,8 +816,9 @@ h2 {
 
 /* ─── Logos ──────────────────────────────────────────────────────── */
 .logos {
-  padding: 0 0 130px;
+  padding: 110px 0 130px;
   text-align: center;
+  background: #eef1fa;
 }
 
 .logos h2 {
@@ -847,7 +857,7 @@ h2 {
 
 /* ─── Contact ────────────────────────────────────────────────────── */
 .contact {
-  padding: 0 16px 16px;
+  padding: 16px;
 }
 
 .contact__box {
@@ -1151,6 +1161,12 @@ h2 {
   }
   .sentence {
     padding: 100px 0 90px;
+  }
+  .reel {
+    padding-top: 90px;
+  }
+  .logos {
+    padding: 80px 0 90px;
   }
   .logos ul {
     gap: 28px 36px;
