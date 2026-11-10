@@ -7,10 +7,10 @@ export function StatsSentence() {
     <section className="sentence" aria-label={`${stats.label} in numbers`}>
       <div className="wrap">
         <p>
-          <span className="sentence__hl">{stats.participants}</span> students {chip("/img/opening-800.webp")} from{" "}
+          <span className="sentence__hl">{stats.participants}</span> students {chip("/img/hall-800.webp")} from{" "}
           {stats.schools} schools and {stats.states} states built <span className="sentence__hl">{stats.projects}</span>{" "}
           projects {chip("/proj/sun-800.webp")} in one weekend, with{" "}
-          <span className="sentence__hl">{stats.sponsors}</span> sponsors {chip("/img/sponsor-table-800.webp")} in the
+          <span className="sentence__hl">{stats.sponsors}</span> sponsors {chip("/img/booth-800.webp")} in the
           room.
         </p>
         <small>

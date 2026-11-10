@@ -99,29 +99,41 @@ export const addOns = [
   { name: "Technical workshop", minTier: "Gold", price: "$2,500" },
 ];
 
-/** Photo base names in /public/img, each available as -800.webp and -1600.webp. */
-export type Photo = "opening" | "winners" | "chalkboard" | "prize-check" | "sponsor-table" | "building" | "lecture-hall";
+/** Photo base names in /public/img, each available as -800.webp and -1600.webp. Mostly HooHacks 2026. */
+export type Photo =
+  | "hall"
+  | "booth"
+  | "booth-chat"
+  | "fair-crowd"
+  | "team-desk"
+  | "heads-down"
+  | "judging"
+  | "winners-stage"
+  | "lettuce"
+  | "award-handshake"
+  | "crowd-smiles"
+  | "chalkboard";
 
 export const heroPhotos: { photo: Photo; alt: string }[] = [
-  { photo: "sponsor-table", alt: "Students talking with sponsors at a booth" },
-  { photo: "building", alt: "A team building their project at a table" },
-  { photo: "opening", alt: "Hackers in the audience at the opening ceremony" },
-  { photo: "winners", alt: "A winning team holding their prizes" },
-  { photo: "prize-check", alt: "A sponsor signing a giant prize check" },
+  { photo: "booth", alt: "Students talking with recruiters at the Capital One booth" },
+  { photo: "team-desk", alt: "A team smiling at their laptops mid-build" },
+  { photo: "hall", alt: "A packed lecture hall at the HooHacks 2026 opening ceremony" },
+  { photo: "winners-stage", alt: "A winning team holding their prizes on stage" },
+  { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
 ];
 
 export const weekend: { photo: Photo; when: string; title: string; body: string }[] = [
-  { photo: "opening", when: "Kickoff", title: "Opening ceremony", body: "Hundreds of hackers pack the hall. Sponsors introduce themselves and their challenges." },
-  { photo: "sponsor-table", when: "First afternoon", title: "Sponsorship fair", body: "Students make the rounds, ask about internships, and pick which APIs to build on." },
-  { photo: "building", when: "Overnight", title: "Heads down", body: "Teams build through the night. Mentors make rounds and unblock the hard problems." },
-  { photo: "chalkboard", when: "Final morning", title: "Demos", body: "Every team shows what they made. Judges walk the floor and ask the tough questions." },
-  { photo: "winners", when: "Closing", title: "Awards", body: "Winners are named on stage, and sponsor prizes go to the projects that earned them." },
+  { photo: "hall", when: "Kickoff", title: "Opening ceremony", body: "Hundreds of hackers pack the hall. Sponsors introduce themselves and their challenges." },
+  { photo: "fair-crowd", when: "First afternoon", title: "Sponsorship fair", body: "Students make the rounds, ask about internships, and pick which APIs to build on." },
+  { photo: "heads-down", when: "Overnight", title: "Heads down", body: "Teams build through the night. Mentors make rounds and unblock the hard problems." },
+  { photo: "judging", when: "Final morning", title: "Demos", body: "Every team shows what they made. Judges walk the floor and ask the tough questions." },
+  { photo: "winners-stage", when: "Closing", title: "Awards", body: "Winners are named on stage, and sponsor prizes go to the projects that earned them." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [
-  { photo: "sponsor-table", alt: "Sponsor representatives talking with students at a table", title: "Meet students", body: "Talk to hackers at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
+  { photo: "booth-chat", alt: "Sponsor representatives talking with a crowd of students", title: "Meet students", body: "Talk to hackers at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
   { photo: "chalkboard", alt: "A student presenting at a chalkboard", title: "Teach something", body: "Run a workshop or give the keynote. Hackers remember the companies that taught them something.", tag: "Platinum and up" },
-  { photo: "prize-check", alt: "A sponsor signing a large prize check for a winning team", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a whole track built around your product.", tag: "All tiers" },
+  { photo: "award-handshake", alt: "A judge congratulating a winning team on stage", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a whole track built around your product.", tag: "All tiers" },
 ];
 
 /** Past sponsors. `ratio` is the trimmed logo's width / height, used for equal-area sizing. */
