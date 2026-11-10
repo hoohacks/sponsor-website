@@ -29,7 +29,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--nav-h);
+  /* The nav hides while scrolling down, so anchors only need a little air. */
+  scroll-padding-top: 24px;
 }
 
 body {
@@ -1395,8 +1396,11 @@ h2 {
     scroll-behavior: auto;
   }
   /* Reveals become plain fades: no movement, no wipes. */
-  [data-reveal]:not([data-shown]) {
+  [data-reveal]:not([data-shown]),
+  [data-reveal="grow"]:not([data-shown]),
+  [data-reveal="wipe"]:not([data-shown]) {
     clip-path: none;
+    opacity: 0;
   }
   [data-reveal][data-shown],
   [data-reveal="grow"][data-shown],
