@@ -8,9 +8,11 @@ import { StatsSentence } from "./components/StatsSentence";
 import { Tiers } from "./components/Tiers";
 import { Weekend } from "./components/Weekend";
 import { event } from "./content";
+import { useScrollReveal } from "./lib/reveal";
 
 export function App() {
   const [interest, setInterest] = useState<string | null>(null);
+  useScrollReveal();
 
   return (
     <>

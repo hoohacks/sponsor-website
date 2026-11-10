@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { roles } from "../content";
 import { Photo } from "./Photo";
 
@@ -7,8 +8,8 @@ export function Roles() {
       <div className="wrap">
         <h2 id="roles-title">Show up the way that fits your team.</h2>
         <div className="roles__grid">
-          {roles.map((r) => (
-            <article className="role" key={r.title}>
+          {roles.map((r, i) => (
+            <article className="role" key={r.title} data-reveal="rise" style={{ "--i": i } as CSSProperties}>
               <Photo name={r.photo} alt={r.alt} sizes="(max-width: 1000px) 100vw, 400px" />
               <div className="role__body">
                 <h3>{r.title}</h3>
