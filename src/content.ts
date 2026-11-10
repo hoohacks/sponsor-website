@@ -117,8 +117,8 @@ export type Photo =
   | "booth-talk"
   | "balloon-group"
   | "countdown-team"
-  | "air-mattress"
-  | "audience-smiles"
+  | "pizza-team"
+  | "happy-hacking"
   | "winners-team"
   | "team-peace"
   | "atrium"
@@ -132,9 +132,9 @@ export const heroPhotos: { photo: Photo; alt: string }[] = [
   { photo: "balloon-group", alt: "A group of hackers posing under a balloon arch" },
   { photo: "countdown-team", alt: "A team giving a thumbs up next to a four-hour countdown" },
   { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
-  { photo: "air-mattress", alt: "A hacker coding from an air mattress" },
+  { photo: "pizza-team", alt: "A team working late around their laptops and a pizza box" },
   { photo: "team-peace", alt: "A team throwing peace signs at their table" },
-  { photo: "audience-smiles", alt: "Two hackers smiling in the audience" },
+  { photo: "happy-hacking", alt: "A full hall under the Happy Hacking slide at kickoff" },
   { photo: "winners-team", alt: "A winning team posing on stage" },
 ];
 
