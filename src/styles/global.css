@@ -1,0 +1,1457 @@
+/* ─── Tokens ─────────────────────────────────────────────────────── */
+:root {
+  --ink: #0e1452;
+  --ink-2: #3b4272;
+  --muted: #6e7598;
+  --line: #e3e6ef;
+  --soft: #f3f5fa;
+  --orange: #e57200;
+  --orange-hover: #f07f12;
+  --mist: #aeb9ee;
+
+  --wrap: 1240px;
+  --gutter: 32px;
+  --nav-h: 76px;
+
+  /* Strong curves. The built-in CSS easings are too weak. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* The nav hides while scrolling down, so anchors only need a little air. */
+  scroll-padding-top: 24px;
+}
+
+body {
+  font: 500 17px/1.6 Manrope, system-ui, sans-serif;
+  color: var(--ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* ─── Type ───────────────────────────────────────────────────────── */
+h2 {
+  font-weight: 800;
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.kicker {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font: 700 15px Manrope, system-ui, sans-serif;
+  padding: 15px 24px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--orange);
+  color: var(--ink);
+  white-space: nowrap;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--navy {
+  background: var(--ink);
+  color: #fff;
+}
+
+.btn--outline {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px #c9cede;
+}
+
+.btn[disabled] {
+  cursor: progress;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: var(--orange-hover);
+  }
+  .btn--navy:hover {
+    background: #1c2470;
+  }
+  .btn--outline:hover {
+    background: var(--soft);
+  }
+}
+
+/* ─── Nav ────────────────────────────────────────────────────────── */
+/* Transparent over the hero glow; frosted once the page scrolls. */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    transform 300ms var(--ease-out),
+    opacity 300ms var(--ease-out);
+}
+
+/* Slides and fades away while scrolling down; back on scroll up. */
+.nav[data-hidden="true"] {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav[data-scrolled="true"] {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(1.4) blur(14px);
+  -webkit-backdrop-filter: saturate(1.4) blur(14px);
+  border-color: var(--line);
+}
+
+/* Three equal columns so the links sit on the page's true center line. */
+.nav .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  height: var(--nav-h);
+}
+
+.nav .wrap > .btn {
+  justify-self: end;
+}
+
+.nav__logo img {
+  height: 22px;
+  width: auto;
+}
+
+.nav__links {
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.nav__links a {
+  transition: color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__links a:hover {
+    color: var(--ink);
+  }
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────── */
+/* The whole hero, photos included, fits one screen. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+  /* Slides up under the transparent nav so the glow reaches the top. */
+  margin-top: calc(-1 * var(--nav-h));
+  height: 100svh;
+  min-height: calc(640px + var(--nav-h));
+  max-height: calc(900px + var(--nav-h));
+  padding: calc(var(--nav-h) + clamp(20px, 4vh, 48px)) 0 24px;
+  /* Soft blue and orange light pooling behind the photo row. */
+  background:
+    radial-gradient(60% 55% at 15% 85%, rgba(174, 185, 238, 0.45), transparent 70%),
+    radial-gradient(45% 45% at 88% 80%, rgba(229, 114, 0, 0.16), transparent 70%),
+    radial-gradient(70% 50% at 50% 0%, rgba(174, 185, 238, 0.22), transparent 70%),
+    #fff;
+}
+
+.hero .wrap {
+  max-width: 1440px;
+}
+
+.hero__when {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: clamp(10px, 2vh, 22px);
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(44px, min(7.6vw, 11vh), 128px);
+  line-height: 0.94;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.hero__lede {
+  font-size: 20px;
+  color: var(--ink-2);
+  max-width: 40ch;
+  margin: clamp(14px, 2.6vh, 30px) auto clamp(16px, 3vh, 34px);
+}
+
+.hero__ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Hand-drawn orange stroke under "what's next", drawn once on load. */
+.hero__mark {
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero__mark svg {
+  position: absolute;
+  left: -2%;
+  bottom: -0.1em;
+  width: 104%;
+  height: 0.26em;
+  overflow: visible;
+  z-index: -1;
+}
+
+.hero__mark path {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 7;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 900ms var(--ease-in-out) 650ms forwards;
+}
+
+.hero h1 {
+  position: relative;
+  z-index: 0;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* The photo strip drifts left forever; the button pauses it. */
+.strip {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: clamp(20px, 4vh, 48px);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.strip__track {
+  display: flex;
+  height: 100%;
+  width: max-content;
+  animation: drift 90s linear infinite;
+}
+
+/* Two identical sets, each ending in one gap, so -50% is exactly one set. */
+.strip__set {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding-right: 16px;
+  height: 100%;
+}
+
+.strip[data-paused="true"] .strip__track {
+  animation-play-state: paused;
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.strip__photo {
+  flex: none;
+  aspect-ratio: 5 / 4;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--soft);
+  height: 84%;
+}
+
+.strip__photo:nth-child(3n + 1) {
+  height: 70%;
+}
+
+.strip__photo:nth-child(3n + 2) {
+  height: 100%;
+}
+
+.strip__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.strip__toggle {
+  position: absolute;
+  right: 28px;
+  bottom: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 16px -8px rgba(14, 20, 82, 0.5);
+  transition: transform 160ms var(--ease-out);
+}
+
+.strip__toggle:active {
+  transform: scale(0.94);
+}
+
+/* One orchestrated entrance: copy rises in, then photos follow. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero [data-enter] {
+  animation: rise 700ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+
+.strip[data-enter] {
+  animation-duration: 900ms;
+  animation-delay: 300ms;
+}
+
+/* ─── Stats sentence ─────────────────────────────────────────────── */
+/* The stats get the one full navy band in the middle of the page. */
+.sentence {
+  padding: 150px 0 130px;
+  text-align: center;
+  background: var(--ink);
+  color: #fff;
+}
+
+.sentence p {
+  font-weight: 700;
+  font-size: clamp(30px, 4.2vw, 58px);
+  line-height: 1.22;
+  letter-spacing: -0.035em;
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+.sentence__hl {
+  color: var(--orange);
+}
+
+.sentence__chip {
+  display: inline-block;
+  width: 1.7em;
+  height: 1em;
+  border-radius: 999px;
+  vertical-align: -0.1em;
+  margin: 0 0.08em;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 3px var(--ink),
+    0 6px 16px -6px rgba(14, 20, 82, 0.4);
+}
+
+.sentence small {
+  display: block;
+  font-size: 14px;
+  color: var(--mist);
+  margin-top: 34px;
+  font-weight: 600;
+}
+
+/* ─── Weekend reel ───────────────────────────────────────────────── */
+.reel {
+  padding: 130px 0 140px;
+}
+
+.reel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.reel__arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.reel__arrows button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid #ccd1e0;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    opacity 150ms ease;
+}
+
+.reel__arrows button:active {
+  transform: scale(0.94);
+}
+
+.reel__arrows button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .reel__arrows button:not(:disabled):hover {
+    background: var(--soft);
+  }
+}
+
+.reel__track {
+  --edge: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min(420px, 82vw);
+  gap: 20px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding: 48px var(--edge) 8px;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+}
+
+.reel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.moment {
+  scroll-snap-align: start;
+}
+
+.moment__img {
+  border-radius: 22px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--soft);
+}
+
+.moment__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .moment:hover .moment__img img {
+    transform: scale(1.03);
+  }
+}
+
+.moment__when {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-top: 18px;
+}
+
+.moment h3 {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-top: 4px;
+}
+
+.moment p {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 6px;
+  max-width: 34ch;
+}
+
+/* ─── Roles ──────────────────────────────────────────────────────── */
+.roles {
+  background: var(--soft);
+  padding: 130px 0;
+}
+
+.roles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+
+.role {
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.role img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.role__body {
+  padding: 26px 26px 30px;
+}
+
+.role h3 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.role p {
+  color: var(--muted);
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.role__tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-2);
+  background: var(--soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+/* ─── Tiers ──────────────────────────────────────────────────────── */
+.tiers {
+  padding: 140px 0;
+}
+
+/* The tier picker is a staircase: each column's height follows its price. */
+.stairs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  align-items: end;
+  height: 280px;
+  margin-top: 56px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.step {
+  position: relative;
+  height: var(--h);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 6px;
+  text-align: left;
+  padding: 20px 20px 0;
+  border: 0;
+  border-radius: 18px 18px 0 0;
+  background: var(--soft);
+  color: var(--ink);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 160ms var(--ease-out);
+}
+
+
+/* Each step wears its tier's metal as a cap. An inset shadow follows the
+   rounded corners exactly, unlike a separate strip. */
+.step {
+  box-shadow: inset 0 6px 0 var(--c);
+}
+
+.step[aria-selected="true"] {
+  background: var(--ink);
+  color: #fff;
+}
+
+.step:active {
+  transform: scale(0.985);
+}
+
+.step__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: color 200ms ease;
+}
+
+.step[aria-selected="true"] .step__name {
+  color: var(--mist);
+}
+
+.step__price {
+  font-size: clamp(22px, 2.6vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .step:not([aria-selected="true"]):hover {
+    background: #e6eaf4;
+  }
+}
+
+.tier-detail {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 56px;
+  padding: 40px 0 8px;
+}
+
+@keyframes swap {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+.tier-detail__side,
+.tier-detail__list {
+  animation: swap 240ms var(--ease-out);
+}
+
+.tier-detail__count {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.tier-detail__count strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.tier-detail__pitch {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  margin: 12px 0 28px;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.tier-detail__list {
+  list-style: none;
+  padding: 0;
+  columns: 2;
+  column-gap: 40px;
+}
+
+.tier-detail__list li {
+  break-inside: avoid;
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+  font-size: 16px;
+}
+
+.tier-detail__list .check {
+  color: var(--ink);
+  transform: translateY(3px);
+}
+
+.tier-detail__list li[data-change] .check {
+  color: var(--orange);
+}
+
+.tier-detail__list small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tier-detail__list em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.compare {
+  margin-top: 24px;
+}
+
+.compare summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink-2);
+  list-style: none;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.compare summary::-webkit-details-marker {
+  display: none;
+}
+
+.compare summary::after {
+  content: "+";
+  font-size: 20px;
+  line-height: 1;
+}
+
+.compare[open] summary::after {
+  content: "–";
+}
+
+.compare__scroll {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.compare table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+  font-size: 15px;
+}
+
+.compare th,
+.compare td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+
+.compare th:first-child,
+.compare td:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+
+.compare thead span {
+  display: block;
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.compare__group th {
+  font-weight: 800;
+  padding-top: 24px;
+  font-size: 14px;
+  color: var(--orange);
+}
+
+.compare__yes {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.compare__no {
+  color: #a3a9bf;
+}
+
+/* Add-ons read like a price list, not a row of cards. */
+.menu {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 56px;
+  margin-top: 96px;
+  padding-top: 40px;
+  border-top: 2px solid var(--ink);
+}
+
+.menu__intro h3 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.menu__intro p {
+  color: var(--muted);
+  margin-top: 10px;
+  max-width: 32ch;
+  font-size: 16px;
+}
+
+.menu__groups {
+  display: grid;
+  gap: 32px;
+}
+
+.menu__group h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+
+.menu__group ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu__group li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.menu__name {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.menu__req {
+  flex: 1;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.menu__price {
+  font-size: 18px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ─── Logos ──────────────────────────────────────────────────────── */
+.logos {
+  padding: 110px 0 130px;
+  text-align: center;
+  background: #eef1fa;
+}
+
+.logos h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+.logos ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px 60px;
+  margin: 40px auto 0;
+  max-width: 1080px;
+  list-style: none;
+  padding: 0;
+}
+
+.logos img {
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition:
+    filter 250ms ease,
+    opacity 250ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logos img:hover {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+/* ─── Contact ────────────────────────────────────────────────────── */
+.contact {
+  padding: 16px;
+}
+
+.contact__box {
+  border-radius: 30px;
+  overflow: hidden;
+  background: var(--ink);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+}
+
+.contact__pic {
+  position: relative;
+}
+
+.contact__pic img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact__pic::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(14, 20, 82, 0.85), rgba(14, 20, 82, 0.1) 60%);
+}
+
+.contact__pic-copy {
+  position: absolute;
+  left: 40px;
+  bottom: 40px;
+  right: 40px;
+  z-index: 2;
+}
+
+.contact__pic-copy p {
+  color: rgba(255, 255, 255, 0.82);
+  margin-top: 16px;
+  max-width: 36ch;
+}
+
+.contact__form {
+  padding: 56px 52px;
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mist);
+  align-content: start;
+}
+
+.field__opt {
+  font-weight: 500;
+  color: #8f98c8;
+}
+
+.field input,
+.field textarea {
+  font: 500 16px Manrope, system-ui, sans-serif;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.field[data-invalid="true"] input,
+.field[data-invalid="true"] textarea {
+  border-color: #ff8f8f;
+}
+
+.field__error {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffb3b3;
+}
+
+.form__honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__submit {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.form__submit .btn {
+  min-width: 170px;
+}
+
+/* The label blurs as it swaps between "Send message" and "Sending…". */
+.btn__label {
+  transition:
+    filter 200ms ease,
+    opacity 200ms ease;
+}
+
+.btn[data-busy="true"] .btn__label {
+  opacity: 0.75;
+}
+
+.form__alert {
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 15px;
+  background: rgba(255, 143, 143, 0.12);
+  border: 1px solid rgba(255, 143, 143, 0.35);
+  color: #ffd4d4;
+}
+
+.form__alert a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: #fff;
+}
+
+.form__sent {
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+
+@starting-style {
+  .form__sent {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.form__sent h3 {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.form__sent p {
+  color: var(--mist);
+  margin-top: 12px;
+  max-width: 38ch;
+}
+
+.contact__meta {
+  margin-top: 30px;
+  font-size: 14px;
+  color: var(--mist);
+  font-weight: 600;
+}
+
+.contact__meta a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ─── Footer ─────────────────────────────────────────────────────── */
+.footer {
+  padding: 28px 0 36px;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* ─── Scroll reveals ─────────────────────────────────────────────── */
+/* Each section enters once, with motion that suits its content. The hidden
+   state is set here; lib/reveal.ts adds [data-shown] when it scrolls in.
+   Keyframes (not transitions) so they don't clobber hover transitions. */
+[data-reveal] {
+  --stagger: 90ms;
+}
+
+[data-reveal]:not([data-shown]) {
+  opacity: 0;
+}
+
+[data-reveal="grow"]:not([data-shown]),
+[data-reveal="wipe"]:not([data-shown]) {
+  opacity: 1;
+  clip-path: inset(100% 0 0 0);
+}
+
+[data-reveal][data-shown] {
+  animation: 800ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * var(--stagger));
+}
+
+[data-reveal="rise"][data-shown] {
+  animation-name: reveal-rise;
+}
+
+[data-reveal="slide"][data-shown] {
+  animation-name: reveal-slide;
+  animation-duration: 900ms;
+}
+
+[data-reveal="pop"][data-shown] {
+  animation-name: reveal-pop;
+  animation-duration: 600ms;
+}
+
+[data-reveal="fade"][data-shown] {
+  animation-name: reveal-fade;
+  animation-duration: 600ms;
+  --stagger: 60ms;
+}
+
+/* The tier staircase builds up from its baseline, cheapest first. */
+[data-reveal="grow"][data-shown] {
+  animation-name: reveal-grow;
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease-in-out);
+  --stagger: 110ms;
+}
+
+[data-reveal="wipe"][data-shown] {
+  animation-name: reveal-grow;
+  animation-duration: 1100ms;
+  animation-timing-function: var(--ease-in-out);
+}
+
+/* Photos settle from a slight zoom as their card or panel arrives. */
+.role[data-shown] img,
+.contact__pic[data-shown] img {
+  animation: settle 1400ms var(--ease-out) both;
+  animation-delay: inherit;
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
+@keyframes reveal-slide {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+}
+
+@keyframes reveal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes reveal-grow {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Numbers that count up keep their width steady while they change. */
+.countup {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .nav__links {
+    display: none;
+  }
+  .roles__grid {
+    grid-template-columns: 1fr;
+  }
+  .tier-detail,
+  .menu {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .contact__box {
+    grid-template-columns: 1fr;
+  }
+  .contact__pic {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+    --nav-h: 68px;
+  }
+  .nav .wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+  .nav__logo img {
+    height: 20px;
+  }
+  .hero {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+  }
+  .strip {
+    flex: none;
+    height: 260px;
+  }
+  .strip__toggle {
+    right: 16px;
+  }
+  .tier-detail__list {
+    columns: 1;
+  }
+  .stairs {
+    height: 220px;
+    gap: 6px;
+  }
+  .step {
+    padding: 12px 8px 0;
+    border-radius: 12px 12px 0 0;
+  }
+  .step__name {
+    font-size: 12px;
+  }
+  .step__price {
+    font-size: 15px;
+  }
+  .menu__group li {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  .menu__req {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .menu__name {
+    flex: 1;
+  }
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+  .contact__form {
+    padding: 32px 22px;
+  }
+  .contact__pic-copy {
+    left: 22px;
+    right: 22px;
+    bottom: 26px;
+  }
+  .reel__arrows {
+    display: none;
+  }
+  .sentence {
+    padding: 100px 0 90px;
+  }
+  .reel {
+    padding-top: 90px;
+  }
+  .logos {
+    padding: 80px 0 90px;
+  }
+  .logos ul {
+    gap: 28px 36px;
+  }
+}
+
+/* Fewer, gentler animations: keep fades, drop movement. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  /* Reveals become plain fades: no movement, no wipes. */
+  [data-reveal]:not([data-shown]),
+  [data-reveal="grow"]:not([data-shown]),
+  [data-reveal="wipe"]:not([data-shown]) {
+    clip-path: none;
+    opacity: 0;
+  }
+  [data-reveal][data-shown],
+  [data-reveal="grow"][data-shown],
+  [data-reveal="wipe"][data-shown] {
+    animation: fade 400ms ease both;
+  }
+  .role[data-shown] img,
+  .contact__pic[data-shown] img {
+    animation: none;
+  }
+  .strip__track {
+    animation: none;
+  }
+  .strip__toggle {
+    display: none;
+  }
+  .strip {
+    overflow-x: auto;
+  }
+  .hero__mark path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .hero [data-enter] {
+    animation-name: fade;
+    animation-duration: 300ms;
+  }
+  .tier-detail__side,
+  .tier-detail__list {
+    animation: fade 150ms ease;
+  }
+  .nav[data-hidden="true"] {
+    transform: none;
+  }
+  .step,
+  .moment__img img,
+  .btn,
+  .reel__arrows button {
+    transition: none;
+  }
+  .btn:active,
+  .reel__arrows button:active {
+    transform: none;
+  }
+  .form__sent {
+    transition: opacity 200ms ease;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
