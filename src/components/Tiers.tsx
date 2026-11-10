@@ -47,7 +47,7 @@ export function Tiers({ onAsk }: Props) {
               aria-selected={i === active}
               aria-controls="tier-panel"
               tabIndex={i === active ? 0 : -1}
-              style={{ "--h": stepHeight(t.price) } as CSSProperties}
+              style={{ "--h": stepHeight(t.price), "--c": t.color } as CSSProperties}
               onClick={() => setActive(i)}
             >
               <span className="step__name">{t.name}</span>

@@ -46,11 +46,11 @@ export const stats = {
 };
 
 export const tiers: Tier[] = [
-  { id: "bronze", name: "Bronze", price: 1000, color: "#4E9F5B", pitch: "A simple way to support the event and get in front of hackers." },
-  { id: "silver", name: "Silver", price: 3000, color: "#9AA3B8", pitch: "Meet students in person at the fair and the sponsor lounge." },
-  { id: "gold", name: "Gold", price: 5000, color: "#E0A82E", pitch: "Add recruiting with the resume book and social reach." },
+  { id: "bronze", name: "Bronze", price: 1000, color: "#B8763E", pitch: "A simple way to support the event and get in front of hackers." },
+  { id: "silver", name: "Silver", price: 3000, color: "#A9B1C0", pitch: "Meet students in person at the fair and the sponsor lounge." },
+  { id: "gold", name: "Gold", price: 5000, color: "#D4A72C", pitch: "Add recruiting with the resume book and social reach." },
   { id: "platinum", name: "Platinum", price: 10000, color: "#6E8FE0", pitch: "Teach, award a prize, and reach every attendee after the event." },
-  { id: "diamond", name: "Diamond", price: 15000, color: "#E57200", pitch: "The full weekend: your own track, the keynote, and coffee chats." },
+  { id: "diamond", name: "Diamond", price: 15000, color: "#E26DAE", pitch: "The full weekend: your own track, the keynote, and coffee chats." },
 ];
 
 const from = (first: number): Benefit["cells"] =>
