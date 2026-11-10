@@ -31,7 +31,6 @@ export function Weekend() {
     <section className="reel" id="weekend" aria-labelledby="weekend-title">
       <div className="wrap reel__head">
         <div>
-          <p className="kicker">The weekend</p>
           <h2 id="weekend-title">
             <span className="nowrap">24 hours,</span> start to finish.
           </h2>

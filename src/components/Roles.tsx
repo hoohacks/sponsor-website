@@ -5,7 +5,6 @@ export function Roles() {
   return (
     <section className="roles" id="roles" aria-labelledby="roles-title">
       <div className="wrap">
-        <p className="kicker">How sponsors join in</p>
         <h2 id="roles-title">Show up the way that fits your team.</h2>
         <div className="roles__grid">
           {roles.map((r) => (

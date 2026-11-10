@@ -15,15 +15,14 @@ export function Hero() {
           Every March, UVA builds for <span className="nowrap">24 hours</span> straight.
         </h1>
         <p className="hero__lede" data-enter style={i(2)}>
-          HooHacks brings 760+ students from across the country to Charlottesville for one weekend. Come build it with
-          them.
+          HooHacks brings 760+ students from across the country to Charlottesville for one weekend.
         </p>
         <div className="hero__ctas" data-enter style={i(3)}>
           <a className="btn" href="#contact">
             Become a sponsor
           </a>
           <a className="btn btn--outline" href="#tiers">
-            See tiers
+            See packages
           </a>
         </div>
       </div>

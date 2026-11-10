@@ -4,7 +4,7 @@ const chip = (src: string) => <img className="sentence__chip" src={src} alt="" a
 
 export function StatsSentence() {
   return (
-    <section className="sentence" aria-label={`${stats.label} in numbers`}>
+    <section className="sentence" id="overview" aria-label={`${stats.label} in numbers`}>
       <div className="wrap">
         <p>
           <span className="sentence__hl">{stats.participants}</span> students {chip("/img/hall-800.webp")} from{" "}
