@@ -7,7 +7,7 @@ export function Contact({ interest }: { interest: string | null }) {
     <section className="contact" id="contact" aria-labelledby="contact-title">
       <div className="contact__box">
         <div className="contact__pic">
-          <Photo name="lecture-hall" alt="A packed lecture hall at HooHacks" sizes="(max-width: 1000px) 100vw, 50vw" />
+          <Photo name="crowd-smiles" alt="HooHacks hackers smiling in the audience" sizes="(max-width: 1000px) 100vw, 50vw" />
           <div className="contact__pic-copy">
             <h2 id="contact-title">Come build with us.</h2>
             <p>Tell us about your company and what you'd like from the weekend. The sponsorship team will reply by email.</p>
