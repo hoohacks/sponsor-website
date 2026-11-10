@@ -10,8 +10,8 @@ export function StatsSentence() {
           <span className="sentence__hl">{stats.participants}</span> students {chip("/img/hall-800.webp")} from{" "}
           {stats.schools} schools and {stats.states} states built <span className="sentence__hl">{stats.projects}</span>{" "}
           projects {chip("/proj/sun-800.webp")} in one weekend, with{" "}
-          <span className="sentence__hl">{stats.sponsors}</span> sponsors {chip("/img/booth-800.webp")} in the
-          room.
+          <span className="sentence__hl">{stats.sponsors}</span> sponsors {chip("/img/booth-800.webp")} and{" "}
+          {stats.partners} partners in the room.
         </p>
         <small>
           {stats.label}. {stats.womenPlus} of hackers were women+, against an MLH average of {stats.mlhAverageWomenPlus}.
