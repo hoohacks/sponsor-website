@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { weekend } from "../content";
 import { Photo } from "./Photo";
 
@@ -45,8 +45,8 @@ export function Weekend() {
         </div>
       </div>
       <div className="reel__track" ref={track} tabIndex={0} aria-label="Moments from a HooHacks weekend">
-        {weekend.map((m) => (
-          <article className="moment" key={m.title}>
+        {weekend.map((m, i) => (
+          <article className="moment" key={m.title} data-reveal="slide" style={{ "--i": i } as CSSProperties}>
             <div className="moment__img">
               <Photo name={m.photo} alt={m.title} sizes="(max-width: 640px) 82vw, 420px" />
             </div>

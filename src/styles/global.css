@@ -1163,6 +1163,118 @@ h2 {
   flex-wrap: wrap;
 }
 
+/* ─── Scroll reveals ─────────────────────────────────────────────── */
+/* Each section enters once, with motion that suits its content. The hidden
+   state is set here; lib/reveal.ts adds [data-shown] when it scrolls in.
+   Keyframes (not transitions) so they don't clobber hover transitions. */
+[data-reveal] {
+  --stagger: 90ms;
+}
+
+[data-reveal]:not([data-shown]) {
+  opacity: 0;
+}
+
+[data-reveal="grow"]:not([data-shown]),
+[data-reveal="wipe"]:not([data-shown]) {
+  opacity: 1;
+  clip-path: inset(100% 0 0 0);
+}
+
+[data-reveal][data-shown] {
+  animation: 800ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * var(--stagger));
+}
+
+[data-reveal="rise"][data-shown] {
+  animation-name: reveal-rise;
+}
+
+[data-reveal="slide"][data-shown] {
+  animation-name: reveal-slide;
+  animation-duration: 900ms;
+}
+
+[data-reveal="pop"][data-shown] {
+  animation-name: reveal-pop;
+  animation-duration: 600ms;
+}
+
+[data-reveal="fade"][data-shown] {
+  animation-name: reveal-fade;
+  animation-duration: 600ms;
+  --stagger: 60ms;
+}
+
+/* The tier staircase builds up from its baseline, cheapest first. */
+[data-reveal="grow"][data-shown] {
+  animation-name: reveal-grow;
+  animation-duration: 900ms;
+  animation-timing-function: var(--ease-in-out);
+  --stagger: 110ms;
+}
+
+[data-reveal="wipe"][data-shown] {
+  animation-name: reveal-grow;
+  animation-duration: 1100ms;
+  animation-timing-function: var(--ease-in-out);
+}
+
+/* Photos settle from a slight zoom as their card or panel arrives. */
+.role[data-shown] img,
+.contact__pic[data-shown] img {
+  animation: settle 1400ms var(--ease-out) both;
+  animation-delay: inherit;
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+}
+
+@keyframes reveal-slide {
+  from {
+    opacity: 0;
+    transform: translateX(64px);
+  }
+}
+
+@keyframes reveal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes reveal-grow {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+/* Numbers that count up keep their width steady while they change. */
+.countup {
+  font-variant-numeric: tabular-nums;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1000px) {
   .nav__links {
@@ -1268,6 +1380,19 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  /* Reveals become plain fades: no movement, no wipes. */
+  [data-reveal]:not([data-shown]) {
+    clip-path: none;
+  }
+  [data-reveal][data-shown],
+  [data-reveal="grow"][data-shown],
+  [data-reveal="wipe"][data-shown] {
+    animation: fade 400ms ease both;
+  }
+  .role[data-shown] img,
+  .contact__pic[data-shown] img {
+    animation: none;
   }
   .strip__track {
     animation: none;

@@ -47,7 +47,8 @@ export function Tiers({ onAsk }: Props) {
               aria-selected={i === active}
               aria-controls="tier-panel"
               tabIndex={i === active ? 0 : -1}
-              style={{ "--h": stepHeight(t.price), "--c": t.color } as CSSProperties}
+              data-reveal="grow"
+              style={{ "--h": stepHeight(t.price), "--c": t.color, "--i": i } as CSSProperties}
               onClick={() => setActive(i)}
             >
               <span className="step__name">{t.name}</span>
@@ -141,8 +142,8 @@ export function Tiers({ onAsk }: Props) {
                 <ul>
                   {addOns
                     .filter((a) => a.group === g)
-                    .map((a) => (
-                      <li key={a.name}>
+                    .map((a, i) => (
+                      <li key={a.name} data-reveal="fade" style={{ "--i": i } as CSSProperties}>
                         <span className="menu__name">{a.name}</span>
                         <span className="menu__req">{a.minTier} and up</span>
                         <span className="menu__price">{a.price}</span>
