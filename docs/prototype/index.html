@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sponsor HooHacks 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+:root{--ink:#0E1452;--ink2:#3B4272;--mu:#6E7598;--line:#E3E6EF;--soft:#F3F5FA;--or:#E57200;--mist:#AEB9EE}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:500 17px/1.6 Manrope,system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 15px Manrope;padding:15px 24px;border-radius:999px;border:0;background:var(--or);color:var(--ink);transition:transform .2s,background .2s}
+.btn:hover{background:#F07F12}
+.btn.w{background:#fff;color:var(--ink)}
+.btn.n{background:var(--ink);color:#fff}
+.btn.ln{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px #C9CEDE}
+h2{font-weight:800;font-size:clamp(36px,4.8vw,64px);line-height:1.02;letter-spacing:-.04em}
+.kick{font-weight:700;font-size:15px;color:var(--or);margin-bottom:16px}
+
+/* nav */
+.topnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);backdrop-filter:saturate(1.4) blur(14px)}
+.topnav .wrap{display:flex;justify-content:space-between;align-items:center;height:76px}
+.topnav img{height:22px}
+.topnav .links{display:flex;gap:30px;font-size:15px;font-weight:600;color:var(--ink2)}
+.topnav .links a:hover{color:var(--ink)}
+
+/* hero */
+.v2{display:flex}
+.hv h1{font-weight:800;line-height:.98;letter-spacing:-.045em;color:var(--ink)}
+.hv .lede{font-size:20px;color:var(--ink2);font-weight:500;max-width:40ch}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.when{font-size:15px;font-weight:700;color:var(--or);margin-bottom:22px}
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* 2: centered + photo row, sized to fit one screen */
+.v2{text-align:center;overflow:hidden;height:calc(100vh - 76px);min-height:640px;max-height:900px;flex-direction:column;padding:clamp(20px,4vh,48px) 0 24px}
+.v2 .wrap{max-width:1440px}
+.v2 h1{font-size:clamp(44px,min(7.6vw,11vh),128px);line-height:.94;letter-spacing:-.05em;max-width:none;margin:0 auto;text-wrap:balance}
+.v2 .when{margin-bottom:clamp(10px,2vh,22px)}
+.v2 .lede{margin:clamp(14px,2.6vh,30px) auto clamp(16px,3vh,34px)}
+.v2 .ctas{justify-content:center}
+.row5{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1.1fr 1.35fr 1.1fr 1fr;gap:16px;align-items:end;margin-top:clamp(20px,4vh,48px);padding:0 24px}
+.row5 div{border-radius:22px;overflow:hidden;background:var(--soft);height:100%}
+.row5 img{width:100%;height:100%;object-fit:cover;display:block}
+.row5 div:nth-child(1),.row5 div:nth-child(5){height:66%}
+.row5 div:nth-child(2),.row5 div:nth-child(4){height:84%}
+.row5 div:nth-child(3){height:100%}
+
+/* inline-photo sentence */
+.sentence{padding:150px 0 130px;text-align:center}
+.sentence p{font-weight:700;font-size:clamp(30px,4.2vw,58px);line-height:1.22;letter-spacing:-.035em;max-width:20ch;margin:0 auto}
+.sentence .chip{display:inline-block;width:1.7em;height:1em;border-radius:999px;vertical-align:-.1em;background-size:cover;background-position:center;margin:0 .08em;box-shadow:0 0 0 3px #fff,0 6px 16px -6px rgba(14,20,82,.4)}
+.sentence .hl{color:var(--or)}
+.sentence small{display:block;font-size:14px;color:var(--mu);margin-top:34px;font-weight:600}
+
+/* weekend reel */
+.reel{padding:0 0 140px}
+.reel .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.reel .arrows{display:flex;gap:10px}
+.reel .arrows button{width:48px;height:48px;border-radius:50%;border:1.5px solid #CCD1E0;background:#fff;color:var(--ink);font-size:18px;display:grid;place-items:center;transition:background .2s}
+.reel .arrows button:hover{background:var(--soft)}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:min(420px,82vw);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:48px max(32px,calc((100vw - 1240px)/2 + 32px)) 8px;scrollbar-width:none;scroll-padding-left:max(32px,calc((100vw - 1240px)/2 + 32px))}
+.track::-webkit-scrollbar{display:none}
+.moment{scroll-snap-align:start}
+.moment .im{border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:var(--soft)}
+.moment img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.moment:hover img{transform:scale(1.03)}
+.moment .when{font-size:14px;font-weight:700;color:var(--or);margin-top:18px}
+.moment h3{font-size:24px;font-weight:800;letter-spacing:-.03em;margin-top:4px}
+.moment p{font-size:16px;color:var(--mu);margin-top:6px;max-width:34ch}
+
+/* roles */
+.roles{background:var(--soft);padding:130px 0}
+.roles .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.role{background:#fff;border-radius:22px;overflow:hidden}
+.role img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.role div{padding:26px 26px 30px}
+.role h3{font-size:22px;font-weight:800;letter-spacing:-.025em}
+.role p{color:var(--mu);margin-top:8px;font-size:16px}
+.role small{display:inline-block;margin-top:16px;font-size:13px;font-weight:700;color:var(--ink2);background:var(--soft);border-radius:999px;padding:4px 12px}
+
+/* tiers */
+.tiers{padding:140px 0}
+.tabs{display:inline-flex;gap:4px;background:var(--soft);border-radius:999px;padding:5px;margin-top:44px;flex-wrap:wrap}
+.tabs button{border:0;background:transparent;border-radius:999px;padding:11px 20px;font-weight:700;font-size:15px;color:var(--ink2);display:flex;gap:8px;align-items:center;transition:background .25s,color .25s}
+.tabs button i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;box-shadow:0 6px 16px -8px rgba(14,20,82,.6)}
+.panel{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;margin-top:28px;background:#fff;border:1px solid var(--line);border-radius:28px;padding:48px;box-shadow:0 30px 60px -40px rgba(14,20,82,.35)}
+.panel .pn{font-size:16px;font-weight:700;color:var(--mu);display:flex;gap:10px;align-items:center}
+.panel .pn i{width:12px;height:12px;border-radius:50%;background:var(--c)}
+.panel .pp{font-size:clamp(56px,6vw,84px);font-weight:800;letter-spacing:-.05em;line-height:1;margin:12px 0 18px;font-variant-numeric:tabular-nums}
+.panel .pd{color:var(--mu);max-width:34ch}
+.panel .btn{margin-top:30px}
+.panel h4{font-size:14px;font-weight:700;color:var(--mu);margin-bottom:14px}
+.panel ul{list-style:none;padding:0;columns:2;column-gap:32px}
+.panel li{break-inside:avoid;padding:9px 0 9px 30px;position:relative;border-bottom:1px solid var(--line);font-size:16px}
+.panel li:before{content:"";position:absolute;left:0;top:13px;width:18px;height:18px;border-radius:50%;background:color-mix(in srgb,var(--c) 22%,#fff)}
+.panel li:after{content:"";position:absolute;left:6px;top:17px;width:6px;height:3px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg)}
+.panel li.new{font-weight:700}
+.panel li.new em{font-style:normal;font-size:12px;font-weight:700;color:var(--or);margin-left:8px}
+.panel li small{display:block;color:var(--mu);font-size:13px;font-weight:600}
+.compare{margin-top:24px}
+.compare summary{cursor:pointer;font-weight:700;font-size:15px;color:var(--ink2);list-style:none;display:inline-flex;gap:8px;align-items:center}
+.compare summary::-webkit-details-marker{display:none}
+.compare summary:after{content:"+";font-size:20px;line-height:1}
+.compare[open] summary:after{content:"–"}
+.ctab{overflow-x:auto;margin-top:20px}
+.ctab table{width:100%;border-collapse:collapse;min-width:760px;font-size:15px}
+.ctab th,.ctab td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:center}
+.ctab th:first-child,.ctab td:first-child{text-align:left;padding-left:0}
+.ctab tr.g td{font-weight:800;padding-top:24px;font-size:14px;color:var(--or)}
+.ctab .y{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ink)}
+.ctab .no{color:#C6CBDA}
+.extras{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:40px}
+.extras div{background:var(--soft);border-radius:18px;padding:18px 18px 20px}
+.extras b{display:block;font-weight:800;font-size:16px;letter-spacing:-.01em}
+.extras span{font-size:13.5px;color:var(--mu);font-weight:600}
+.extras em{display:block;font-style:normal;font-weight:800;font-size:22px;margin-top:14px;letter-spacing:-.03em}
+
+/* logos */
+.logos{padding:0 0 130px;text-align:center}
+.logos p{font-weight:700;color:var(--mu);font-size:15px}
+.lrow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:40px 60px;margin-top:40px;max-width:1080px;margin-left:auto;margin-right:auto}
+.lrow img{filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
+.lrow img:hover{filter:none;opacity:1}
+
+/* contact */
+.contact{padding:0 16px 16px}
+.cbox{position:relative;border-radius:30px;overflow:hidden;background:var(--ink);color:#fff;display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.cbox .pic{position:relative}
+.cbox .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cbox .pic:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(14,20,82,.85),rgba(14,20,82,.1) 60%)}
+.cbox .pic div{position:absolute;left:40px;bottom:40px;right:40px;z-index:2}
+.cbox .pic h2{color:#fff}
+.cbox .pic p{color:rgba(255,255,255,.82);margin-top:16px;max-width:36ch}
+.cbox .fm{padding:56px 52px}
+form{display:grid;gap:16px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:grid;gap:8px;font-size:14px;font-weight:700;color:var(--mist)}
+input,textarea{font:500 16px Manrope;color:#fff;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:14px;padding:14px 16px;transition:border-color .2s,background .2s}
+input:focus,textarea:focus{outline:none;border-color:var(--or);background:rgba(255,255,255,.1)}
+textarea{min-height:150px;resize:vertical}
+.sent{display:none}
+.cbox .fm .meta{margin-top:30px;font-size:14px;color:var(--mist);font-weight:600}
+footer{padding:28px 0 36px;font-size:14px;color:var(--mu);font-weight:600}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:1000px){
+ .topnav .links{display:none}
+ .row5{grid-template-columns:repeat(3,1fr)}.row5 div:nth-child(1),.row5 div:nth-child(5){display:none}
+ .roles .grid{grid-template-columns:1fr}
+ .panel{grid-template-columns:1fr;padding:32px 26px;gap:32px}
+ .extras{grid-template-columns:repeat(2,1fr)}
+ .cbox{grid-template-columns:1fr}.cbox .pic{min-height:420px}
+}
+@media (max-width:640px){
+ .wrap{padding:0 20px}
+ .topnav .btn{white-space:nowrap;padding:10px 16px;font-size:14px}.topnav img{height:20px}
+ .v2{height:auto;max-height:none;min-height:0}.row5{flex:none;height:300px;padding:0 12px}
+ .panel ul{columns:1}.f2{grid-template-columns:1fr}
+ .cbox .fm{padding:32px 22px}.cbox .pic div{left:22px;right:22px;bottom:26px}
+ .extras{grid-template-columns:1fr}
+ .tabs{display:flex;border-radius:22px}
+ .reel .arrows{display:none}
+ .sentence{padding:100px 0 90px}
+ .lrow{gap:28px 36px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rise{animation:none}*{transition:none!important}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="wrap"><img src="img/logo-long.svg" alt="HooHacks"><div class="links"><a href="#weekend">The weekend</a><a href="#roles">How sponsors join</a><a href="#tiers">Tiers</a></div><a class="btn n" href="#contact">Become a sponsor</a></div></nav>
+
+
+
+<header class="hv v2" data-v="2">
+  <div class="wrap rise"><div class="when">March 2027 at the University of Virginia</div><h1>Every March, UVA builds for 24&nbsp;hours straight.</h1><p class="lede">HooHacks brings 760+ students from across the country to Charlottesville for one weekend. Come build it with them.</p><div class="ctas"><a class="btn" href="#contact">Become a sponsor</a><a class="btn ln" href="#tiers">See tiers</a></div></div>
+  <div class="row5"><div><img src="img/p3_725.jpg" alt=""></div><div><img src="img/p3_729.jpg" alt=""></div><div><img src="img/p1_100.jpg" alt="Hackers at the HooHacks opening ceremony"></div><div><img src="img/p2_107.jpg" alt=""></div><div><img src="img/p3_713.jpg" alt=""></div></div>
+</header>
+
+
+
+
+
+<section class="sentence"><div class="wrap">
+  <p><span class="hl">760+</span> students <span class="chip" style="background-image:url(img/p1_100.jpg)"></span> from 46 schools and 18 states built <span class="hl">220+</span> projects <span class="chip" style="background-image:url(proj/sun.jpg)"></span> in one weekend, with <span class="hl">22+</span> sponsors <span class="chip" style="background-image:url(img/p3_725.jpg)"></span> in the room.</p>
+  <small>HooHacks 2026. 29% of hackers were women+, against an MLH average of 24%.</small>
+</div></section>
+
+<section class="reel" id="weekend">
+  <div class="wrap head"><div><div class="kick">The weekend</div><h2>24 hours, start to finish.</h2></div><div class="arrows"><button aria-label="Previous" id="prev">←</button><button aria-label="Next" id="next">→</button></div></div>
+  <div class="track" id="track"></div>
+</section>
+
+<section class="roles" id="roles"><div class="wrap">
+  <div class="kick">How sponsors join in</div>
+  <h2>Show up the way that fits your team.</h2>
+  <div class="grid">
+    <div class="role"><img src="img/p3_725.jpg" alt="Sponsor representatives talking with students at a table"><div><h3>Meet students</h3><p>Talk to hackers at the sponsorship fair, hand out swag, and follow up with the resume book.</p><small>Silver and up</small></div></div>
+    <div class="role"><img src="img/p2_111.jpg" alt="A student presenting at a chalkboard"><div><h3>Teach something</h3><p>Run a workshop or give the keynote. Hackers remember the companies that taught them something.</p><small>Platinum and up</small></div></div>
+    <div class="role"><img src="img/p3_713.jpg" alt="A sponsor signing a large prize check for a winning team"><div><h3>Judge and award</h3><p>Send mentors and judges, sponsor a prize, or run a whole track built around your product.</p><small>All tiers</small></div></div>
+  </div>
+</div></section>
+
+<section class="tiers" id="tiers"><div class="wrap">
+  <div class="kick">Sponsorship tiers</div>
+  <h2>Choose your level.</h2>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Sponsorship tier"></div>
+  <div class="panel" id="panel" role="tabpanel"></div>
+  <details class="compare"><summary>Compare every tier</summary><div class="ctab"><table id="ct"></table></div></details>
+  <div class="extras" id="extras"></div>
+</div></section>
+
+<section class="logos"><div class="wrap"><p>Past sponsors and partners</p><div class="lrow" id="lrow"></div></div></section>
+
+<section class="contact" id="contact"><div class="cbox">
+  <div class="pic"><img src="img/p3_733.jpg" alt="A full lecture hall at HooHacks"><div><h2>Come build with us.</h2><p>Tell us about your company and what you'd like from the weekend. The sponsorship team will reply by email.</p></div></div>
+  <div class="fm">
+    <form id="form">
+      <div class="f2"><label>Name<input required autocomplete="name"></label><label>Work email<input type="email" required autocomplete="email"></label></div>
+      <label>Company<input required autocomplete="organization"></label>
+      <label>Questions, comments, or concerns (optional)<textarea></textarea></label>
+      <div><button class="btn" type="submit">Send message</button></div>
+    </form>
+    <div class="sent" id="sent"><h2 style="font-size:40px">Message sent.</h2><p style="color:var(--mist);margin-top:10px">We'll reply to your email soon.</p></div>
+    <div class="meta">Prefer email? team@hoohacks.io</div>
+  </div>
+</div></section>
+<footer><div class="wrap"><span>HooHacks at the University of Virginia</span><span>team@hoohacks.io</span></div></footer>
+
+<script>
+const H=HH,$=id=>document.getElementById(id);
+const M=[['p1_100','Kickoff','Opening ceremony','Hundreds of hackers pack the hall. Sponsors introduce themselves and their challenges.'],
+ ['p3_725','First afternoon','Sponsorship fair','Students make the rounds, ask about internships, and pick which APIs to build on.'],
+ ['p3_729','Overnight','Heads down','Teams build through the night. Mentors make rounds and unblock the hard problems.'],
+ ['p2_111','Final morning','Demos','Every team shows what they made. Judges walk the floor and ask the tough questions.'],
+ ['p2_107','Closing','Awards','Winners are named on stage, and sponsor prizes go to the projects that earned them.']];
+$('track').innerHTML=M.map(m=>`<article class="moment"><div class="im"><img src="img/${m[0]}.jpg" alt="${m[2]}"></div><div class="when">${m[1]}</div><h3>${m[2]}</h3><p>${m[3]}</p></article>`).join('');
+const tr=$('track'),step=()=>tr.querySelector('.moment').offsetWidth+20;
+$('prev').onclick=()=>tr.scrollBy({left:-step(),behavior:'smooth'});$('next').onclick=()=>tr.scrollBy({left:step(),behavior:'smooth'});
+
+let cur=2;const P=Object.fromEntries(H.perks.map(p=>[p[0],p]));
+const blurb=['A simple way to support the event and get in front of hackers.','Meet students in person at the fair and lounge.','Add recruiting with the resume book and social reach.','Teach, award a prize, and reach every attendee after.','The full weekend: a track, the keynote, and coffee chats.'];
+function render(){const t=H.tiers[cur];
+ $('tabs').querySelectorAll('button').forEach((b,i)=>{b.setAttribute('aria-selected',i===cur);b.tabIndex=i===cur?0:-1});
+ const got=H.perks.filter(p=>H.has(p,cur));
+ $('panel').style.setProperty('--c',t.c);
+ $('panel').innerHTML=`<div><div class="pn"><i></i>${t.n}</div><div class="pp">${H.money(t.p)}</div><p class="pd">${blurb[cur]}</p><a class="btn n" href="#contact">Ask about ${t.n}</a></div>
+ <div><h4>${got.length} benefits included</h4><ul>${got.map(p=>{const v=H.has(p,cur),prev=cur?H.has(p,cur-1):null,isNew=cur>0&&v!==prev;return `<li class="${isNew?'new':''}">${p[0]}${isNew?'<em>'+(prev?'Upgraded':'New')+'</em>':''}${typeof v==='string'?`<small>${v}</small>`:''}</li>`}).join('')}</ul></div>`;}
+$('tabs').innerHTML=H.tiers.map((t,i)=>`<button role="tab" style="--c:${t.c}"><i></i>${t.n}</button>`).join('');
+$('tabs').querySelectorAll('button').forEach((b,i)=>{b.onclick=()=>{cur=i;render()};b.onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){cur=(cur+(e.key==='ArrowRight'?1:4))%5;render();$('tabs').children[cur].focus()}}});
+render();
+$('ct').innerHTML=`<thead><tr><th></th>${H.tiers.map(t=>`<th>${t.n}<br><span style="color:var(--mu);font-weight:600">${H.money(t.p)}</span></th>`).join('')}</tr></thead><tbody>${H.table().map(g=>`<tr class="g"><td colspan="6">${g.group}</td></tr>`+g.rows.map(r=>`<tr><td>${r.label}</td>${r.cells.map(c=>`<td>${c===true?'<span class="y" aria-label="Included"></span>':c?c:'<span class="no">–</span>'}</td>`).join('')}</tr>`).join('')).join('')}</tbody>`;
+$('extras').innerHTML=H.addons.map(([n,r,c])=>`<div><b>${n}</b><span>Add-on, ${r} and up</span><em>${H.money(c)}</em></div>`).join('');
+$('lrow').innerHTML=H.logoImgs(3000,50,160);
+H.bindForm('form','sent');
+</script>
+</body>
+</html>
