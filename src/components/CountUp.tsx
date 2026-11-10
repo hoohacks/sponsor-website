@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 /** A stat like "760+" or "29%" that counts up from zero the first time it's seen. */
 export function CountUp({ value, duration = 1400 }: { value: string; duration?: number }) {
@@ -8,7 +8,8 @@ export function CountUp({ value, duration = 1400 }: { value: string; duration?: 
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(target);
 
-  useEffect(() => {
+  // Layout effect so the reset to 0 happens before the first paint (no flash of the final value).
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el || !match || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     setN(0);
@@ -37,7 +38,9 @@ export function CountUp({ value, duration = 1400 }: { value: string; duration?: 
 
   if (!match) return <>{value}</>;
   return (
-    <span ref={ref} className="countup" aria-label={value}>
+    <span ref={ref} className="countup">
+      {/* Screen readers get the real value; the animated digits are visual only. */}
+      <span className="visually-hidden">{value}</span>
       <span aria-hidden="true">
         {n}
         {suffix}

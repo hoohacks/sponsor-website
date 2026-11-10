@@ -6,3 +6,4 @@ dist
 .playwright-cli
 *.log
 *.tsbuildinfo
+.claude/
