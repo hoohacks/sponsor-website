@@ -41,7 +41,8 @@ export const stats = {
   womenPlus: "29%",
   mlhAverageWomenPlus: "24%",
   projects: "220+",
-  sponsors: "22+",
+  sponsors: "15",
+  partners: "7",
 };
 
 export const tiers: Tier[] = [
@@ -92,11 +93,11 @@ export const benefits: BenefitGroup[] = [
 ];
 
 export const addOns = [
-  { name: "Sponsor a snack", minTier: "Bronze", price: "$1,000" },
-  { name: "Sponsor a meal", minTier: "Bronze", price: "from $2,000" },
-  { name: "Non-technical activity", minTier: "Silver", price: "$1,000" },
-  { name: "Coffee chat", minTier: "Gold", price: "$2,000" },
-  { name: "Technical workshop", minTier: "Gold", price: "$2,500" },
+  { group: "Food", name: "Sponsor a snack", minTier: "Bronze", price: "$1,000" },
+  { group: "Food", name: "Sponsor a meal", minTier: "Bronze", price: "from $2,000" },
+  { group: "Programming", name: "Non-technical activity", minTier: "Silver", price: "$1,000" },
+  { group: "Programming", name: "Coffee chat", minTier: "Gold", price: "$2,000" },
+  { group: "Programming", name: "Technical workshop", minTier: "Gold", price: "$2,500" },
 ];
 
 /** Photo base names in /public/img, each available as -800.webp and -1600.webp. Mostly HooHacks 2026. */
