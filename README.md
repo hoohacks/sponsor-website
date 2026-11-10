@@ -20,7 +20,6 @@ npm run dev
 - `src/components/`: one component per page section.
 - `src/lib/inquiry.ts`: form validation and the Firestore write. Its limits match the `sponsorInquiries` rule in HackX.
 - `public/`: photos (WebP at 800 and 1600 wide), trimmed sponsor logos, and the packet PDF.
-- `docs/`: the design doc and the approved prototype.
 
 ## How inquiries flow
 
