@@ -9,7 +9,7 @@ export function Contact({ interest }: { interest: string | null }) {
         <div className="contact__pic">
           <Photo name="crowd-smiles" alt="HooHacks hackers smiling in the audience" sizes="(max-width: 1000px) 100vw, 50vw" />
           <div className="contact__pic-copy">
-            <h2 id="contact-title">Come build with us.</h2>
+            <h2 id="contact-title">Get in touch with the sponsorship team.</h2>
             <p>Tell us about your company and what you'd like from the weekend. The sponsorship team will reply by email.</p>
           </div>
         </div>

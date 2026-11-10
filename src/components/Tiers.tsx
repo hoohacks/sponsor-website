@@ -32,8 +32,7 @@ export function Tiers({ onAsk }: Props) {
   return (
     <section className="tiers" id="tiers" aria-labelledby="tiers-title">
       <div className="wrap">
-        <p className="kicker">Sponsorship tiers</p>
-        <h2 id="tiers-title">Choose your level.</h2>
+        <h2 id="tiers-title">Find the right fit.</h2>
 
         <div className="stairs" role="tablist" aria-label="Sponsorship tier" onKeyDown={onKeyDown}>
           {tiers.map((t, i) => (

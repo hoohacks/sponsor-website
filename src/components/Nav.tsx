@@ -17,12 +17,12 @@ export function Nav() {
           <img src="/img/logo-long.svg" alt="HooHacks" width={159} height={22} />
         </a>
         <nav className="nav__links" aria-label="Sections">
-          <a href="#weekend">The weekend</a>
-          <a href="#roles">How sponsors join</a>
-          <a href="#tiers">Tiers</a>
+          <a href="#overview">Overview</a>
+          <a href="#tiers">Packages</a>
+          <a href="#contact">Contact</a>
         </nav>
         <a className="btn btn--navy" href="#contact">
-          Become a sponsor
+          Sponsor us
         </a>
       </div>
     </header>
