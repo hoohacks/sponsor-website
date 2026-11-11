@@ -84,6 +84,7 @@ export function Crowd() {
 
     let lastScroll = scrollY;
     let lastTime = 0;
+    let lastStage: Stage | null = null;
     let raf = 0;
 
     const frame = (time: number) => {
@@ -96,7 +97,8 @@ export function Crowd() {
 
       const rects = new Map<Stage, DOMRect>();
       sections.forEach((el, s) => rects.set(s, el.getBoundingClientRect()));
-      const eye = H * 0.45;
+      // Look ahead, so a formation gathers as its section arrives.
+      const eye = H * 0.7;
       let stage: Stage = "contact";
       for (const s of STAGES) {
         const r = rects.get(s);
@@ -106,6 +108,11 @@ export function Crowd() {
 
       const box = rects.get(stage === "contact" ? "logos" : stage);
       if (!box) return;
+      // On a new formation every dot travels in; none may jump straight to a slot.
+      if (stage !== lastStage) {
+        for (const dot of dots) dot.flow = 0;
+        lastStage = stage;
+      }
       const navy = rects.get("sentence");
       const stepRects = stage === "tiers" ? steps.map((s) => s.getBoundingClientRect()) : [];
 
@@ -139,7 +146,7 @@ export function Crowd() {
           const fall = still ? dot.b : (dot.b + time * 0.00003 * (0.6 + dot.c)) % 1;
           tx = step.left + 10 + dot.a * (step.width - 20);
           ty = box.top + 20 + fall * (step.top - box.top - 26);
-          r = size * Math.min(1, fall * 6, (1 - fall) * 6 + 0.35);
+          r = size * Math.min(1, fall * 6, (1 - fall) * 6);
           if (fall < dot.flow) dot.y = ty;
           dot.flow = fall;
         } else if (stage === "logos" || stage === "contact") {
@@ -148,7 +155,8 @@ export function Crowd() {
           const half = 24 + (box.width / 2 - 24) * (1 - flow) ** 1.7;
           tx = box.left + box.width / 2 + (dot.a - 0.5) * 2 * half;
           ty = box.top + flow * box.height;
-          r = size * Math.min(1, flow * 8);
+          // Dots fade in at the top and out at the bottom, so the stream has no hard edge.
+          r = size * Math.min(1, flow * 6, (1 - flow) * 6);
           if (flow < dot.flow) {
             dot.x = tx;
             dot.y = ty;
