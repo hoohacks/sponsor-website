@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import { CHARLOTTESVILLE, randomUSPoint, US_ASPECT } from "../lib/crowd";
 
-/** One dot per hacker on desktop; phones get a lighter crowd. */
-const FULL = 760;
-const LIGHT = 300;
+/** One dot per hacker. */
+const COUNT = 760;
+/** Phones skip the crowd: on a narrow screen it reads as noise behind the text. */
+const PHONE = "(max-width: 760px)";
 /** 220 projects: dots huddle into teams of three or four. */
 const TEAMS = 220;
 const TIER_COUNT = 5;
@@ -36,14 +37,13 @@ export function Crowd() {
   useEffect(() => {
     const canvas = ref.current;
     const ctx = canvas?.getContext?.("2d");
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx || matchMedia(PHONE).matches) return;
 
     const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const hover = matchMedia("(hover: hover) and (pointer: fine)").matches;
-    const count = innerWidth < 760 ? LIGHT : FULL;
-    const size = innerWidth < 760 ? 1.6 : 2;
+    const size = 2;
 
-    const dots: Dot[] = Array.from({ length: count }, (_, i) => ({
+    const dots: Dot[] = Array.from({ length: COUNT }, (_, i) => ({
       x: Math.random() * innerWidth,
       y: Math.random() * innerHeight,
       a: Math.random(),

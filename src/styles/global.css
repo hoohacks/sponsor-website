@@ -551,6 +551,7 @@ h2 {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   padding: 48px var(--edge) 8px;
   scroll-padding-inline: var(--edge);
   scrollbar-width: none;
@@ -562,6 +563,8 @@ h2 {
 
 .moment {
   scroll-snap-align: start;
+  /* One card per swipe: a hard flick can't skip past the next photo. */
+  scroll-snap-stop: always;
 }
 
 .moment__img {
@@ -1465,6 +1468,15 @@ h2 {
 @media (max-width: 760px) {
   .nav__links {
     display: none;
+  }
+  .crowd {
+    display: none;
+  }
+  /* Cards sliding in sideways look like the carousel moving by itself while
+     you scroll down, so on touch screens they simply fade in. */
+  [data-reveal="slide"][data-shown] {
+    animation-name: reveal-fade;
+    animation-duration: 600ms;
   }
   .compare tr:not(.compare__group) > :first-child {
     min-width: 150px;
