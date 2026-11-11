@@ -1204,17 +1204,90 @@ h2 {
 
 /* ─── Footer ─────────────────────────────────────────────────────── */
 .footer {
-  padding: 28px 0 36px;
-  font-size: 14px;
-  color: var(--muted);
+  padding: 72px 0 32px;
+  font-size: 15px;
   font-weight: 600;
+  color: var(--ink-2);
 }
 
-.footer .wrap {
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.footer__brand img {
+  height: 22px;
+  width: auto;
+}
+
+.footer__brand p {
+  margin-top: 16px;
+  max-width: 30ch;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer__col h2 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.footer__col a {
+  padding: 6px 0;
+  transition: color 150ms ease;
+}
+
+.footer__bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
-  flex-wrap: wrap;
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.footer__socials {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin-right: -12px;
+}
+
+.footer__socials a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__col a:hover {
+    color: var(--orange);
+  }
+  .footer__socials a:hover {
+    color: var(--ink);
+    background: var(--soft);
+  }
 }
 
 /* ─── Scroll reveals ─────────────────────────────────────────────── */
@@ -1443,9 +1516,21 @@ h2 {
   .reel {
     padding-bottom: 84px;
   }
-  .footer .wrap {
-    flex-direction: column;
-    gap: 6px;
+  .footer {
+    padding-top: 52px;
+  }
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 24px;
+  }
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+  .footer__col a {
+    padding: 9px 0;
+  }
+  .footer__bottom {
+    margin-top: 40px;
   }
   .nav .wrap {
     display: flex;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Logos } from "./components/Logos";
 import { Nav } from "./components/Nav";
@@ -7,7 +8,6 @@ import { Roles } from "./components/Roles";
 import { StatsSentence } from "./components/StatsSentence";
 import { Tiers } from "./components/Tiers";
 import { Weekend } from "./components/Weekend";
-import { event } from "./content";
 import { useScrollReveal } from "./lib/reveal";
 
 export function App() {
@@ -29,12 +29,7 @@ export function App() {
         <Logos />
         <Contact interest={interest} />
       </main>
-      <footer className="footer">
-        <div className="wrap">
-          <span>HooHacks at the University of Virginia</span>
-          <a href={`mailto:${event.email}`}>{event.email}</a>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
