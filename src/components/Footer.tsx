@@ -27,7 +27,7 @@ export function Footer() {
             <a href="#top" aria-label="HooHacks, back to top">
               <img src="/img/logo-long.svg" alt="HooHacks" width={159} height={22} loading="lazy" />
             </a>
-            <p>The University of Virginia's 24-hour hackathon, run by students every spring.</p>
+            <p>The University of Virginia's annual hackathon.</p>
           </div>
 
           <nav className="footer__col" aria-label="Sponsoring">
