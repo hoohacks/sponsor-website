@@ -551,16 +551,9 @@ h2 {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  /* A finger may only scroll the page up and down from here; sideways swipes
-     are turned into one-card moves by Weekend.tsx. Mouse and trackpad are unaffected. */
-  touch-action: pan-y;
   padding: 48px var(--edge) 8px;
   scroll-padding-inline: var(--edge);
   scrollbar-width: none;
-}
-
-.reel__track[data-dragging="true"] {
-  scroll-snap-type: none;
 }
 
 .reel__track::-webkit-scrollbar {

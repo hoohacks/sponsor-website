@@ -20,88 +20,45 @@ export function Weekend() {
     };
   }, []);
 
-  // Touch swipes are handled here rather than by native scrolling. The track
-  // only lets the browser pan vertically (touch-action: pan-y), so a swipe is
-  // either a page scroll or a card change, never both at once, and each swipe
-  // moves exactly one card.
+  // Swiping is the browser's own scrolling (with CSS snap, one card at a time).
+  // The only help it gets: while a touch is moving mostly up or down, the track
+  // is held still, so scrolling the page never drags the cards sideways.
   useEffect(() => {
     const el = track.current;
     if (!el) return;
-    let id = -1;
-    let startX = 0;
-    let startLeft = 0;
-    let lastX = 0;
-    let lastTime = 0;
-    let speed = 0;
-    let dragging = false;
-    let release = 0;
-    const cardStep = () => (el.querySelector<HTMLElement>(".moment")?.offsetWidth ?? 0) + 20;
-
-    const settle = (index: number) => {
-      const last = el.querySelectorAll(".moment").length - 1;
-      const to = Math.max(0, Math.min(last, index));
-      const from = el.scrollLeft;
-      const target = Math.min(to * cardStep(), el.scrollWidth - el.clientWidth);
-      const began = performance.now();
-      const length = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320;
-      // Glide to the card ourselves; snapping stays off until we land, or it would fight us.
-      const glide = (now: number) => {
-        const t = length ? Math.min(1, (now - began) / length) : 1;
-        el.scrollLeft = from + (target - from) * (1 - (1 - t) ** 3);
-        if (t < 1) release = requestAnimationFrame(glide);
-        else delete el.dataset.dragging;
-      };
-      release = requestAnimationFrame(glide);
+    let x = 0;
+    let y = 0;
+    let left = 0;
+    let decided = false;
+    const start = (e: TouchEvent) => {
+      x = e.touches[0].clientX;
+      y = e.touches[0].clientY;
+      left = el.scrollLeft;
+      decided = false;
     };
-
-    const down = (e: PointerEvent) => {
-      if (e.pointerType !== "touch") return;
-      cancelAnimationFrame(release);
-      id = e.pointerId;
-      startX = lastX = e.clientX;
-      startLeft = el.scrollLeft;
-      lastTime = e.timeStamp;
-      speed = 0;
-      dragging = false;
+    const move = (e: TouchEvent) => {
+      if (decided) return;
+      const dx = Math.abs(e.touches[0].clientX - x);
+      const dy = Math.abs(e.touches[0].clientY - y);
+      if (dx < 6 && dy < 6) return;
+      decided = true;
+      if (dy > dx) {
+        el.style.overflowX = "hidden";
+        el.scrollLeft = left;
+      }
     };
-    const move = (e: PointerEvent) => {
-      if (e.pointerId !== id) return;
-      const dx = e.clientX - startX;
-      if (!dragging && Math.abs(dx) < 4) return;
-      dragging = true;
-      el.dataset.dragging = "true";
-      speed = (e.clientX - lastX) / Math.max(1, e.timeStamp - lastTime);
-      lastX = e.clientX;
-      lastTime = e.timeStamp;
-      el.scrollLeft = startLeft - dx;
+    const end = () => {
+      el.style.overflowX = "";
     };
-    const up = (e: PointerEvent) => {
-      if (e.pointerId !== id) return;
-      id = -1;
-      if (!dragging) return;
-      const size = cardStep();
-      const from = Math.round(startLeft / size);
-      const dx = e.clientX - startX;
-      const next = dx < -size * 0.18 || speed < -0.3 ? 1 : dx > size * 0.18 || speed > 0.3 ? -1 : 0;
-      settle(from + next);
-    };
-    // The browser took the gesture over (a vertical scroll): go back where we were.
-    const cancel = (e: PointerEvent) => {
-      if (e.pointerId !== id) return;
-      id = -1;
-      if (dragging) settle(Math.round(startLeft / cardStep()));
-    };
-
-    el.addEventListener("pointerdown", down);
-    el.addEventListener("pointermove", move);
-    el.addEventListener("pointerup", up);
-    el.addEventListener("pointercancel", cancel);
+    el.addEventListener("touchstart", start, { passive: true });
+    el.addEventListener("touchmove", move, { passive: true });
+    el.addEventListener("touchend", end);
+    el.addEventListener("touchcancel", end);
     return () => {
-      cancelAnimationFrame(release);
-      el.removeEventListener("pointerdown", down);
-      el.removeEventListener("pointermove", move);
-      el.removeEventListener("pointerup", up);
-      el.removeEventListener("pointercancel", cancel);
+      el.removeEventListener("touchstart", start);
+      el.removeEventListener("touchmove", move);
+      el.removeEventListener("touchend", end);
+      el.removeEventListener("touchcancel", end);
     };
   }, []);
 
