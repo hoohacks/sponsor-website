@@ -20,6 +20,17 @@
   color-scheme: light;
 }
 
+/* Big monitors get a wider page and slightly larger type, so it doesn't float. */
+@media (min-width: 1800px) {
+  :root {
+    --wrap: 1400px;
+    --gutter: 40px;
+  }
+  body {
+    font-size: 18px;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -39,6 +50,13 @@ body {
   background: #fff;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Belt and braces: nothing decorative may ever cause sideways scroll. */
+  overflow-x: clip;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 img {
@@ -180,7 +198,8 @@ h2 {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  height: var(--nav-h);
+  /* The 1px border is part of --nav-h, so the hero tucks under it exactly. */
+  height: calc(var(--nav-h) - 1px);
 }
 
 .nav .wrap > .btn {
@@ -240,6 +259,7 @@ h2 {
   font-weight: 700;
   color: var(--orange);
   margin-bottom: clamp(10px, 2vh, 22px);
+  text-wrap: balance;
 }
 
 .hero h1 {
@@ -255,6 +275,7 @@ h2 {
   color: var(--ink-2);
   max-width: 40ch;
   margin: clamp(14px, 2.6vh, 30px) auto clamp(16px, 3vh, 34px);
+  text-wrap: pretty;
 }
 
 .hero__ctas {
@@ -278,17 +299,19 @@ h2 {
   height: 0.26em;
   overflow: visible;
   z-index: -1;
+  /* Wiped in left to right. A dash-offset draw breaks here: with a
+     non-scaling stroke the dashes are measured in screen pixels, so on wide
+     screens the line came out with a gap in it. */
+  clip-path: inset(-100% 102% -100% -4%);
+  animation: draw 900ms var(--ease-in-out) 650ms forwards;
 }
 
 .hero__mark path {
   fill: none;
   stroke: var(--orange);
-  stroke-width: 7;
+  stroke-width: clamp(4px, 0.055em, 7px);
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw 900ms var(--ease-in-out) 650ms forwards;
 }
 
 .hero h1 {
@@ -298,7 +321,7 @@ h2 {
 
 @keyframes draw {
   to {
-    stroke-dashoffset: 0;
+    clip-path: inset(-100% -4% -100% -4%);
   }
 }
 
@@ -320,7 +343,7 @@ h2 {
   animation: drift 90s linear infinite;
 }
 
-/* Two identical sets, each ending in one gap, so -50% is exactly one set. */
+/* Three identical sets, each ending in one gap, so a third is exactly one set. */
 .strip__set {
   display: flex;
   align-items: flex-end;
@@ -335,7 +358,7 @@ h2 {
 
 @keyframes drift {
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / 3));
   }
 }
 
@@ -377,6 +400,13 @@ h2 {
   backdrop-filter: blur(8px);
   box-shadow: 0 6px 16px -8px rgba(14, 20, 82, 0.5);
   transition: transform 160ms var(--ease-out);
+}
+
+/* A comfortable tap area around the small button. */
+.strip__toggle::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
 }
 
 .strip__toggle:active {
@@ -617,7 +647,7 @@ h2 {
 /* The tier picker is a staircase: each column's height follows its price. */
 .stairs {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   align-items: end;
   height: 280px;
@@ -677,6 +707,10 @@ h2 {
   letter-spacing: -0.04em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+}
+
+.step__price-short {
+  display: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -785,6 +819,7 @@ h2 {
   display: inline-flex;
   gap: 8px;
   align-items: center;
+  padding: 10px 0;
 }
 
 .compare summary::-webkit-details-marker {
@@ -824,6 +859,15 @@ h2 {
 .compare td:first-child {
   text-align: left;
   padding-left: 0;
+}
+
+/* Benefit names stay put while the tiers scroll sideways on small screens.
+   Group rows span the table, so their label sticks instead of the cell. */
+.compare tr:not(.compare__group) > :first-child,
+.compare__group span {
+  position: sticky;
+  left: 0;
+  background: #fff;
 }
 
 .compare thead span {
@@ -1287,11 +1331,32 @@ h2 {
 
 /* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 1000px) {
-  .nav__links {
-    display: none;
-  }
   .roles__grid {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  /* Tablets: each role is a horizontal card, photo beside the copy. */
+  .role {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  }
+  .role img {
+    height: 100%;
+    min-height: 220px;
+    aspect-ratio: auto;
+  }
+  .role__body {
+    align-self: center;
+    padding: 28px 32px;
+  }
+  .sentence {
+    padding: 120px 0 104px;
+  }
+  .reel,
+  .roles,
+  .tiers {
+    padding-top: 104px;
+    padding-bottom: 104px;
   }
   .tier-detail,
   .menu {
@@ -1306,17 +1371,88 @@ h2 {
   }
 }
 
+@media (max-width: 760px) {
+  .nav__links {
+    display: none;
+  }
+  .compare tr:not(.compare__group) > :first-child {
+    min-width: 150px;
+    max-width: 46vw;
+    padding-right: 12px;
+    box-shadow: 1px 0 0 var(--line);
+  }
+  .compare table {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 640px) {
   :root {
     --gutter: 20px;
     --nav-h: 68px;
+  }
+  .role {
+    display: block;
+  }
+  .role img {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 3 / 2;
+  }
+  .role__body {
+    padding: 22px 22px 26px;
+  }
+  .roles__grid {
+    margin-top: 40px;
+  }
+  .hero__lede {
+    font-size: 18px;
+  }
+  .hero__ctas {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero__ctas .btn {
+    width: min(100%, 250px);
+  }
+  .step__price-full {
+    display: none;
+  }
+  .step__price-short {
+    display: inline;
+  }
+  .stairs {
+    margin-top: 40px;
+  }
+  .tier-detail {
+    padding-top: 28px;
+  }
+  .menu {
+    margin-top: 64px;
+    padding-top: 32px;
+  }
+  .reel__track {
+    padding-top: 32px;
+  }
+  .roles,
+  .tiers {
+    padding-top: 84px;
+    padding-bottom: 84px;
+  }
+  .reel {
+    padding-bottom: 84px;
+  }
+  .footer .wrap {
+    flex-direction: column;
+    gap: 6px;
   }
   .nav .wrap {
     display: flex;
     justify-content: space-between;
   }
   .nav .btn {
-    padding: 10px 16px;
+    padding: 12px 18px;
     font-size: 14px;
   }
   .nav__logo img {
@@ -1342,14 +1478,18 @@ h2 {
     gap: 6px;
   }
   .step {
-    padding: 12px 8px 0;
+    padding: 14px 4px 0;
     border-radius: 12px 12px 0 0;
+    text-align: center;
+    align-items: center;
+    gap: 4px;
   }
   .step__name {
-    font-size: 12px;
+    font-size: clamp(10.5px, 3.1vw, 13px);
+    letter-spacing: -0.01em;
   }
   .step__price {
-    font-size: 15px;
+    font-size: clamp(17px, 5.4vw, 24px);
   }
   .menu__group li {
     flex-wrap: wrap;
@@ -1380,13 +1520,42 @@ h2 {
     padding: 100px 0 90px;
   }
   .reel {
-    padding-top: 90px;
+    padding-top: 84px;
   }
   .logos {
     padding: 80px 0 90px;
   }
   .logos ul {
     gap: 28px 36px;
+  }
+}
+
+/* The smallest phones: the headline steps down so no word is orphaned. */
+@media (max-width: 360px) {
+  .hero h1 {
+    font-size: 39px;
+  }
+  .nav__logo img {
+    height: 18px;
+  }
+  .contact {
+    padding: 10px;
+  }
+  .contact__box {
+    border-radius: 24px;
+  }
+}
+
+/* Short, wide screens (a phone on its side): don't force a full-height hero. */
+@media (max-height: 520px) and (min-width: 641px) {
+  .hero {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .strip {
+    flex: none;
+    height: 240px;
   }
 }
 
@@ -1420,9 +1589,9 @@ h2 {
   .strip {
     overflow-x: auto;
   }
-  .hero__mark path {
+  .hero__mark svg {
     animation: none;
-    stroke-dashoffset: 0;
+    clip-path: none;
   }
   .hero [data-enter] {
     animation-name: fade;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { benefits, tiers } from "../content";
-import { formatPrice, logoSize } from "./format";
+import { formatPrice, formatPriceShort, logoSize } from "./format";
 import { benefitsForTier } from "./tiers";
 import { LIMITS, validateInquiry } from "./inquiry";
 
@@ -8,6 +8,15 @@ describe("formatPrice", () => {
   it("formats whole dollars with separators", () => {
     expect(formatPrice(15000)).toBe("$15,000");
     expect(formatPrice(1000)).toBe("$1,000");
+  });
+});
+
+describe("formatPriceShort", () => {
+  it("shortens round thousands and keeps odd amounts exact", () => {
+    expect(formatPriceShort(15000)).toBe("$15K");
+    expect(formatPriceShort(2500)).toBe("$2.5K");
+    expect(formatPriceShort(750)).toBe("$750");
+    expect(formatPriceShort(1250)).toBe("$1,250");
   });
 });
 

@@ -18,7 +18,7 @@ export function Hero() {
           <span className="hero__mark">
             what's next.
             <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M4 15 C 60 7, 120 6, 180 9 S 270 14, 296 8" pathLength={1} />
+              <path d="M4 15 C 60 7, 120 6, 180 9 S 270 14, 296 8" />
             </svg>
           </span>
         </h1>
@@ -35,18 +35,18 @@ export function Hero() {
         </div>
       </div>
 
-      {/* An endless, slow strip of event photos. The list is rendered twice so the loop is seamless. */}
+      {/* An endless, slow strip of event photos. The list is rendered three times so the loop stays seamless on ultrawide screens. */}
       <div className="strip" data-enter style={i(4)} data-paused={paused}>
         <div className="strip__track">
-          {[0, 1].map((copy) => (
-            <div className="strip__set" key={copy} aria-hidden={copy === 1 || undefined}>
+          {[0, 1, 2].map((copy) => (
+            <div className="strip__set" key={copy} aria-hidden={copy > 0 || undefined}>
               {heroPhotos.map((p, n) => (
                 <div className="strip__photo" key={p.photo}>
                   <Photo
                     name={p.photo}
-                    alt={copy === 1 ? "" : p.alt}
+                    alt={copy > 0 ? "" : p.alt}
                     sizes="(max-width: 640px) 60vw, 360px"
-                    loading={n < 5 ? "eager" : "lazy"}
+                    loading={copy === 0 && n < 5 ? "eager" : "lazy"}
                     fetchPriority={copy === 0 && n === 2 ? "high" : "auto"}
                   />
                 </div>

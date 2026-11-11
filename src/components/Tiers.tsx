@@ -1,6 +1,6 @@
 import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { addOns, benefits, tiers } from "../content";
-import { formatPrice } from "../lib/format";
+import { formatPrice, formatPriceShort } from "../lib/format";
 import { benefitsForTier } from "../lib/tiers";
 
 interface Props {
@@ -52,7 +52,11 @@ export function Tiers({ onAsk }: Props) {
               onClick={() => setActive(i)}
             >
               <span className="step__name">{t.name}</span>
-              <span className="step__price">{formatPrice(t.price)}</span>
+              {/* Phones get the compact price; CSS shows one or the other. */}
+              <span className="step__price">
+                <span className="step__price-full">{formatPrice(t.price)}</span>
+                <span className="step__price-short">{formatPriceShort(t.price)}</span>
+              </span>
             </button>
           ))}
         </div>
@@ -101,7 +105,7 @@ export function Tiers({ onAsk }: Props) {
                 <tbody key={g.group}>
                   <tr className="compare__group">
                     <th scope="colgroup" colSpan={6}>
-                      {g.group}
+                      <span>{g.group}</span>
                     </th>
                   </tr>
                   {g.benefits.map((b) => (
