@@ -99,6 +99,24 @@ button {
   white-space: nowrap;
 }
 
+/* ─── Crowd ──────────────────────────────────────────────────────── */
+/* A canvas of dots (components/Crowd.tsx) sits over the section backgrounds
+   and under everything in them, so it reads as part of the page's surface. */
+.crowd {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100lvh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+main > section > *,
+.footer > .wrap {
+  position: relative;
+  z-index: 2;
+}
+
 /* ─── Type ───────────────────────────────────────────────────────── */
 h2 {
   font-weight: 800;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Contact } from "./components/Contact";
+import { Crowd } from "./components/Crowd";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Logos } from "./components/Logos";
@@ -19,6 +20,7 @@ export function App() {
       <a className="visually-hidden" href="#contact">
         Skip to the sponsor inquiry form
       </a>
+      <Crowd />
       <Nav />
       <main>
         <Hero />

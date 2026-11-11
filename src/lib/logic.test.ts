@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { benefits, tiers } from "../content";
 import { formatPrice, formatPriceShort, logoSize } from "./format";
 import { benefitsForTier } from "./tiers";
+import { CHARLOTTESVILLE, insideUS, projectUS, randomUSPoint } from "./crowd";
 import { LIMITS, validateInquiry } from "./inquiry";
 
 describe("formatPrice", () => {
@@ -17,6 +18,21 @@ describe("formatPriceShort", () => {
     expect(formatPriceShort(2500)).toBe("$2.5K");
     expect(formatPriceShort(750)).toBe("$750");
     expect(formatPriceShort(1250)).toBe("$1,250");
+  });
+});
+
+describe("crowd map", () => {
+  it("knows land from sea", () => {
+    expect(insideUS(...CHARLOTTESVILLE)).toBe(true);
+    expect(insideUS(...projectUS(-98.5, 39.8))).toBe(true); // Kansas
+    expect(insideUS(...projectUS(-90, 26))).toBe(false); // Gulf of Mexico
+    expect(insideUS(...projectUS(-70, 35))).toBe(false); // Atlantic
+  });
+
+  it("only places dots on land", () => {
+    let seed = 7;
+    const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 200; i++) expect(insideUS(...randomUSPoint(random))).toBe(true);
   });
 });
 
