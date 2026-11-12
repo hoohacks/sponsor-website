@@ -457,7 +457,7 @@ h2 {
 /* The stats get the one full navy band in the middle of the page.
    Blue matches the rest of the site exactly: var(--ink) / #0e1452. */
 .sentence {
-  padding: 130px 0 120px;
+  padding: 150px 0 130px;
   text-align: center;
   background: var(--ink);
   color: #fff;
@@ -468,98 +468,29 @@ h2 {
 .sentence .wrap {
   position: relative;
   z-index: 2;
-  max-width: 1180px;
-}
-
-/* ─── Section Header & Layout Picker ─────────────────────────────── */
-.sentence__toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.sentence__kicker {
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--orange);
-}
-
-.sentence__layout-picker {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 999px;
-  padding: 3px 4px;
-}
-
-.sentence__layout-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--mist);
-  padding: 0 8px;
-}
-
-.sentence__layout-btn {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.78);
-  cursor: pointer;
-  transition: all 160ms var(--ease-out);
-}
-
-.sentence__layout-btn:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.sentence__layout-btn[data-active] {
-  background: var(--orange);
-  color: var(--ink);
-  font-weight: 700;
-}
-
-/* ─── Narrative Typography ───────────────────────────────────────── */
-.sentence__center {
-  max-width: 25ch;
-  margin: 0 auto;
-}
-
-.sentence--layout-flanking .sentence__center {
-  max-width: 22ch;
+  max-width: var(--wrap);
 }
 
 .sentence__statement {
   font-weight: 700;
-  font-size: clamp(28px, 3.8vw, 54px);
-  line-height: 1.24;
+  font-size: clamp(30px, 4.2vw, 58px);
+  line-height: 1.22;
   letter-spacing: -0.035em;
+  max-width: 20ch;
   margin: 0 auto;
   color: #fff;
 }
 
 .sentence__hl {
   color: var(--orange);
-  font-weight: 800;
 }
 
-/* Tastefully integrated Women+ statistic (restrained, dignified, not over-bolded) */
+/* Tastefully integrated Women+ statistic: clean, dignified, not over-bolded */
 .sentence__sub {
   font-size: 15px;
   font-weight: 500;
   color: var(--mist);
-  margin-top: 24px;
+  margin-top: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -589,29 +520,12 @@ h2 {
   opacity: 0.4;
 }
 
-/* ─── Layout 1: Photo Cards Trio ─────────────────────────────────── */
-.sentence__gallery,
-.sentence__flank,
-.sentence__stack-wrap {
-  animation: sentence-fade 280ms var(--ease-out) both;
-}
-
-@keyframes sentence-fade {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* ─── Photo Cards ────────────────────────────────────────────────── */
 .sentence__gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 52px;
+  gap: 24px;
+  margin-top: 56px;
   text-align: left;
 }
 
@@ -671,198 +585,6 @@ h2 {
   color: var(--mist);
   margin-top: 3px;
   font-weight: 500;
-}
-
-/* ─── Layout 2: Flanking Floating Frames ─────────────────────────── */
-.sentence--layout-flanking .wrap {
-  position: relative;
-  min-height: 480px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.sentence__flank {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  z-index: 3;
-  pointer-events: auto;
-}
-
-.sentence__flank--left {
-  left: 0;
-  width: 240px;
-}
-
-.sentence__flank--right {
-  right: 0;
-  width: 220px;
-}
-
-.sentence__polaroid {
-  background: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 8px;
-  border-radius: 14px;
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
-  transition:
-    transform 280ms var(--ease-out),
-    border-color 280ms var(--ease-out),
-    box-shadow 280ms var(--ease-out);
-}
-
-.sentence__polaroid--atrium {
-  transform: rotate(-3deg);
-}
-
-.sentence__polaroid--smiles {
-  transform: rotate(3deg);
-}
-
-.sentence__polaroid--booth {
-  transform: rotate(-2.5deg);
-}
-
-.sentence__polaroid:hover {
-  transform: rotate(0deg) scale(1.04);
-  border-color: rgba(255, 255, 255, 0.38);
-  box-shadow: 0 24px 48px -10px rgba(0, 0, 0, 0.7);
-  z-index: 10;
-}
-
-.sentence__polaroid-media {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.sentence__polaroid-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sentence__polaroid-cap {
-  padding: 8px 6px 4px;
-  text-align: left;
-}
-
-.sentence__polaroid-cap strong {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.sentence__polaroid-cap span {
-  display: block;
-  font-size: 11px;
-  color: var(--mist);
-  margin-top: 2px;
-}
-
-/* ─── Layout 3: Overlapping Fan Stack ────────────────────────────── */
-.sentence__stack-wrap {
-  margin-top: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sentence__stack {
-  position: relative;
-  width: 300px;
-  height: 200px;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  outline: none;
-}
-
-.sentence__stack-card {
-  position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55);
-  background: var(--ink);
-  transform-origin: center bottom;
-  transition:
-    transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    border-color 320ms var(--ease-out),
-    box-shadow 320ms var(--ease-out);
-}
-
-.sentence__stack-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.sentence__stack-card--1 {
-  transform: rotate(-6deg) translateY(0);
-  z-index: 1;
-}
-
-.sentence__stack-card--2 {
-  transform: rotate(1deg) translateY(-4px);
-  z-index: 2;
-}
-
-.sentence__stack-card--3 {
-  transform: rotate(7deg) translateY(-8px);
-  z-index: 3;
-}
-
-/* Smooth horizontal fanning on hover or keyboard focus */
-.sentence__stack:hover .sentence__stack-card--1,
-.sentence__stack:focus-visible .sentence__stack-card--1 {
-  transform: translateX(-150px) rotate(-8deg) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.35);
-}
-
-.sentence__stack:hover .sentence__stack-card--2,
-.sentence__stack:focus-visible .sentence__stack-card--2 {
-  transform: translateX(0) rotate(0deg) scale(1.06);
-  border-color: var(--orange);
-  z-index: 10;
-}
-
-.sentence__stack:hover .sentence__stack-card--3,
-.sentence__stack:focus-visible .sentence__stack-card--3 {
-  transform: translateX(150px) rotate(8deg) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.35);
-}
-
-.sentence__stack-badge {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  padding: 5px 8px;
-  background: rgba(14, 20, 82, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.sentence__stack-hint {
-  font-size: 12px;
-  color: var(--mist);
-  margin-top: 14px;
-  font-weight: 600;
 }
 
 /* ─── Dot experimenter controls ──────────────────────────────────── */
@@ -1997,26 +1719,7 @@ h2 {
     padding: 28px 32px;
   }
   .sentence {
-    padding: 110px 0 100px;
-  }
-  .sentence--layout-flanking .wrap {
-    min-height: 0;
-  }
-  .sentence--layout-flanking .sentence__center {
-    max-width: 25ch;
-  }
-  .sentence--layout-flanking .sentence__flank {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    margin-top: 36px;
-    gap: 16px;
-  }
-  .sentence--layout-flanking .sentence__polaroid {
-    transform: none;
-    width: 220px;
+    padding: 120px 0 104px;
   }
   .sentence__gallery {
     grid-template-columns: repeat(3, 1fr);
@@ -2208,13 +1911,7 @@ h2 {
     display: none;
   }
   .sentence {
-    padding: 90px 0 80px;
-  }
-  .sentence__toolbar {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
+    padding: 100px 0 90px;
   }
   .sentence__statement {
     font-size: clamp(24px, 5.2vw, 36px);
@@ -2223,37 +1920,16 @@ h2 {
     flex-direction: column;
     gap: 6px;
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 24px;
   }
   .sentence__sub-sep {
     display: none;
   }
   .sentence__gallery {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 36px auto 0;
+    max-width: 420px;
+    margin: 40px auto 0;
     gap: 18px;
-  }
-  .sentence--layout-flanking .sentence__flank {
-    flex-direction: column;
-    align-items: center;
-    margin-top: 28px;
-  }
-  .sentence--layout-flanking .sentence__polaroid {
-    width: 100%;
-    max-width: 320px;
-  }
-  .sentence__stack {
-    width: 250px;
-    height: 180px;
-  }
-  .sentence__stack:hover .sentence__stack-card--1,
-  .sentence__stack:focus-visible .sentence__stack-card--1 {
-    transform: translateX(-80px) rotate(-6deg) scale(1.01);
-  }
-  .sentence__stack:hover .sentence__stack-card--3,
-  .sentence__stack:focus-visible .sentence__stack-card--3 {
-    transform: translateX(80px) rotate(6deg) scale(1.01);
   }
   .dot-controls {
     bottom: 16px;
