@@ -18,13 +18,16 @@ function getInitialDotMode(): DotInteractionMode {
   if (typeof window === "undefined") return "spotlight";
   try {
     const saved = localStorage.getItem(STORAGE_KEY) as DotInteractionMode | null;
-    if (saved && (saved === "spotlight" || saved === "calm" || saved === "soft" || saved === "push")) {
+    if (
+      saved &&
+      (saved === "spotlight" || saved === "calm" || saved === "soft" || saved === "medium" || saved === "push")
+    ) {
       return saved;
     }
   } catch {
     // Ignore storage errors
   }
-  return "spotlight";
+  return "medium";
 }
 
 export function App() {

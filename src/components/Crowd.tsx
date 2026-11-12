@@ -25,7 +25,7 @@ interface Dot {
 type Stage = "hero" | "sentence" | "reel" | "roles" | "tiers" | "logos" | "contact";
 const STAGES: Stage[] = ["hero", "sentence", "reel", "roles", "tiers", "logos", "contact"];
 
-export type DotInteractionMode = "spotlight" | "calm" | "soft" | "push";
+export type DotInteractionMode = "spotlight" | "calm" | "soft" | "medium" | "push";
 
 interface Props {
   mode?: DotInteractionMode;
@@ -187,13 +187,23 @@ export function Crowd({ mode = "spotlight" }: Props) {
 
         if (hover) {
           if (activeMode === "push") {
-            // Original repulsion: 120px radius, aggressive 0.9 push
+            // Original repulsion: 120px radius, aggressive 0.9 push (up to 108px displacement)
             if (near < 120 && near > 0.01) {
               tx += (dx / near) * (120 - near) * 0.9;
               ty += (dy / near) * (120 - near) * 0.9;
             }
+          } else if (activeMode === "medium") {
+            // Balanced ripple: in between the original blast and soft breeze
+            // Gives a satisfying, clear tactile push (~35-40px) without tearing dots off-screen
+            const isMap = stage === "sentence";
+            const maxRadius = isMap ? 90 : 105;
+            const factor = isMap ? 0.22 : 0.42;
+            if (near < maxRadius && near > 0.01 && (i !== 0 || !isMap)) {
+              tx += (dx / near) * (maxRadius - near) * factor;
+              ty += (dy / near) * (maxRadius - near) * factor;
+            }
           } else if (activeMode === "soft") {
-            // Gentle breeze: smooth, non-destructive displacement
+            // Gentle breeze: subtle cushioned displacement (~10px)
             const isMap = stage === "sentence";
             const maxRadius = isMap ? 65 : 85;
             const factor = isMap ? 0.06 : 0.16;

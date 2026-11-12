@@ -8,28 +8,34 @@ interface Props {
 
 const MODES: { id: DotInteractionMode; label: string; desc: string; icon: string }[] = [
   {
+    id: "medium",
+    label: "Medium Ripple",
+    desc: "In between: a lively, responsive push (~40px) without blasting dots off the screen.",
+    icon: "🌊",
+  },
+  {
+    id: "soft",
+    label: "Soft Breeze",
+    desc: "A gentle, cushioned drift (~10px) that keeps formations calm.",
+    icon: "🍃",
+  },
+  {
+    id: "push",
+    label: "Original Push",
+    desc: "The original 120px blast for direct comparison.",
+    icon: "💨",
+  },
+  {
     id: "spotlight",
     label: "Spotlight Glow",
-    desc: "Recommended: nearby dots illuminate like stars while preserving the US map.",
+    desc: "Nearby dots illuminate like stars while preserving the US map.",
     icon: "✨",
   },
   {
     id: "calm",
     label: "Calm (No Reactivity)",
-    desc: "Dots stay serene in formation; no mouse repulsion, zero reading distraction.",
-    icon: "🍃",
-  },
-  {
-    id: "soft",
-    label: "Soft Breeze",
-    desc: "A gentle, cushioned drift that keeps formations and Charlottesville intact.",
-    icon: "🌊",
-  },
-  {
-    id: "push",
-    label: "Original Push",
-    desc: "The original 120px repulsive blast for direct comparison.",
-    icon: "💨",
+    desc: "Dots stay serene in formation; no mouse repulsion, zero distraction.",
+    icon: "🌿",
   },
 ];
 

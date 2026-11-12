@@ -43,7 +43,7 @@ export function StatsSentence() {
             </div>
             <figcaption className="sentence__card-body">
               <strong className="sentence__card-stat">{stats.participants} Builders</strong>
-              <span className="sentence__card-label">Rice Hall Atrium packed across 18 states</span>
+              <span className="sentence__card-label">Students from 46 schools gathered in Rice Hall</span>
             </figcaption>
           </figure>
 
@@ -56,8 +56,8 @@ export function StatsSentence() {
               />
             </div>
             <figcaption className="sentence__card-body">
-              <strong className="sentence__card-stat">Builder Community</strong>
-              <span className="sentence__card-label">{stats.womenPlus} Women+ hackers in tech</span>
+              <strong className="sentence__card-stat">Inclusive Community</strong>
+              <span className="sentence__card-label">29% women and non-binary hackers</span>
             </figcaption>
           </figure>
 
@@ -71,7 +71,7 @@ export function StatsSentence() {
             </div>
             <figcaption className="sentence__card-body">
               <strong className="sentence__card-stat">{stats.sponsors} Sponsors & {stats.partners} Partners</strong>
-              <span className="sentence__card-label">Direct mentorship and recruiting</span>
+              <span className="sentence__card-label">In-person mentorship and recruiting on the floor</span>
             </figcaption>
           </figure>
         </div>
