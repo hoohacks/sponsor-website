@@ -169,12 +169,17 @@ export function Crowd() {
         }
 
         if (hover) {
+          // Medium ripple: a comfortable, lively tactile push (~35-40px)
+          // without scattering dots off-screen or destroying the US map formation
           const dx = dot.x - pointerX;
           const dy = dot.y - pointerY;
           const near = Math.hypot(dx, dy);
-          if (near < 120 && near > 0.01) {
-            tx += (dx / near) * (120 - near) * 0.9;
-            ty += (dy / near) * (120 - near) * 0.9;
+          const isMap = stage === "sentence";
+          const maxRadius = isMap ? 90 : 105;
+          const factor = isMap ? 0.22 : 0.42;
+          if (near < maxRadius && near > 0.01 && (i !== 0 || !isMap)) {
+            tx += (dx / near) * (maxRadius - near) * factor;
+            ty += (dy / near) * (maxRadius - near) * factor;
           }
         }
 
@@ -189,14 +194,15 @@ export function Crowd() {
         }
 
         if (i === 0 || dot.y < -8 || dot.y > H + 8) continue;
-        const path = navy && dot.y > navy.top && dot.y < navy.bottom ? light : dark;
+        const isNavy = Boolean(navy && dot.y > navy.top && dot.y < navy.bottom);
+        const path = isNavy ? light : dark;
         path.moveTo(dot.x + r, dot.y);
         path.arc(dot.x, dot.y, r, 0, 6.283);
       }
 
       ctx.fillStyle = "rgba(14, 20, 82, 0.2)";
       ctx.fill(dark);
-      ctx.fillStyle = "rgba(190, 200, 255, 0.5)";
+      ctx.fillStyle = "rgba(190, 200, 255, 0.45)";
       ctx.fill(light);
 
       // The orange dot is Charlottesville on the map, and one of the crowd elsewhere.
