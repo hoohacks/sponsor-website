@@ -25,25 +25,14 @@ interface Dot {
 type Stage = "hero" | "sentence" | "reel" | "roles" | "tiers" | "logos" | "contact";
 const STAGES: Stage[] = ["hero", "sentence", "reel", "roles", "tiers", "logos", "contact"];
 
-export type DotInteractionMode = "spotlight" | "calm" | "soft" | "medium" | "push";
-
-interface Props {
-  mode?: DotInteractionMode;
-}
-
 /**
  * The crowd: a field of dots behind the whole page that re-forms as you scroll.
  * Scattered in the hero, a map of the country in the stats band, small teams
  * through the weekend, five streams into the tiers, and one stream toward the
  * inquiry form. Purely decorative, so it is hidden from assistive tech.
  */
-export function Crowd({ mode = "spotlight" }: Props) {
+export function Crowd() {
   const ref = useRef<HTMLCanvasElement>(null);
-  const modeRef = useRef<DotInteractionMode>(mode);
-
-  useEffect(() => {
-    modeRef.current = mode;
-  }, [mode]);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -135,8 +124,6 @@ export function Crowd({ mode = "spotlight" }: Props) {
       ctx.clearRect(0, 0, W, H);
       const dark = new Path2D();
       const light = new Path2D();
-      const glow = new Path2D();
-      const activeMode = modeRef.current;
 
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
@@ -181,45 +168,19 @@ export function Crowd({ mode = "spotlight" }: Props) {
           ty = box.top + dot.b * box.height + Math.cos(time / 3700 + dot.d * 40) * sway;
         }
 
-        const dx = dot.x - pointerX;
-        const dy = dot.y - pointerY;
-        const near = Math.hypot(dx, dy);
-
         if (hover) {
-          if (activeMode === "push") {
-            // Original repulsion: 120px radius, aggressive 0.9 push (up to 108px displacement)
-            if (near < 120 && near > 0.01) {
-              tx += (dx / near) * (120 - near) * 0.9;
-              ty += (dy / near) * (120 - near) * 0.9;
-            }
-          } else if (activeMode === "medium") {
-            // Balanced ripple: in between the original blast and soft breeze
-            // Gives a satisfying, clear tactile push (~35-40px) without tearing dots off-screen
-            const isMap = stage === "sentence";
-            const maxRadius = isMap ? 90 : 105;
-            const factor = isMap ? 0.22 : 0.42;
-            if (near < maxRadius && near > 0.01 && (i !== 0 || !isMap)) {
-              tx += (dx / near) * (maxRadius - near) * factor;
-              ty += (dy / near) * (maxRadius - near) * factor;
-            }
-          } else if (activeMode === "soft") {
-            // Gentle breeze: subtle cushioned displacement (~10px)
-            const isMap = stage === "sentence";
-            const maxRadius = isMap ? 65 : 85;
-            const factor = isMap ? 0.06 : 0.16;
-            // Charlottesville stays firmly anchored in Virginia on the map
-            if (near < maxRadius && near > 0.01 && (i !== 0 || !isMap)) {
-              tx += (dx / near) * (maxRadius - near) * factor;
-              ty += (dy / near) * (maxRadius - near) * factor;
-            }
-          } else if (activeMode === "spotlight") {
-            // Spotlight mode: no position displacement! Formations stay intact.
-            // Nearby dots gently expand and illuminate like stars.
-            if (near < 130) {
-              r = size + (1 - near / 130) * 1.8;
-            }
+          // Medium ripple: a comfortable, lively tactile push (~35-40px)
+          // without scattering dots off-screen or destroying the US map formation
+          const dx = dot.x - pointerX;
+          const dy = dot.y - pointerY;
+          const near = Math.hypot(dx, dy);
+          const isMap = stage === "sentence";
+          const maxRadius = isMap ? 90 : 105;
+          const factor = isMap ? 0.22 : 0.42;
+          if (near < maxRadius && near > 0.01 && (i !== 0 || !isMap)) {
+            tx += (dx / near) * (maxRadius - near) * factor;
+            ty += (dy / near) * (maxRadius - near) * factor;
           }
-          // activeMode === "calm": pure ambient formations, no cursor reactivity
         }
 
         if (still) {
@@ -234,29 +195,15 @@ export function Crowd({ mode = "spotlight" }: Props) {
 
         if (i === 0 || dot.y < -8 || dot.y > H + 8) continue;
         const isNavy = Boolean(navy && dot.y > navy.top && dot.y < navy.bottom);
-
-        if (hover && activeMode === "spotlight" && near < 130) {
-          glow.moveTo(dot.x + r, dot.y);
-          glow.arc(dot.x, dot.y, r, 0, 6.283);
-        } else {
-          const path = isNavy ? light : dark;
-          path.moveTo(dot.x + r, dot.y);
-          path.arc(dot.x, dot.y, r, 0, 6.283);
-        }
+        const path = isNavy ? light : dark;
+        path.moveTo(dot.x + r, dot.y);
+        path.arc(dot.x, dot.y, r, 0, 6.283);
       }
 
       ctx.fillStyle = "rgba(14, 20, 82, 0.2)";
       ctx.fill(dark);
       ctx.fillStyle = "rgba(190, 200, 255, 0.45)";
       ctx.fill(light);
-
-      if (activeMode === "spotlight") {
-        ctx.fillStyle = "#ffffff";
-        ctx.shadowColor = "rgba(229, 114, 0, 0.75)";
-        ctx.shadowBlur = 6;
-        ctx.fill(glow);
-        ctx.shadowBlur = 0;
-      }
 
       // The orange dot is Charlottesville on the map, and one of the crowd elsewhere.
       const home = dots[0];
