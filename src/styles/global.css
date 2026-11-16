@@ -531,3 +531,91 @@ h2 {
     --color: 1;
   }
 }
+
+/* ─── Ways to get involved ───────────────────────────────────────── */
+/* Dawn begins here: the night lightens a little, section by section. */
+.roles {
+  position: relative;
+  overflow: hidden;
+  padding: 22vh 0 18vh;
+  background: linear-gradient(180deg, var(--night) 0%, #101c46 100%);
+}
+
+.roles > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.roles__ridges {
+  bottom: 0;
+  height: 75%;
+}
+
+.roles__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+}
+
+.roles__cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4vw;
+  margin-top: 10vh;
+  align-items: start;
+}
+
+.role:nth-child(2) {
+  margin-top: 12vh;
+}
+
+.role__photo {
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  --color: 0;
+  will-change: transform;
+}
+
+.role h3 {
+  margin-top: 24px;
+  font: 500 30px / 1.1 var(--display);
+  letter-spacing: -0.03em;
+}
+
+.role p {
+  margin-top: 8px;
+  color: var(--mist);
+  font-size: 17px;
+}
+
+.role span {
+  display: block;
+  margin-top: 14px;
+  color: var(--silver);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media (max-width: 760px) {
+  .roles__head {
+    flex-direction: column;
+    align-items: start;
+  }
+  .roles__cols {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .role:nth-child(2) {
+    margin-top: 0;
+  }
+  .role__photo {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role__photo {
+    --color: 1;
+  }
+}
