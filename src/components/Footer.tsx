@@ -24,7 +24,7 @@ export function Footer() {
       <div className="wrap">
         <div className="footer__top">
           <div className="footer__brand">
-            <a href="#top" aria-label="HooHacks, back to top">
+            <a href="#hero" aria-label="HooHacks, back to top">
               <img src="/img/logo-long.svg" alt="HooHacks" width={159} height={22} loading="lazy" />
             </a>
             <p>The University of Virginia's annual hackathon.</p>
@@ -32,7 +32,7 @@ export function Footer() {
 
           <nav className="footer__col" aria-label="Sponsoring">
             <h2>Sponsoring</h2>
-            <a href="#overview">Overview</a>
+            <a href="#stats">Overview</a>
             <a href="#tiers">Packages</a>
             <a href={event.packetUrl}>Sponsorship packet (PDF)</a>
             <a href="#contact">Get in touch</a>
