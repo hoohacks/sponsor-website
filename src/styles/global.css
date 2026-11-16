@@ -1016,3 +1016,209 @@ h2 {
     display: none;
   }
 }
+
+/* ─── Contact (morning) ──────────────────────────────────────────── */
+.contact {
+  padding: 16vh 0 20vh;
+  color: var(--day-ink);
+  background: linear-gradient(180deg, #c9d3eb 0%, #e8edf7 40%);
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+
+.contact .sub,
+.contact__meta {
+  color: var(--day-muted);
+}
+
+.contact__lede {
+  margin-top: 20px;
+}
+
+.contact__meta {
+  margin-top: 28px;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.contact__meta a {
+  color: var(--day-ink);
+}
+
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--day-muted);
+}
+
+.field__opt {
+  font-weight: 400;
+  color: #6b7593;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(10, 19, 48, 0.14);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--day-ink);
+  font: 400 17px "Funnel Sans", system-ui, sans-serif;
+  outline: none;
+  transition: border-color 160ms ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--day-ink);
+}
+
+.field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.field[data-invalid="true"] input,
+.field[data-invalid="true"] textarea {
+  border-color: #b3261e;
+}
+
+.field__error {
+  color: #b3261e;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__alert {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fbe9e7;
+  color: #8c1d18;
+  font-size: 15px;
+}
+
+.form__alert a {
+  color: inherit;
+}
+
+.form__submit .btn,
+.contact .btn {
+  background: var(--day-ink);
+  color: var(--ice);
+}
+
+.form .btn[disabled] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.form__sent h3 {
+  font: 500 32px / 1.1 var(--display);
+  letter-spacing: -0.03em;
+  outline: none;
+}
+
+.form__sent p {
+  margin-top: 10px;
+  color: var(--day-muted);
+}
+
+/* ─── Footer (morning) ───────────────────────────────────────────── */
+.footer {
+  padding: 0 0 48px;
+  background: #e8edf7;
+  color: var(--day-muted);
+  font-size: 15px;
+}
+
+.footer__top {
+  padding-top: 48px;
+  border-top: 1px solid rgba(10, 19, 48, 0.12);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+}
+
+.footer__brand p {
+  margin-top: 14px;
+  max-width: 32ch;
+}
+
+.footer__col {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.footer__col h2 {
+  margin-bottom: 4px;
+  font: 600 14px "Funnel Sans", system-ui, sans-serif;
+  letter-spacing: 0;
+  color: var(--day-ink);
+}
+
+.footer a {
+  color: var(--day-muted);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: var(--day-ink);
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  font-size: 14px;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+}
+
+@media (max-width: 760px) {
+  .contact__grid,
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer__brand {
+    grid-column: 1 / -1;
+  }
+}

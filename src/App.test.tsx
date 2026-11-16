@@ -21,6 +21,20 @@ describe("App", () => {
   it("pre-fills the message after Ask about Gold", async () => {
     render(<App />);
     await userEvent.click(screen.getByRole("link", { name: "Ask about Gold" }));
-    expect(screen.getByLabelText(/Questions/)).toHaveValue("We're interested in the Gold tier.");
+    expect(screen.getByLabelText(/^Questions or comments/)).toHaveValue("We're interested in the Gold tier.");
+  });
+
+  it("invites sponsors to get in touch, plainly", () => {
+    render(<App />);
+    expect(screen.getByRole("heading", { name: "Get in touch." })).toBeInTheDocument();
+    expect(
+      screen.getByText("Tell us about your company and what you're interested in. The sponsorship team will reply by email."),
+    ).toBeInTheDocument();
+  });
+
+  it("points every in-page link at something on the page", () => {
+    const { container } = render(<App />);
+    const targets = [...container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')].map((a) => a.getAttribute("href")!.slice(1));
+    for (const id of targets) expect(document.getElementById(id), `#${id}`).not.toBeNull();
   });
 });
