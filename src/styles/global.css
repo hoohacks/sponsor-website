@@ -346,3 +346,93 @@ h2 {
     display: none;
   }
 }
+
+/* ─── Stats line ─────────────────────────────────────────────────── */
+/* Pinned: the figures slide sideways, then the weekend heading rises in below. */
+.stats {
+  height: 260vh;
+}
+
+.stats__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 24vh;
+}
+
+.stats__ridges {
+  bottom: 0;
+  height: 52vh;
+}
+
+.stats__line {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 7vw;
+  width: max-content;
+  white-space: nowrap;
+  padding: 0 var(--pad) 0 max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
+  will-change: transform;
+}
+
+.stats__line div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+  font: 300 clamp(96px, 16vw, 260px) / 1 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.stats__line b {
+  font-weight: 600;
+  color: var(--ice);
+}
+
+.stats__line span {
+  color: var(--mist);
+  font-size: 0.32em;
+  letter-spacing: -0.02em;
+}
+
+.stats__next {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* Reduced motion: the figures wrap, and the heading simply follows. */
+@media (prefers-reduced-motion: reduce) {
+  .stats {
+    height: auto;
+  }
+  .stats__pin {
+    position: relative;
+    height: auto;
+    padding: 18vh 0 10vh;
+  }
+  .stats__line {
+    width: auto;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    white-space: normal;
+    transform: none !important;
+  }
+  .stats__line div {
+    font-size: clamp(48px, 13vw, 96px);
+  }
+  .stats__next {
+    position: relative;
+    bottom: auto;
+    margin-top: 12vh;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .stats__ridges {
+    height: 60%;
+  }
+}
