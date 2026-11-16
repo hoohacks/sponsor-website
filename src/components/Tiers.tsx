@@ -97,8 +97,10 @@ export function Tiers({ onAsk }: Props) {
         >
           <Ridges seed={37} layers={5} drift="x" className="tiers__ridges" />
           <div className="wrap tiers__head">
-            <h2 id="tiers-title">Sponsorship packages.</h2>
-            <nav className="tiers__names" aria-label="Packages">
+            <h2 id="tiers-title" data-rise="left">
+              Sponsorship packages.
+            </h2>
+            <nav className="tiers__names" aria-label="Packages" data-rise="right">
               {tiers.map((t, i) =>
                 stacked ? (
                   <a key={t.id} href={`#tier-${t.id}`}>
@@ -134,13 +136,17 @@ export function Tiers({ onAsk }: Props) {
                 }}
                 style={{ "--c": t.color } as CSSProperties}
               >
-                <p className="pkg__name">
+                <p className="pkg__name" data-rise="right" data-i={i}>
                   <i aria-hidden="true" />
                   {t.name}
                 </p>
-                <p className="pkg__price">{formatPrice(t.price)}</p>
-                <p className="pkg__pitch">{t.pitch}</p>
-                <ul>
+                <p className="pkg__price" data-rise="right" data-i={i}>
+                  {formatPrice(t.price)}
+                </p>
+                <p className="pkg__pitch" data-rise="right" data-i={i + 1}>
+                  {t.pitch}
+                </p>
+                <ul data-rise="right" data-i={i + 1}>
                   {addedAtTier(benefits, i).map((b) => (
                     <li key={b.label}>
                       <span>{b.label}</span>

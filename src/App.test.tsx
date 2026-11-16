@@ -37,4 +37,15 @@ describe("App", () => {
     const targets = [...container.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')].map((a) => a.getAttribute("href")!.slice(1));
     for (const id of targets) expect(document.getElementById(id), `#${id}`).not.toBeNull();
   });
+
+  it("brings new content in as it scrolls up, section by section", () => {
+    const { container } = render(<App />);
+    const rising = (sel: string) => container.querySelectorAll(`${sel} [data-rise]`).length;
+    expect(rising("#weekend")).toBeGreaterThanOrEqual(10);
+    expect(rising("#roles")).toBeGreaterThanOrEqual(4);
+    expect(rising("#tiers")).toBeGreaterThanOrEqual(7);
+    expect(rising("#sponsors")).toBeGreaterThanOrEqual(1);
+    expect(rising("#contact")).toBeGreaterThanOrEqual(2);
+    expect(container.querySelectorAll("footer [data-rise]").length).toBeGreaterThanOrEqual(3);
+  });
 });
