@@ -436,3 +436,98 @@ h2 {
     height: 60%;
   }
 }
+
+/* ─── Weekend scenes ─────────────────────────────────────────────── */
+/* Each scene sticks; the next slides over it while it sinks back and dims. */
+.scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scene__photo {
+  position: absolute;
+  inset: 0;
+  --color: 0;
+  transform-origin: 50% 30%;
+  will-change: transform;
+}
+
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 19, 48, 0.35), rgba(10, 19, 48, 0) 30%, rgba(10, 19, 48, 0.85));
+  pointer-events: none;
+}
+
+.scene__dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--night);
+  opacity: 0;
+}
+
+.scene__copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9vh;
+  z-index: 2;
+}
+
+.scene__copy .wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+}
+
+.scene__time {
+  font: 300 clamp(64px, 9vw, 150px) / 0.85 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.scene__time small {
+  display: block;
+  margin-bottom: 14px;
+  font: 500 16px "Funnel Sans", system-ui, sans-serif;
+  letter-spacing: 0;
+  color: var(--silver);
+}
+
+.scene h3 {
+  font: 500 clamp(30px, 3vw, 46px) / 1 var(--display);
+  letter-spacing: -0.035em;
+  text-align: right;
+}
+
+.scene__copy p:not(.scene__time) {
+  max-width: 34ch;
+  margin: 12px 0 0 auto;
+  color: var(--silver);
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .scene__copy .wrap {
+    grid-template-columns: 1fr;
+  }
+  .scene h3,
+  .scene__copy p:not(.scene__time) {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    position: relative;
+    height: 90vh;
+  }
+  .scene__photo {
+    --color: 1;
+  }
+}
