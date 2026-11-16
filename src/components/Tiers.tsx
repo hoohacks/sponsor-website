@@ -44,6 +44,8 @@ export function Tiers({ onAsk }: Props) {
   const track = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  // Focus from a click shouldn't scroll to the tier: the click is about to go somewhere else.
+  const pointing = useRef(false);
 
   // The pinned track is as tall as the sideways distance the rail travels.
   useEffect(() => {
@@ -123,7 +125,13 @@ export function Tiers({ onAsk }: Props) {
                 id={`tier-${t.id}`}
                 aria-label={t.name}
                 data-on={stacked || i === active || undefined}
-                onFocus={() => goTo(i)}
+                onPointerDown={() => {
+                  pointing.current = true;
+                }}
+                onFocus={() => {
+                  if (!pointing.current) goTo(i);
+                  pointing.current = false;
+                }}
                 style={{ "--c": t.color } as CSSProperties}
               >
                 <p className="pkg__name">

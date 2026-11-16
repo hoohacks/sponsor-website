@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { REDUCED, SHORT } from "../lib/scroll";
 import { Tiers } from "./Tiers";
@@ -42,5 +43,12 @@ describe("Tiers", () => {
     render(<Tiers onAsk={() => {}} />);
     screen.getByRole("link", { name: "Ask about Diamond" }).focus();
     expect(scroll).toHaveBeenCalled();
+  });
+
+  it("goes straight to the form when Ask is clicked, without scrolling to the tier first", async () => {
+    const scroll = vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    render(<Tiers onAsk={() => {}} />);
+    await userEvent.click(screen.getByRole("link", { name: "Ask about Diamond" }));
+    expect(scroll).not.toHaveBeenCalled();
   });
 });
