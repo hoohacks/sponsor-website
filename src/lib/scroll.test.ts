@@ -2,7 +2,12 @@ import { act, render } from "@testing-library/react";
 import { createElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ridgeLines, toPath } from "./ridges";
-import { enterProgress, pinProgress, railDistance, REDUCED, throughProgress, useScrollFrame } from "./scroll";
+import { enterProgress, pinProgress, railDistance, REDUCED, settleMotion, throughProgress, useScrollFrame } from "./scroll";
+
+function Probe({ cb }: { cb: () => void }) {
+  useScrollFrame(cb);
+  return null;
+}
 
 describe("scroll progress", () => {
   it("pin progress runs 0 to 1 across the extra height", () => {
@@ -59,11 +64,6 @@ describe("useScrollFrame", () => {
     window.matchMedia = original;
   });
 
-  function Probe({ cb }: { cb: () => void }) {
-    useScrollFrame(cb);
-    return null;
-  }
-
   it("runs on scroll", async () => {
     const cb = vi.fn();
     render(createElement(Probe, { cb }));
@@ -95,5 +95,47 @@ describe("railDistance", () => {
 
   it("never travels backwards", () => {
     expect(railDistance([118], 118)).toBe(0);
+  });
+});
+
+describe("turning on reduced motion while the page is open", () => {
+  const original = window.matchMedia;
+  afterEach(() => {
+    window.matchMedia = original;
+  });
+
+  it("clears the motion styles scrolling wrote, and keeps the rest", () => {
+    document.body.innerHTML = `<main><div id="a" style="opacity: 0; transform: translateY(40px); clip-path: inset(10px); --color: 0; --open: 0.2; --c: red;"></div></main>`;
+    settleMotion(document.body);
+    const a = document.getElementById("a")!;
+    expect(a.style.opacity).toBe("");
+    expect(a.style.transform).toBe("");
+    expect(a.style.clipPath).toBe("");
+    expect(a.style.getPropertyValue("--color")).toBe("");
+    expect(a.style.getPropertyValue("--open")).toBe("");
+    expect(a.style.getPropertyValue("--c")).toBe("red");
+  });
+
+  it("stops calling back once the setting turns on", async () => {
+    let reduced = false;
+    const listeners: (() => void)[] = [];
+    window.matchMedia = ((q: string) => ({
+      ...original(q),
+      get matches() {
+        return q === REDUCED ? reduced : false;
+      },
+      addEventListener: (_: string, fn: () => void) => listeners.push(fn),
+      removeEventListener() {},
+    })) as unknown as typeof window.matchMedia;
+    const cb = vi.fn();
+    render(createElement(Probe, { cb }));
+    reduced = true;
+    listeners.forEach((fn) => fn());
+    cb.mockClear();
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(r));
+    });
+    expect(cb).not.toHaveBeenCalled();
   });
 });

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { addOns } from "../content";
 
-/** Extras any sponsor can add to their tier, as a price list. */
-export function AddOns() {
+/** Extras any sponsor can add to their tier, as a price list. Memoized: it never changes. */
+export const AddOns = memo(function AddOns() {
   const groups = [...new Set(addOns.map((a) => a.group))];
   return (
     <div className="addons">
@@ -29,4 +30,4 @@ export function AddOns() {
       </div>
     </div>
   );
-}
+});

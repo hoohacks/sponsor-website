@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { columnLift, revealAt, wipeAt } from "./reveal";
+import { columnLift, directionFor, revealAt, wipeAt } from "./reveal";
 
 describe("revealAt", () => {
   it("is hidden and lowered before the block reaches the screen", () => {
@@ -41,5 +41,18 @@ describe("columnLift", () => {
     expect(columnLift(0)).toBe(180);
     expect(columnLift(0.5)).toBe(90);
     expect(columnLift(1)).toBe(0);
+  });
+});
+
+describe("directionFor", () => {
+  it("keeps side slides on wide screens", () => {
+    expect(directionFor("right", false)).toBe("right");
+    expect(directionFor("left", false)).toBe("left");
+  });
+
+  it("turns side slides into rises on phones, so text is never cut off at the screen edge", () => {
+    expect(directionFor("right", true)).toBe("up");
+    expect(directionFor("left", true)).toBe("up");
+    expect(directionFor("up", true)).toBe("up");
   });
 });

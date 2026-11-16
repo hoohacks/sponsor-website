@@ -1,6 +1,9 @@
-import { clamp, ease, enterProgress, useScrollFrame } from "./scroll";
+import { clamp, ease, enterProgress, PHONE, useScrollFrame } from "./scroll";
 
 export type From = "up" | "left" | "right";
+
+/** On phones, side slides become rises: there's no room to slide in without being cut off at the edge. */
+export const directionFor = (from: From, phone: boolean): From => (phone ? "up" : from);
 
 interface At {
   /** The block's top edge, from the top of the screen. */
@@ -35,6 +38,7 @@ export function revealAt({ top, vh, from = "up", index = 0, end = 0.65 }: At) {
 export function useReveals() {
   useScrollFrame(() => {
     const vh = innerHeight;
+    const phone = window.matchMedia(PHONE).matches;
     const els = document.querySelectorAll<HTMLElement>("[data-rise]");
     // Read every position first, then write, so the browser lays out once.
     const tops = Array.from(els, (el) => el.getBoundingClientRect().top);
@@ -42,7 +46,7 @@ export function useReveals() {
       const { opacity, x, y } = revealAt({
         top: tops[k],
         vh,
-        from: (el.dataset.rise || "up") as From,
+        from: directionFor((el.dataset.rise || "up") as From, phone),
         index: Number(el.dataset.i ?? 0),
         end: el.dataset.end ? Number(el.dataset.end) : undefined,
       });

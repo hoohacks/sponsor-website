@@ -29,20 +29,36 @@ const subscribers = new Set<() => void>();
 let frame = 0;
 const run = () => {
   frame = 0;
+  // Turned on while the page is open: stop moving things.
+  if (window.matchMedia(REDUCED).matches) return;
   subscribers.forEach((cb) => cb());
+};
+
+/** The inline styles scroll motion writes. Anything else (like a tier's color) is left alone. */
+const MOTION = ["opacity", "transform", "clip-path", "--color", "--open"];
+
+/** Clears scroll-driven styles under `root`, so the page falls back to its still, finished look. */
+export function settleMotion(root: ParentNode) {
+  root.querySelectorAll<HTMLElement>("[style]").forEach((el) => MOTION.forEach((p) => el.style.removeProperty(p)));
+}
+
+/** Reduced motion turned on mid-visit settles the page; turned off, motion picks up again. */
+const onMotionSetting = () => {
+  if (window.matchMedia(REDUCED).matches) settleMotion(document.body);
+  else schedule();
 };
 const schedule = () => {
   if (!frame) frame = requestAnimationFrame(run);
 };
 
-/** Calls `cb` once per frame after the page scrolls or resizes. Never under reduced motion. */
+/** Calls `cb` once per frame after the page scrolls or resizes. Never under reduced motion, even if it turns on mid-visit. */
 export function useScrollFrame(cb: () => void) {
   const latest = useRef(cb);
   latest.current = cb;
   useEffect(() => {
-    if (window.matchMedia(REDUCED).matches) return;
     const sub = () => latest.current();
     if (subscribers.size === 0) {
+      window.matchMedia(REDUCED).addEventListener("change", onMotionSetting);
       addEventListener("scroll", schedule, { passive: true });
       addEventListener("resize", schedule);
       addEventListener("load", schedule);
@@ -52,6 +68,7 @@ export function useScrollFrame(cb: () => void) {
     return () => {
       subscribers.delete(sub);
       if (subscribers.size === 0) {
+        window.matchMedia(REDUCED).removeEventListener("change", onMotionSetting);
         removeEventListener("scroll", schedule);
         removeEventListener("resize", schedule);
         removeEventListener("load", schedule);

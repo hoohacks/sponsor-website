@@ -112,12 +112,12 @@ export type Photo =
   | "opening-crowd";
 
 // Times from the HooHacks 2026 schedule (March 21–22). Update with each season's schedule.
-export const weekend: { photo: Photo; day: string; time: string; title: string; body: string }[] = [
-  { photo: "hall", day: "Saturday", time: "10:30 AM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
-  { photo: "fair-crowd", day: "Saturday", time: "3:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
-  { photo: "late-night", day: "Overnight", time: "12:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
-  { photo: "judging", day: "Sunday", time: "1:30 PM", title: "Judging", body: "Each team presents its project to the judges." },
-  { photo: "winners-stage", day: "Sunday", time: "5:00 PM", title: "Closing ceremony", body: "Winners are announced on stage, including the sponsor prizes." },
+export const weekend: { photo: Photo; alt: string; day: string; time: string; title: string; body: string }[] = [
+  { photo: "hall", alt: "Hundreds of students in a lecture hall watching the opening presentation", day: "Saturday", time: "10:30 AM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
+  { photo: "fair-crowd", alt: "Students crowding around sponsor banners at the sponsorship fair", day: "Saturday", time: "3:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
+  { photo: "late-night", alt: "A team smiling around a table of laptops late at night", day: "Overnight", time: "12:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
+  { photo: "judging", alt: "A student demoing a project on a monitor to a group of judges", day: "Sunday", time: "1:30 PM", title: "Judging", body: "Each team presents its project to the judges." },
+  { photo: "winners-stage", alt: "Winners on stage holding their prizes", day: "Sunday", time: "5:00 PM", title: "Closing ceremony", body: "Winners are announced on stage, including the sponsor prizes." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [

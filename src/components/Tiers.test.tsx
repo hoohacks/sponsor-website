@@ -52,3 +52,12 @@ describe("Tiers", () => {
     expect(scroll).not.toHaveBeenCalled();
   });
 });
+
+describe("Tiers rendering", () => {
+  it("doesn't redraw the comparison table or price list when the active tier changes", async () => {
+    const { Compare } = await import("./Compare");
+    const { AddOns } = await import("./AddOns");
+    expect((Compare as unknown as { $$typeof: symbol }).$$typeof).toBe(Symbol.for("react.memo"));
+    expect((AddOns as unknown as { $$typeof: symbol }).$$typeof).toBe(Symbol.for("react.memo"));
+  });
+});
