@@ -78,3 +78,9 @@ export function scrollToPin(el: HTMLElement, p: number) {
   const top = el.getBoundingClientRect().top + scrollY;
   scrollTo({ top: top + p * (el.offsetHeight - innerHeight), behavior: "smooth" });
 }
+
+/**
+ * How far a sideways rail travels: until its last item reaches where the
+ * first item started. `starts` are each item's left edge at rest, in pixels.
+ */
+export const railDistance = (starts: number[], origin: number) => Math.max(0, starts[starts.length - 1] - origin);
