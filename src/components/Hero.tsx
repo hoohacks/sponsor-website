@@ -2,7 +2,7 @@ import { useRef, type CSSProperties } from "react";
 import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
-const HEADLINE = "Meet the people building what's next.";
+const HEADLINE = "For the illimitable mind.";
 
 /** The headline as separate words, so each can rise in when the page opens. */
 const Words = () => (

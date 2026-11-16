@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { Logos } from "./components/Logos";
 import { Roles } from "./components/Roles";
@@ -27,7 +26,6 @@ export function App() {
         <Logos />
         <Contact interest={interest} />
       </main>
-      <Footer />
     </>
   );
 }

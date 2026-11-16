@@ -46,6 +46,10 @@ describe("App", () => {
     expect(rising("#tiers")).toBeGreaterThanOrEqual(7);
     expect(rising("#sponsors")).toBeGreaterThanOrEqual(1);
     expect(rising("#contact")).toBeGreaterThanOrEqual(2);
-    expect(container.querySelectorAll("footer [data-rise]").length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("ends at the contact section, with no footer", () => {
+    const { container } = render(<App />);
+    expect(container.querySelector("footer")).toBeNull();
   });
 });

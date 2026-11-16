@@ -30,15 +30,7 @@ export const event = {
   dateLine: "March 2027 at the University of Virginia",
   email: "team@hoohacks.io",
   packetUrl: "/hoohacks-sponsorship-packet-2027.pdf",
-  devpostUrl: "https://hoohacks-2026.devpost.com/project-gallery",
-  teamUrl: "https://team.hoohacks.io",
 };
-
-export const socials = [
-  { name: "Instagram", url: "https://www.instagram.com/hoohacks/" },
-  { name: "Facebook", url: "https://www.facebook.com/hoohacks/" },
-  { name: "X", url: "https://x.com/hoohacks" },
-];
 
 export const stats = {
   label: "HooHacks 2026",
