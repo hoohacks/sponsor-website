@@ -27,18 +27,10 @@ export interface BenefitGroup {
 
 export const event = {
   year: 2027,
-  dateLine: "March 2027 at the University of Virginia",
+  dateLine: "March 2027, University of Virginia",
   email: "team@hoohacks.io",
   packetUrl: "/hoohacks-sponsorship-packet-2027.pdf",
-  devpostUrl: "https://hoohacks-2026.devpost.com/project-gallery",
-  teamUrl: "https://team.hoohacks.io",
 };
-
-export const socials = [
-  { name: "Instagram", url: "https://www.instagram.com/hoohacks/" },
-  { name: "Facebook", url: "https://www.facebook.com/hoohacks/" },
-  { name: "X", url: "https://x.com/hoohacks" },
-];
 
 export const stats = {
   label: "HooHacks 2026",
@@ -53,11 +45,11 @@ export const stats = {
 };
 
 export const tiers: Tier[] = [
-  { id: "bronze", name: "Bronze", price: 1000, color: "#B8763E", pitch: "A simple way to support the event and get in front of hackers." },
-  { id: "silver", name: "Silver", price: 3000, color: "#A9B1C0", pitch: "Meet students in person at the fair and the sponsor lounge." },
-  { id: "gold", name: "Gold", price: 5000, color: "#D4A72C", pitch: "Add recruiting with the resume book and social reach." },
-  { id: "platinum", name: "Platinum", price: 10000, color: "#6E8FE0", pitch: "Teach, award a prize, and reach every attendee after the event." },
-  { id: "diamond", name: "Diamond", price: 15000, color: "#E26DAE", pitch: "The full weekend: your own track, the keynote, and coffee chats." },
+  { id: "bronze", name: "Bronze", price: 1000, color: "#B8763E", pitch: "Support the event, send mentors and judges, and put your logo on the website." },
+  { id: "silver", name: "Silver", price: 3000, color: "#A9B1C0", pitch: "Adds a table at the sponsorship fair, the sponsor lounge, and your logo on the T-shirt." },
+  { id: "gold", name: "Gold", price: 5000, color: "#D4A72C", pitch: "Adds the resume book and a social media shoutout." },
+  { id: "platinum", name: "Platinum", price: 10000, color: "#6E8FE0", pitch: "Adds a workshop, a sponsored prize, and an email to all attendees after the event." },
+  { id: "diamond", name: "Diamond", price: 15000, color: "#E26DAE", pitch: "Adds your own competition track, the keynote, and coffee chats with students." },
 ];
 
 const from = (first: number): Benefit["cells"] =>
@@ -110,53 +102,28 @@ export const addOns = [
 /** Photo base names in /public/img, each available as -800.webp and -1600.webp. Mostly HooHacks 2026. */
 export type Photo =
   | "hall"
-  | "booth"
-  | "booth-chat"
   | "fair-crowd"
-  | "team-desk"
   | "late-night"
   | "judging"
   | "winners-stage"
-  | "lettuce"
+  | "booth-chat"
+  | "speaker"
   | "award-handshake"
-  | "crowd-smiles"
-  | "opening-crowd"
-  | "booth-talk"
-  | "balloon-group"
-  | "countdown-team"
-  | "pizza-team"
-  | "happy-hacking"
-  | "winners-team"
-  | "team-peace"
-  | "atrium"
-  | "speaker";
+  | "opening-crowd";
 
-/** Hero strip. Every photo here is used nowhere else on the page. */
-export const heroPhotos: { photo: Photo; alt: string }[] = [
-  { photo: "team-desk", alt: "A team smiling at their laptops mid-build" },
-  { photo: "opening-crowd", alt: "Hackers filling the lecture hall for the opening ceremony" },
-  { photo: "booth-talk", alt: "Students talking with a sponsor at their booth" },
-  { photo: "balloon-group", alt: "A group of hackers posing under a balloon arch" },
-  { photo: "countdown-team", alt: "A team giving a thumbs up next to a four-hour countdown" },
-  { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
-  { photo: "pizza-team", alt: "A team working late around their laptops and a pizza box" },
-  { photo: "team-peace", alt: "A team throwing peace signs at their table" },
-  { photo: "happy-hacking", alt: "A full hall under the Happy Hacking slide at kickoff" },
-  { photo: "winners-team", alt: "A winning team posing on stage" },
-];
-
-export const weekend: { photo: Photo; when: string; title: string; body: string }[] = [
-  { photo: "hall", when: "Kickoff", title: "Opening ceremony", body: "Hundreds of hackers pack the hall. Sponsors introduce themselves and their challenges." },
-  { photo: "fair-crowd", when: "First afternoon", title: "Sponsorship fair", body: "Students make the rounds, ask about internships, and pick which APIs to build on." },
-  { photo: "late-night", when: "Overnight", title: "Heads down", body: "Teams build through the night. Mentors make rounds and unblock the hard problems." },
-  { photo: "judging", when: "Final morning", title: "Demos", body: "Every team shows what they made. Judges walk the floor and ask the tough questions." },
-  { photo: "winners-stage", when: "Closing", title: "Awards", body: "Winners are named on stage, and sponsor prizes go to the projects that earned them." },
+// Times from the HooHacks 2026 schedule (March 21–22). Update with each season's schedule.
+export const weekend: { photo: Photo; alt: string; day: string; time: string; title: string; body: string }[] = [
+  { photo: "hall", alt: "Hundreds of students in a lecture hall watching the opening presentation", day: "Saturday", time: "10:30 AM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
+  { photo: "fair-crowd", alt: "Students crowding around sponsor banners at the sponsorship fair", day: "Saturday", time: "3:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
+  { photo: "late-night", alt: "A team smiling around a table of laptops late at night", day: "Overnight", time: "12:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
+  { photo: "judging", alt: "A student demoing a project on a monitor to a group of judges", day: "Sunday", time: "1:30 PM", title: "Judging", body: "Each team presents its project to the judges." },
+  { photo: "winners-stage", alt: "Winners on stage holding their prizes", day: "Sunday", time: "5:00 PM", title: "Closing ceremony", body: "Winners are announced on stage, including the sponsor prizes." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [
-  { photo: "booth-chat", alt: "Sponsor representatives talking with a crowd of students", title: "Meet students", body: "Talk to hackers at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
-  { photo: "speaker", alt: "A speaker talking to a full lecture hall", title: "Teach something", body: "Run a workshop or give the keynote. Hackers remember the companies that taught them something.", tag: "Platinum and up" },
-  { photo: "award-handshake", alt: "A judge congratulating a winning team on stage", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a whole track built around your product.", tag: "All tiers" },
+  { photo: "booth-chat", alt: "Sponsor representatives talking with a crowd of students", title: "Meet students", body: "Talk with students at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
+  { photo: "speaker", alt: "A speaker talking to a full lecture hall", title: "Run a workshop", body: "Teach a technical workshop, or give the keynote at Diamond.", tag: "Platinum and up" },
+  { photo: "award-handshake", alt: "A judge congratulating a winning team on stage", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a competition track at Diamond.", tag: "Every tier" },
 ];
 
 /** Past sponsors. `ratio` is the trimmed logo's width / height, used for equal-area sizing. */

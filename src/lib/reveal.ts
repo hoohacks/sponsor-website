@@ -1,39 +1,65 @@
-import { useEffect } from "react";
+import { clamp, ease, enterProgress, PHONE, useScrollFrame } from "./scroll";
 
-/** Reveals that start fully clipped can't be seen by the observer, so watch their parent. */
-const CLIPPED = new Set(["grow", "wipe"]);
+export type From = "up" | "left" | "right";
+
+/** On phones, side slides become rises: there's no room to slide in without being cut off at the edge. */
+export const directionFor = (from: From, phone: boolean): From => (phone ? "up" : from);
+
+interface At {
+  /** The block's top edge, from the top of the screen. */
+  top: number;
+  vh: number;
+  from?: From;
+  /** Position in a group: later items arrive a little later. */
+  index?: number;
+  /** Where on screen (fraction from the top) its top must reach to be fully in. */
+  end?: number;
+}
+
+/** Where a block sits as it scrolls into view: faded and offset, then settled. */
+export function revealAt({ top, vh, from = "up", index = 0, end = 0.65 }: At) {
+  const p = ease(clamp(enterProgress({ top }, vh, end) * 1.25 - index * 0.12));
+  const off = 1 - p;
+  const r = (n: number) => Math.round(n * 1000) / 1000 || 0;
+  return {
+    opacity: r(p),
+    x: r(from === "right" ? off * 80 : from === "left" ? -off * 80 : 0),
+    y: r(from === "up" ? off * 40 : 0),
+  };
+}
 
 /**
- * Plays each `[data-reveal]` element's entrance once, when it scrolls into view.
- * The motion itself lives in CSS (global.css, "Scroll reveals"); this only
- * flips `data-shown` so the animation starts.
+ * Drives every `[data-rise]` block on the page with the scroll: it fades and
+ * slides in as it arrives, and back out if you scroll up. `data-rise` names the
+ * direction ("up", "left", "right"); `data-i` staggers a group; `data-end`
+ * sets where it finishes. Nothing is hidden by CSS, so if this never runs
+ * (reduced motion) every block simply shows.
  */
-export function useScrollReveal() {
-  useEffect(() => {
-    const els = [...document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-shown])")];
-    const show = (el: HTMLElement) => (el.dataset.shown = "");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach(show);
-      return;
-    }
-
-    const byTarget = new Map<Element, HTMLElement[]>();
-    for (const el of els) {
-      const target = CLIPPED.has(el.dataset.reveal ?? "") ? (el.parentElement ?? el) : el;
-      byTarget.set(target, [...(byTarget.get(target) ?? []), el]);
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          byTarget.get(e.target)?.forEach(show);
-          io.unobserve(e.target);
-        }
-      },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.15 },
-    );
-    byTarget.forEach((_, target) => io.observe(target));
-    return () => io.disconnect();
-  }, []);
+export function useReveals() {
+  useScrollFrame(() => {
+    const vh = innerHeight;
+    const phone = window.matchMedia(PHONE).matches;
+    const els = document.querySelectorAll<HTMLElement>("[data-rise]");
+    // Read every position first, then write, so the browser lays out once.
+    const tops = Array.from(els, (el) => el.getBoundingClientRect().top);
+    els.forEach((el, k) => {
+      const { opacity, x, y } = revealAt({
+        top: tops[k],
+        vh,
+        from: directionFor((el.dataset.rise || "up") as From, phone),
+        index: Number(el.dataset.i ?? 0),
+        end: el.dataset.end ? Number(el.dataset.end) : undefined,
+      });
+      el.style.opacity = String(opacity);
+      el.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  });
 }
+
+/** How open a photo's entrance wipe is, from 0 (closed) to 1 (fully shown). */
+export function wipeAt({ top, vh, index = 0 }: { top: number; vh: number; index?: number }) {
+  return Math.round(ease(clamp(enterProgress({ top }, vh, 0.6) * 1.2 - index * 0.12)) * 1000) / 1000;
+}
+
+/** How far below its place a column sits, in pixels, while its photo is `open` (0 to 1). */
+export const columnLift = (open: number) => Math.round((1 - open) * 180 * 1000) / 1000 || 0;

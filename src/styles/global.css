@@ -1,36 +1,30 @@
+/* After Hours. The event at night, lightening to morning toward the end of
+   the page. */
+
 /* ─── Tokens ─────────────────────────────────────────────────────── */
 :root {
-  --ink: #0e1452;
-  --ink-2: #3b4272;
-  --muted: #6e7598;
-  --line: #e3e6ef;
-  --soft: #f3f5fa;
-  --orange: #e57200;
-  --orange-hover: #f07f12;
-  --mist: #aeb9ee;
+  --night: #0a1330;
+  --deep: #101b40;
+  --ice: #e8edf7;
+  --mist: #8e9ab9;
+  --silver: #bcc8e6;
+  --rule: rgba(232, 237, 247, 0.12);
+  /* Morning (the contact section). */
+  --day-ink: #0a1330;
+  --day-muted: #4a5677;
 
-  --wrap: 1240px;
-  --gutter: 32px;
-  --nav-h: 76px;
-
-  /* Strong curves. The built-in CSS easings are too weak. */
+  --wrap: 1320px;
+  --pad: clamp(20px, 4vw, 64px);
+  --display: "Funnel Display", system-ui, sans-serif;
+  /* Headings and the hero: a tall editorial serif. */
+  --serif: "Instrument Serif", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
-/* Big monitors get a wider page and slightly larger type, so it doesn't float. */
-@media (min-width: 1800px) {
-  :root {
-    --wrap: 1400px;
-    --gutter: 40px;
-  }
-  body {
-    font-size: 18px;
-  }
-}
-
+/* ─── Base ───────────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -40,23 +34,21 @@
 
 html {
   scroll-behavior: smooth;
-  /* The nav hides while scrolling down, so anchors only need a little air. */
-  scroll-padding-top: 24px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  font: 500 17px/1.6 Manrope, system-ui, sans-serif;
-  color: var(--ink);
-  background: #fff;
+  font: 400 18px/1.6 "Funnel Sans", system-ui, sans-serif;
+  color: var(--ice);
+  background: var(--night);
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  /* Belt and braces: nothing decorative may ever cause sideways scroll. */
+  /* Sideways motion never widens the page. Clip keeps sticky pinning working. */
   overflow-x: clip;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+main {
+  overflow-x: clip;
 }
 
 img {
@@ -66,7 +58,6 @@ img {
 
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 button {
@@ -76,14 +67,14 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid var(--silver);
   outline-offset: 3px;
 }
 
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: 0 var(--gutter);
+  padding: 0 var(--pad);
 }
 
 .visually-hidden {
@@ -95,42 +86,17 @@ button {
   white-space: nowrap;
 }
 
-.nowrap {
-  white-space: nowrap;
-}
-
-/* ─── Crowd ──────────────────────────────────────────────────────── */
-/* A canvas of dots (components/Crowd.tsx) sits over the section backgrounds
-   and under everything in them, so it reads as part of the page's surface. */
-.crowd {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100lvh;
-  z-index: 1;
-  pointer-events: none;
-}
-
-main > section > *,
-.footer > .wrap {
-  position: relative;
-  z-index: 2;
-}
-
-/* ─── Type ───────────────────────────────────────────────────────── */
+/* Statements are set in the serif; numbers (stats, prices, times) stay in Funnel Display. */
 h2 {
-  font-weight: 800;
-  font-size: clamp(36px, 4.8vw, 64px);
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  font: 400 clamp(46px, 6.4vw, 104px) / 0.98 var(--serif);
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
-.kicker {
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--orange);
-  margin-bottom: 16px;
+.sub {
+  color: var(--mist);
+  font-size: 19px;
+  max-width: 42ch;
 }
 
 /* ─── Buttons ────────────────────────────────────────────────────── */
@@ -138,799 +104,822 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font: 700 15px Manrope, system-ui, sans-serif;
-  padding: 15px 24px;
-  border-radius: 999px;
+  height: 46px;
+  padding: 0 26px;
   border: 0;
-  background: var(--orange);
-  color: var(--ink);
+  border-radius: 2px;
+  background: var(--ice);
+  color: var(--night);
+  font: 500 14px "Funnel Sans", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  text-decoration: none;
   white-space: nowrap;
   transition:
     transform 160ms var(--ease-out),
-    background-color 200ms ease,
-    box-shadow 200ms ease;
+    background-color 200ms ease;
 }
 
 .btn:active {
   transform: scale(0.97);
 }
 
-.btn--navy {
-  background: var(--ink);
-  color: #fff;
-}
-
-.btn--outline {
-  background: transparent;
-  box-shadow: inset 0 0 0 1.5px #c9cede;
-}
-
-.btn[disabled] {
-  cursor: progress;
+.btn--ghost {
+  background: none;
+  color: var(--ice);
+  box-shadow: inset 0 0 0 1px rgba(232, 237, 247, 0.4);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    background: var(--orange-hover);
+    background: #fff;
   }
-  .btn--navy:hover {
-    background: #1c2470;
-  }
-  .btn--outline:hover {
-    background: var(--soft);
+  .btn--ghost:hover {
+    background: rgba(232, 237, 247, 0.08);
   }
 }
 
-/* ─── Nav ────────────────────────────────────────────────────────── */
-/* Transparent over the hero glow; frosted once the page scrolls. */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(255, 255, 255, 0);
-  border-bottom: 1px solid transparent;
-  transition:
-    background-color 200ms ease,
-    border-color 200ms ease,
-    transform 300ms var(--ease-out),
-    opacity 300ms var(--ease-out);
+/* ─── Photos that come into color ────────────────────────────────── */
+/* The grayscale copy fades out as the parent's --color goes from 0 to 1. */
+.duo {
+  position: relative;
+  overflow: hidden;
 }
 
-/* Slides and fades away while scrolling down; back on scroll up. */
-.nav[data-hidden="true"] {
-  transform: translateY(-100%);
-  opacity: 0;
+.duo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.duo .duo__bw {
+  filter: grayscale(1) contrast(1.05) brightness(0.8);
+  opacity: calc(1 - var(--color, 1));
+}
+
+/* ─── Ridgelines ─────────────────────────────────────────────────── */
+.ridges {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
   pointer-events: none;
 }
 
-.nav[data-scrolled="true"] {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: saturate(1.4) blur(14px);
-  -webkit-backdrop-filter: saturate(1.4) blur(14px);
-  border-color: var(--line);
+.ridges svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-/* Three equal columns so the links sit on the page's true center line. */
-.nav .wrap {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  /* The 1px border is part of --nav-h, so the hero tucks under it exactly. */
-  height: calc(var(--nav-h) - 1px);
+.ridges path {
+  fill: none;
+  stroke: var(--lc, var(--silver));
+  stroke-width: 1;
+  stroke-linejoin: round;
+  will-change: transform;
 }
 
-.nav .wrap > .btn {
-  justify-self: end;
-}
-
-.nav__logo img {
-  height: 22px;
-  width: auto;
-}
-
-.nav__links {
-  display: flex;
-  gap: 30px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink-2);
-}
-
-.nav__links a {
-  transition: color 150ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .nav__links a:hover {
-    color: var(--ink);
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .duo .duo__bw {
+    display: none;
+  }
+  .btn {
+    transition: none;
   }
 }
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
-/* The whole hero, photos included, fits one screen. */
+/* Pinned for about 2.3 screens: the hall comes into color, the headline fills in. */
 .hero {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  overflow: hidden;
-  /* Slides up under the transparent nav so the glow reaches the top. */
-  margin-top: calc(-1 * var(--nav-h));
+  height: 230vh;
+}
+
+.hero__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   height: 100svh;
-  min-height: calc(640px + var(--nav-h));
-  max-height: calc(900px + var(--nav-h));
-  padding: calc(var(--nav-h) + clamp(20px, 4vh, 48px)) 0 24px;
-  /* Soft blue and orange light pooling behind the photo row. */
-  background:
-    radial-gradient(60% 55% at 15% 85%, rgba(174, 185, 238, 0.45), transparent 70%),
-    radial-gradient(45% 45% at 88% 80%, rgba(229, 114, 0, 0.16), transparent 70%),
-    radial-gradient(70% 50% at 50% 0%, rgba(174, 185, 238, 0.22), transparent 70%),
-    #fff;
+  overflow: hidden;
 }
 
-.hero .wrap {
-  max-width: 1440px;
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  --color: 0;
+  will-change: transform;
 }
 
+.hero__photo .duo {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__pin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 19, 48, 0.55), rgba(10, 19, 48, 0.25) 40%, rgba(10, 19, 48, 0.92));
+  pointer-events: none;
+}
+
+/* The logo, quiet: small in the corner, and it scrolls away with the hero. */
+.hero__mark {
+  position: absolute;
+  top: 30px;
+  left: var(--pad);
+  width: auto;
+  height: 15px;
+  opacity: 0.8;
+  z-index: 3;
+}
+
+.hero__copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 11vh;
+  z-index: 2;
+}
+
+/* The date, kept quiet: small and dim, after a short hairline. */
 .hero__when {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--orange);
-  margin-bottom: clamp(10px, 2vh, 22px);
-  text-wrap: balance;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  color: var(--mist);
+  font-size: 13px;
+  letter-spacing: 0.04em;
 }
 
-.hero h1 {
-  font-weight: 800;
-  font-size: clamp(44px, min(7.6vw, 11vh), 128px);
-  line-height: 0.94;
-  letter-spacing: -0.05em;
-  text-wrap: balance;
+.hero__when::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
-.hero__lede {
-  font-size: 20px;
-  color: var(--ink-2);
-  max-width: 40ch;
-  margin: clamp(14px, 2.6vh, 30px) auto clamp(16px, 3vh, 34px);
-  text-wrap: pretty;
+.hero__title {
+  position: relative;
+  max-width: 14ch;
+  font: 400 clamp(40px, min(8.2vw, 12.5vh), 148px) / 0.96 var(--serif);
+  letter-spacing: -0.02em;
+}
+
+/* The headline starts faint and fills in solid, left to right, with the scroll. */
+.hero__outline {
+  color: rgba(232, 237, 247, 0.22);
+}
+
+.hero__solid {
+  position: absolute;
+  inset: 0;
+  color: var(--ice);
+  clip-path: inset(0 100% 0 0);
+}
+
+.hero__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  margin-top: 32px;
+  opacity: 0;
+}
+
+.hero__row p {
+  color: var(--silver);
+  max-width: 44ch;
+  font-size: 19px;
+}
+
+.hero__cite {
+  margin-top: 18px;
+  color: var(--silver);
+  font: italic 400 20px / 1.3 var(--serif);
+  animation: hero-fade 900ms var(--ease-out) 2300ms backwards;
+}
+
+/* Keyboard users can reach the links before the scroll reveals them: show them as soon as one is focused. */
+.hero__row:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Calls to action as underlined text links, quiet next to the quote. */
+.hero__link {
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(232, 237, 247, 0.9);
+  color: var(--ice);
+  font: 500 16px "Funnel Sans", system-ui, sans-serif;
+  text-decoration: none;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.hero__link--quiet {
+  color: var(--silver);
+  border-bottom-color: rgba(188, 200, 230, 0.4);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__link:hover {
+    color: #fff;
+    border-bottom-color: #fff;
+  }
 }
 
 .hero__ctas {
   display: flex;
-  gap: 12px;
-  justify-content: center;
+  align-items: center;
+  gap: 36px;
   flex-wrap: wrap;
 }
 
-/* Hand-drawn orange stroke under "what's next", drawn once on load. */
-.hero__mark {
-  position: relative;
-  white-space: nowrap;
-}
-
-.hero__mark svg {
+/* Scroll cue: a hairline with light running down it, gone once you start scrolling. */
+.hero__cue {
   position: absolute;
-  left: -2%;
-  bottom: -0.1em;
-  width: 104%;
-  height: 0.26em;
-  overflow: visible;
-  z-index: -1;
-  /* Wiped in left to right. A dash-offset draw breaks here: with a
-     non-scaling stroke the dashes are measured in screen pixels, so on wide
-     screens the line came out with a gap in it. */
-  clip-path: inset(-100% 102% -100% -4%);
-  animation: draw 900ms var(--ease-in-out) 650ms forwards;
+  left: 50%;
+  bottom: 28px;
+  width: 1px;
+  height: 56px;
+  margin-left: -0.5px;
+  overflow: hidden;
+  background: rgba(232, 237, 247, 0.2);
+  z-index: 3;
 }
 
-.hero__mark path {
-  fill: none;
-  stroke: var(--orange);
-  stroke-width: clamp(4px, 0.055em, 7px);
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
+.hero__cue i {
+  position: absolute;
+  left: 0;
+  top: -40%;
+  width: 1px;
+  height: 40%;
+  background: var(--ice);
+  animation: cue 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 
-.hero h1 {
-  position: relative;
-  z-index: 0;
-}
-
-@keyframes draw {
+@keyframes cue {
   to {
-    clip-path: inset(-100% -4% -100% -4%);
+    top: 100%;
   }
 }
 
-/* The photo strip drifts left forever; the button pauses it. */
-.strip {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  margin-top: clamp(20px, 4vh, 48px);
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+/* Short, wide screens (a phone on its side): tighter hero so nothing runs off the top. */
+@media (max-height: 500px) and (min-width: 761px) {
+  .hero__copy {
+    bottom: 6vh;
+  }
+  .hero__title {
+    font-size: 10vh;
+  }
+  .hero__cite {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+  .hero__when {
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .hero__row {
+    margin-top: 14px;
+  }
+  .hero__row p {
+    font-size: 15px;
+  }
+  .hero__cue {
+    display: none;
+  }
 }
 
-.strip__track {
+@media (max-width: 760px) {
+  /* Phones: the serif is narrow, so it can run larger and still fit. */
+  .hero__title {
+    font-size: min(13vw, 7.5vh);
+  }
+  .hero__cite {
+    font-size: 17px;
+  }
+  .hero__row {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+  .hero__pin {
+    position: relative;
+  }
+  .hero__photo {
+    --color: 1;
+  }
+  .hero__solid {
+    clip-path: none;
+  }
+  .hero__row {
+    opacity: 1;
+  }
+  .hero__cue {
+    display: none;
+  }
+}
+
+/* ─── Stats line ─────────────────────────────────────────────────── */
+/* Pinned: the figures slide sideways, then the weekend heading rises in below. */
+.stats {
+  height: 260vh;
+}
+
+.stats__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 24vh;
+}
+
+.stats__ridges {
+  bottom: 0;
+  height: 52vh;
+}
+
+.stats__line {
+  position: relative;
+  z-index: 1;
   display: flex;
-  height: 100%;
+  gap: 7vw;
   width: max-content;
-  animation: drift 90s linear infinite;
+  white-space: nowrap;
+  padding: 0 var(--pad) 0 max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
+  will-change: transform;
 }
 
-/* Three identical sets, each ending in one gap, so a third is exactly one set. */
-.strip__set {
+.stats__line div {
   display: flex;
-  align-items: flex-end;
-  gap: 16px;
-  padding-right: 16px;
-  height: 100%;
+  align-items: baseline;
+  gap: 0.25em;
+  font: 300 clamp(96px, 16vw, 260px) / 1 var(--display);
+  letter-spacing: -0.05em;
 }
 
-.strip[data-paused="true"] .strip__track {
-  animation-play-state: paused;
+.stats__line b {
+  font-weight: 600;
+  color: var(--ice);
 }
 
-@keyframes drift {
-  to {
-    transform: translateX(calc(-100% / 3));
+.stats__line span {
+  color: var(--mist);
+  font-size: 0.32em;
+  letter-spacing: -0.02em;
+}
+
+.stats__next {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10vh;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* Reduced motion: the figures wrap, and the heading simply follows. */
+@media (prefers-reduced-motion: reduce) {
+  .stats {
+    height: auto;
+  }
+  .stats__pin {
+    position: relative;
+    height: auto;
+    padding: 18vh 0 10vh;
+  }
+  .stats__line {
+    width: auto;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    white-space: normal;
+    transform: none !important;
+  }
+  .stats__line div {
+    font-size: clamp(48px, 13vw, 96px);
+  }
+  .stats__next {
+    position: relative;
+    bottom: auto;
+    margin-top: 12vh;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .stats__ridges {
+    height: 60%;
   }
 }
 
-.strip__photo {
-  flex: none;
-  aspect-ratio: 5 / 4;
-  border-radius: 22px;
+/* ─── Weekend scenes ─────────────────────────────────────────────── */
+/* Each scene sticks; the next slides over it while it sinks back and dims. */
+.scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
-  background: var(--soft);
-  height: 84%;
 }
 
-.strip__photo:nth-child(3n + 1) {
-  height: 70%;
-}
-
-.strip__photo:nth-child(3n + 2) {
-  height: 100%;
-}
-
-.strip__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.strip__toggle {
+.scene__photo {
   position: absolute;
-  right: 28px;
-  bottom: 12px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 0;
-  display: grid;
-  place-items: center;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 6px 16px -8px rgba(14, 20, 82, 0.5);
-  transition: transform 160ms var(--ease-out);
+  inset: 0;
+  --color: 0;
+  transform-origin: 50% 30%;
+  will-change: transform;
 }
 
-/* A comfortable tap area around the small button. */
-.strip__toggle::after {
+.scene::after {
   content: "";
   position: absolute;
-  inset: -7px;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 19, 48, 0.35), rgba(10, 19, 48, 0) 30%, rgba(10, 19, 48, 0.85));
+  pointer-events: none;
 }
 
-.strip__toggle:active {
-  transform: scale(0.94);
+.scene__dim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--night);
+  opacity: 0;
 }
 
-/* One orchestrated entrance: copy rises in, then photos follow. */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.hero [data-enter] {
-  animation: rise 700ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
-}
-
-.strip[data-enter] {
-  animation-duration: 900ms;
-  animation-delay: 300ms;
-}
-
-/* ─── Stats sentence ─────────────────────────────────────────────── */
-/* The stats get the one full navy band in the middle of the page.
-   Blue matches the rest of the site exactly: var(--ink) / #0e1452. */
-.sentence {
-  padding: 150px 0 130px;
-  text-align: center;
-  background: var(--ink);
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.sentence .wrap {
-  position: relative;
+.scene__copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 9vh;
   z-index: 2;
-  max-width: var(--wrap);
 }
 
-.sentence__statement {
-  font-weight: 700;
-  font-size: clamp(30px, 4.2vw, 58px);
-  line-height: 1.22;
-  letter-spacing: -0.035em;
-  max-width: 20ch;
-  margin: 0 auto;
-  color: #fff;
-}
-
-.sentence__hl {
-  color: var(--orange);
-}
-
-/* Tastefully integrated Women+ statistic: clean, dignified, not over-bolded */
-.sentence__sub {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--mist);
-  margin-top: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-wrap: balance;
-  line-height: 1.45;
-}
-
-.sentence__sub strong {
-  color: #fff;
-  font-weight: 700;
-}
-
-.sentence__sub-tag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-  white-space: nowrap;
-}
-
-.sentence__sub-sep {
-  opacity: 0.4;
-}
-
-/* ─── Photo Cards ────────────────────────────────────────────────── */
-.sentence__gallery {
+.scene__copy .wrap {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 56px;
-  text-align: left;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
 }
 
-.sentence__card {
+.scene__time {
+  font: 300 clamp(64px, 9vw, 150px) / 0.85 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.scene__time small {
+  display: block;
+  margin-bottom: 14px;
+  font: 500 16px "Funnel Sans", system-ui, sans-serif;
+  letter-spacing: 0;
+  color: var(--silver);
+}
+
+.scene h3 {
+  font: 400 clamp(36px, 3.6vw, 56px) / 1 var(--serif);
+  letter-spacing: -0.01em;
+  text-align: right;
+}
+
+.scene__copy p:not(.scene__time) {
+  max-width: 34ch;
+  margin: 12px 0 0 auto;
+  color: var(--silver);
+  text-align: right;
+}
+
+@media (max-width: 760px) {
+  .stats__next br {
+    display: none;
+  }
+  .scene__copy .wrap {
+    grid-template-columns: 1fr;
+  }
+  .scene h3,
+  .scene__copy p:not(.scene__time) {
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    position: relative;
+    height: 90vh;
+  }
+  .scene__photo {
+    --color: 1;
+  }
+}
+
+/* ─── Ways to get involved ───────────────────────────────────────── */
+/* Dawn begins here: the night lightens a little, section by section. */
+.roles {
   position: relative;
-  border-radius: 16px;
   overflow: hidden;
-  background: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.45);
-  transition:
-    transform 240ms var(--ease-out),
-    border-color 240ms var(--ease-out),
-    box-shadow 240ms var(--ease-out);
+  padding: 22vh 0 18vh;
+  background: linear-gradient(180deg, var(--night) 0%, #101c46 100%);
 }
 
-.sentence__card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 20px 44px -10px rgba(0, 0, 0, 0.55);
+.roles > .wrap {
+  position: relative;
+  z-index: 1;
 }
 
-.sentence__card-img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: rgba(0, 0, 0, 0.2);
+.roles__ridges {
+  bottom: 0;
+  height: 75%;
 }
 
-.sentence__card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 450ms var(--ease-out);
-}
-
-.sentence__card:hover .sentence__card-img img {
-  transform: scale(1.05);
-}
-
-.sentence__card-body {
-  padding: 16px 20px;
-  background: var(--ink);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.sentence__card-stat {
-  display: block;
-  font-size: 15px;
-  font-weight: 800;
-  color: #fff;
-}
-
-.sentence__card-label {
-  display: block;
-  font-size: 12px;
-  color: var(--mist);
-  margin-top: 3px;
-  font-weight: 500;
-}
-
-/* ─── Weekend reel ───────────────────────────────────────────────── */
-.reel {
-  padding: 130px 0 140px;
-}
-
-.reel__head {
+.roles__head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  gap: 24px;
+  align-items: end;
+  gap: 32px;
 }
 
-.reel__arrows {
-  display: flex;
-  gap: 10px;
-}
-
-.reel__arrows button {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1.5px solid #ccd1e0;
-  background: #fff;
-  display: grid;
-  place-items: center;
-  transition:
-    transform 160ms var(--ease-out),
-    background-color 150ms ease,
-    opacity 150ms ease;
-}
-
-.reel__arrows button:active {
-  transform: scale(0.94);
-}
-
-.reel__arrows button:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .reel__arrows button:not(:disabled):hover {
-    background: var(--soft);
-  }
-}
-
-.reel__track {
-  --edge: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min(420px, 82vw);
-  gap: 20px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  padding: 48px var(--edge) 8px;
-  scroll-padding-inline: var(--edge);
-  scrollbar-width: none;
-}
-
-.reel__track::-webkit-scrollbar {
-  display: none;
-}
-
-.moment {
-  scroll-snap-align: start;
-  /* One card per swipe: a hard flick can't skip past the next photo. */
-  scroll-snap-stop: always;
-}
-
-.moment__img {
-  border-radius: 22px;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
-  background: var(--soft);
-}
-
-.moment__img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 600ms var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .moment:hover .moment__img img {
-    transform: scale(1.03);
-  }
-}
-
-.moment__when {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--orange);
-  margin-top: 18px;
-}
-
-.moment h3 {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  margin-top: 4px;
-}
-
-.moment p {
-  font-size: 16px;
-  color: var(--muted);
-  margin-top: 6px;
-  max-width: 34ch;
-}
-
-/* ─── Roles ──────────────────────────────────────────────────────── */
-.roles {
-  background: var(--soft);
-  padding: 130px 0;
-}
-
-.roles__grid {
+.roles__cols {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 56px;
+  gap: 2.4vw;
+  margin-top: 10vh;
+  align-items: start;
 }
 
-.role {
-  background: #fff;
-  border-radius: 22px;
-  overflow: hidden;
+.role:nth-child(2) {
+  margin-top: 12vh;
 }
 
-.role img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+.role__photo {
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  --color: 0;
+  will-change: transform;
+  /* Entrance: --open goes 0 → 1 as it scrolls in; without it the photo just shows. */
+  clip-path: inset(calc((1 - var(--open, 1)) * 100%) 0 0 0 round 6px);
 }
 
-.role__body {
-  padding: 26px 26px 30px;
+.role__photo img {
+  transform: scale(calc(1.35 - 0.35 * var(--open, 1)));
+  transform-origin: 50% 100%;
 }
 
 .role h3 {
-  font-size: 22px;
-  font-weight: 800;
-  letter-spacing: -0.025em;
+  margin-top: 24px;
+  font: 400 34px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
 }
 
 .role p {
-  color: var(--muted);
   margin-top: 8px;
-  font-size: 16px;
+  color: var(--mist);
+  font-size: 17px;
 }
 
-.role__tag {
-  display: inline-block;
-  margin-top: 16px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-2);
-  background: var(--soft);
-  border-radius: 999px;
-  padding: 4px 12px;
+.role span {
+  display: block;
+  margin-top: 14px;
+  color: var(--silver);
+  font-size: 14px;
+  font-weight: 600;
 }
 
-/* ─── Tiers ──────────────────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .roles__head {
+    flex-direction: column;
+    align-items: start;
+  }
+  .roles__cols {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .role:nth-child(2) {
+    margin-top: 0;
+  }
+  .role__photo {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role__photo {
+    --color: 1;
+  }
+}
+
+/* ─── Sponsorship packages ───────────────────────────────────────── */
+/* Pinned: the tiers pass by sideways. The night keeps lightening behind them. */
 .tiers {
-  padding: 140px 0;
+  background: linear-gradient(180deg, #101c46 0%, #172660 55%, #26397a 100%);
 }
 
-/* The tier picker is a staircase: each column's height follows its price. */
-.stairs {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-  align-items: end;
-  height: 280px;
-  margin-top: 56px;
-  border-bottom: 2px solid var(--ink);
-}
-
-.step {
-  position: relative;
-  height: var(--h);
+.tiers__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 6px;
-  text-align: left;
-  padding: 20px 20px 0;
+  padding-top: 7vh;
+}
+
+.tiers__head h2 {
+  font-size: clamp(42px, min(6.4vw, 10.5vh), 104px);
+}
+
+.tiers__pin > :not(.ridges) {
+  position: relative;
+  z-index: 1;
+}
+
+.tiers__ridges {
+  bottom: 0;
+  height: 30vh;
+  --lc: #c9d5f2;
+  --lo: 0.55;
+}
+
+.tiers__head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+}
+
+.tiers__names {
+  display: flex;
+  gap: 22px;
+  font-size: 15px;
+}
+
+.tiers__names button,
+.tiers__names a {
+  padding: 4px 0;
   border: 0;
-  border-radius: 18px 18px 0 0;
-  background: var(--soft);
-  color: var(--ink);
-  transition:
-    background-color 200ms ease,
-    color 200ms ease,
-    transform 160ms var(--ease-out);
-}
-
-
-/* Each step wears its tier's metal as a cap. An inset shadow follows the
-   rounded corners exactly, unlike a separate strip. */
-.step {
-  box-shadow: inset 0 6px 0 var(--c);
-}
-
-.step[aria-selected="true"] {
-  background: var(--ink);
-  color: #fff;
-}
-
-.step:active {
-  transform: scale(0.985);
-}
-
-.step__name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--muted);
-  transition: color 200ms ease;
-}
-
-.step[aria-selected="true"] .step__name {
+  border-bottom: 1px solid transparent;
+  background: none;
   color: var(--mist);
+  text-decoration: none;
+  transition:
+    color 300ms,
+    border-color 300ms;
 }
 
-.step__price {
-  font-size: clamp(22px, 2.6vw, 38px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
+.tiers__names [aria-current] {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
 }
 
-.step__price-short {
-  display: none;
+.tiers__rail {
+  display: flex;
+  flex: 1;
+  margin-top: 4vh;
+  padding-left: max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
+  will-change: transform;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .step:not([aria-selected="true"]):hover {
-    background: #e6eaf4;
-  }
+.pkg {
+  flex: none;
+  width: min(560px, 80vw);
+  margin-right: 48px;
+  padding-right: 48px;
+  border-right: 1px solid var(--rule);
+  opacity: 0.35;
+  transition: opacity 400ms;
 }
 
-.tier-detail {
-  display: grid;
-  grid-template-columns: 0.75fr 1.25fr;
-  gap: 56px;
-  padding: 40px 0 8px;
+.pkg[data-on] {
+  opacity: 1;
 }
 
-@keyframes swap {
-  from {
-    opacity: 0;
-    filter: blur(3px);
-    transform: translateY(4px);
-  }
-  to {
-    opacity: 1;
-    filter: none;
-    transform: none;
-  }
+.pkg__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--silver);
+  font-size: 16px;
+  font-weight: 500;
 }
 
-.tier-detail__side,
-.tier-detail__list {
-  animation: swap 240ms var(--ease-out);
+.pkg__name i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
 }
 
-.tier-detail__count {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--muted);
+.pkg__price {
+  margin-top: 8px;
+  font: 300 clamp(40px, min(5.6vw, 9.5vh), 96px) / 1 var(--display);
+  letter-spacing: -0.05em;
 }
 
-.tier-detail__count strong {
-  color: var(--ink);
-  font-weight: 800;
+.pkg__pitch {
+  max-width: 34ch;
+  margin-top: 1.4vh;
+  color: var(--silver);
+  font-size: clamp(15px, 2.2vh, 18px);
 }
 
-.tier-detail__pitch {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  margin: 12px 0 28px;
-  max-width: 22ch;
-  text-wrap: balance;
-}
-
-.tier-detail__list {
+.pkg ul {
   list-style: none;
   padding: 0;
-  columns: 2;
-  column-gap: 40px;
+  margin-top: 2.4vh;
+  border-top: 1px solid var(--rule);
 }
 
-.tier-detail__list li {
-  break-inside: avoid;
-  display: grid;
-  grid-template-columns: 16px 1fr auto;
-  gap: 12px;
-  align-items: baseline;
-  padding: 11px 0;
-  border-top: 1px solid var(--line);
-  font-size: 16px;
+.pkg li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: calc(0.45vh + 1px) 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: clamp(13px, 1.9vh, 16px);
+  line-height: 1.45;
 }
 
-.tier-detail__list .check {
-  color: var(--ink);
-  transform: translateY(3px);
-}
-
-.tier-detail__list li[data-change] .check {
-  color: var(--orange);
-}
-
-.tier-detail__list small {
-  display: block;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.tier-detail__list em {
+.pkg li em {
   font-style: normal;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--orange);
+  color: var(--mist);
+  font-size: 14px;
+  text-align: right;
+  max-width: 45%;
 }
 
-.compare {
-  margin-top: 24px;
+.pkg__base {
+  margin-top: 1.6vh;
+  color: var(--mist);
+  font-size: 15px;
+}
+
+.pkg .btn {
+  height: clamp(38px, 5.4vh, 48px);
+  margin-top: 2vh;
+}
+
+/* Phones and reduced motion: the tiers stack and nothing pins. */
+.tiers--stacked .tiers__pin {
+  position: relative;
+  height: auto;
+  overflow: visible;
+  padding: 16vh 0 4vh;
+}
+
+.tiers--stacked .tiers__head {
+  flex-direction: column;
+  align-items: start;
+}
+
+.tiers--stacked .tiers__names {
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.tiers--stacked .tiers__rail {
+  flex-direction: column;
+  gap: 56px;
+  padding: 0 var(--pad);
+  margin: 6vh auto 0;
+  max-width: var(--wrap);
+  transform: none !important;
+}
+
+.tiers--stacked .pkg {
+  width: auto;
+  margin: 0;
+  padding: 0 0 56px;
+  border-right: 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Compare and à la carte, below the rail. */
+.tiers__more {
+  padding-top: 8vh;
+  padding-bottom: 18vh;
 }
 
 .compare summary {
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--ink-2);
-  list-style: none;
   display: inline-flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
-  padding: 10px 0;
+  padding: 12px 0;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ice);
 }
 
 .compare summary::-webkit-details-marker {
@@ -949,50 +938,45 @@ h2 {
 
 .compare__scroll {
   overflow-x: auto;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .compare table {
   width: 100%;
-  border-collapse: collapse;
   min-width: 760px;
+  border-collapse: collapse;
   font-size: 15px;
 }
 
 .compare th,
 .compare td {
   padding: 12px 14px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--rule);
   text-align: center;
+  font-weight: 400;
 }
 
 .compare th:first-child,
 .compare td:first-child {
-  text-align: left;
   padding-left: 0;
+  text-align: left;
 }
 
-/* Benefit names stay put while the tiers scroll sideways on small screens.
-   Group rows span the table, so their label sticks instead of the cell. */
-.compare tr:not(.compare__group) > :first-child,
-.compare__group span {
-  position: sticky;
-  left: 0;
-  background: #fff;
+.compare thead th {
+  font-weight: 600;
 }
 
 .compare thead span {
   display: block;
-  color: var(--muted);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  color: var(--mist);
+  font-weight: 400;
 }
 
 .compare__group th {
-  font-weight: 800;
   padding-top: 24px;
+  color: var(--silver);
+  font-weight: 600;
   font-size: 14px;
-  color: var(--orange);
 }
 
 .compare__yes {
@@ -1000,172 +984,177 @@ h2 {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--ink);
+  background: var(--ice);
 }
 
 .compare__no {
-  color: #a3a9bf;
+  color: var(--mist);
 }
 
-/* Add-ons read like a price list, not a row of cards. */
-.menu {
+.addons {
   display: grid;
   grid-template-columns: 0.75fr 1.25fr;
   gap: 56px;
-  margin-top: 96px;
+  margin-top: 10vh;
   padding-top: 40px;
-  border-top: 2px solid var(--ink);
+  border-top: 1px solid var(--rule);
 }
 
-.menu__intro h3 {
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+.addons h3 {
+  font: 400 38px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
 }
 
-.menu__intro p {
-  color: var(--muted);
-  margin-top: 10px;
+.addons > div > p {
   max-width: 32ch;
+  margin-top: 10px;
+  color: var(--mist);
   font-size: 16px;
 }
 
-.menu__groups {
+.addons__groups {
   display: grid;
   gap: 32px;
 }
 
-.menu__group h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--orange);
+.addons h4 {
   margin-bottom: 4px;
+  color: var(--silver);
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.menu__group ul {
+.addons ul {
   list-style: none;
   padding: 0;
 }
 
-.menu__group li {
+.addons li {
   display: flex;
   align-items: baseline;
   gap: 14px;
   padding: 14px 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--rule);
 }
 
-.menu__name {
+.addons__name {
   font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-
-.menu__req {
-  flex: 1;
-  font-size: 14px;
-  color: var(--muted);
   font-weight: 600;
 }
 
-.menu__price {
+.addons__req {
+  flex: 1;
+  color: var(--mist);
+  font-size: 14px;
+}
+
+.addons__price {
   font-size: 18px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
+  font-weight: 600;
   white-space: nowrap;
 }
 
-/* ─── Logos ──────────────────────────────────────────────────────── */
-.logos {
-  padding: 110px 0 130px;
-  text-align: center;
-  background: #eef1fa;
-}
-
-.logos h2 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--muted);
-  letter-spacing: 0;
-}
-
-.logos ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 40px 60px;
-  margin: 40px auto 0;
-  max-width: 1080px;
-  list-style: none;
-  padding: 0;
-}
-
-.logos img {
-  filter: grayscale(1);
-  opacity: 0.7;
-  transition:
-    filter 250ms ease,
-    opacity 250ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .logos img:hover {
-    filter: none;
-    opacity: 1;
+@media (max-width: 760px) {
+  .addons {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .addons li {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  .addons__name {
+    flex: 1;
+  }
+  .addons__req {
+    order: 3;
+    flex-basis: 100%;
   }
 }
 
-/* ─── Contact ────────────────────────────────────────────────────── */
-.contact {
-  padding: 16px;
+/* ─── Past sponsors ──────────────────────────────────────────────── */
+/* Dawn: the sky turns blue, then pale. Logos stay white on the blue middle. */
+.sponsors {
+  position: relative;
+  overflow: hidden;
+  padding: 20vh 0;
+  background: linear-gradient(180deg, #26397a 0%, #4f629c 55%, #9fafd6 88%, #c9d3eb 100%);
 }
 
-.contact__box {
-  border-radius: 30px;
-  overflow: hidden;
-  background: var(--ink);
-  color: #fff;
+.sponsors > :not(.ridges) {
+  position: relative;
+  z-index: 1;
+}
+
+.sponsors__ridges {
+  bottom: 0;
+  height: 60%;
+  --lc: var(--day-ink);
+}
+
+.sponsors__row {
+  display: flex;
+  align-items: center;
+  gap: 96px;
+  width: max-content;
+  margin-top: 64px;
+  will-change: transform;
+}
+
+.sponsors__row + .sponsors__row {
+  margin-top: 56px;
+}
+
+.sponsors__row img {
+  flex: none;
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsors__row {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 64px;
+    padding: 0 var(--pad);
+  }
+  .sponsors__row img[aria-hidden] {
+    display: none;
+  }
+}
+
+/* ─── Contact (morning) ──────────────────────────────────────────── */
+.contact {
+  padding: 16vh 0 20vh;
+  color: var(--day-ink);
+  background: linear-gradient(180deg, #c9d3eb 0%, #e8edf7 40%);
+}
+
+.contact__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 640px;
+  gap: 6vw;
+  align-items: start;
 }
 
-.contact__pic {
-  position: relative;
+.contact .sub,
+.contact__meta {
+  color: var(--day-muted);
 }
 
-.contact__pic img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.contact__lede {
+  margin-top: 20px;
 }
 
-.contact__pic::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(14, 20, 82, 0.85), rgba(14, 20, 82, 0.1) 60%);
+.contact__meta {
+  margin-top: 28px;
+  font-size: 16px;
+  line-height: 1.9;
 }
 
-.contact__pic-copy {
-  position: absolute;
-  left: 40px;
-  bottom: 40px;
-  right: 40px;
-  z-index: 2;
-}
-
-.contact__pic-copy p {
-  color: rgba(255, 255, 255, 0.82);
-  margin-top: 16px;
-  max-width: 36ch;
-}
-
-.contact__form {
-  padding: 56px 52px;
+.contact__meta a {
+  color: var(--day-ink);
 }
 
 .form {
@@ -1182,672 +1171,260 @@ h2 {
 .field {
   display: grid;
   gap: 8px;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--mist);
   align-content: start;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--day-muted);
 }
 
 .field__opt {
-  font-weight: 500;
-  color: #8f98c8;
+  font-weight: 400;
+  color: #6b7593;
 }
 
 .field input,
 .field textarea {
-  font: 500 16px Manrope, system-ui, sans-serif;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
+  width: 100%;
   padding: 14px 16px;
-  transition:
-    border-color 150ms ease,
-    background-color 150ms ease;
+  border: 1px solid rgba(10, 19, 48, 0.14);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--day-ink);
+  font: 400 17px "Funnel Sans", system-ui, sans-serif;
+  outline: none;
+  transition: border-color 160ms ease;
 }
 
 .field input:focus,
 .field textarea:focus {
-  outline: none;
-  border-color: var(--orange);
-  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--day-ink);
 }
 
 .field textarea {
-  min-height: 150px;
+  min-height: 140px;
   resize: vertical;
 }
 
 .field[data-invalid="true"] input,
 .field[data-invalid="true"] textarea {
-  border-color: #ff8f8f;
+  border-color: #b3261e;
 }
 
 .field__error {
-  font-size: 13px;
-  font-weight: 600;
-  color: #ffb3b3;
+  color: #b3261e;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .form__honeypot {
   position: absolute;
-  left: -10000px;
+  left: -9999px;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
 
-.form__submit {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.form__submit .btn {
-  min-width: 170px;
-}
-
-/* The label blurs as it swaps between "Send message" and "Sending…". */
-.btn__label {
-  transition:
-    filter 200ms ease,
-    opacity 200ms ease;
-}
-
-.btn[data-busy="true"] .btn__label {
-  opacity: 0.75;
-}
-
 .form__alert {
-  border-radius: 14px;
   padding: 14px 16px;
+  border-radius: 2px;
+  background: #fbe9e7;
+  color: #8c1d18;
   font-size: 15px;
-  background: rgba(255, 143, 143, 0.12);
-  border: 1px solid rgba(255, 143, 143, 0.35);
-  color: #ffd4d4;
 }
 
 .form__alert a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  color: #fff;
+  color: inherit;
 }
 
-.form__sent {
-  transition:
-    opacity 400ms var(--ease-out),
-    transform 400ms var(--ease-out);
+.form__submit .btn,
+.contact .btn {
+  background: var(--day-ink);
+  color: var(--ice);
 }
 
-@starting-style {
-  .form__sent {
-    opacity: 0;
-    transform: translateY(8px);
-  }
+.form .btn[disabled] {
+  cursor: progress;
+  opacity: 0.7;
 }
 
 .form__sent h3 {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
+  font: 400 38px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
+  outline: none;
 }
 
 .form__sent p {
-  color: var(--mist);
-  margin-top: 12px;
-  max-width: 38ch;
+  margin-top: 10px;
+  color: var(--day-muted);
 }
 
-.contact__meta {
-  margin-top: 30px;
-  font-size: 14px;
-  color: var(--mist);
-  font-weight: 600;
-}
-
-.contact__meta a {
-  color: #fff;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-/* ─── Footer ─────────────────────────────────────────────────────── */
-.footer {
-  padding: 72px 0 32px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink-2);
-}
-
-.footer__top {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
-  gap: 40px;
-}
-
-.footer__brand img {
-  height: 22px;
-  width: auto;
-}
-
-.footer__brand p {
-  margin-top: 16px;
-  max-width: 30ch;
-  color: var(--muted);
-  font-weight: 500;
-}
-
-.footer__col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.footer__col h2 {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.6;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.footer__col a {
-  padding: 6px 0;
-  transition: color 150ms ease;
-}
-
-.footer__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-top: 56px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-  font-size: 14px;
-  color: var(--muted);
-}
-
-.footer__socials {
-  display: flex;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
-  margin-right: -12px;
-}
-
-.footer__socials a {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: var(--ink-2);
-  transition:
-    color 150ms ease,
-    background-color 150ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .footer__col a:hover {
-    color: var(--orange);
-  }
-  .footer__socials a:hover {
-    color: var(--ink);
-    background: var(--soft);
+@media (max-width: 760px) {
+  .contact__grid,
+  .form__row {
+    grid-template-columns: 1fr;
   }
 }
 
-/* ─── Scroll reveals ─────────────────────────────────────────────── */
-/* Each section enters once, with motion that suits its content. The hidden
-   state is set here; lib/reveal.ts adds [data-shown] when it scrolls in.
-   Keyframes (not transitions) so they don't clobber hover transitions. */
-[data-reveal] {
-  --stagger: 90ms;
+/* Reduced motion on a wide screen: the stacked tiers sit in a grid, not one narrow column. */
+@media (min-width: 761px) {
+  .tiers--stacked .tiers__rail {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 56px 48px;
+  }
+  .tiers--stacked .pkg {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
 }
 
-[data-reveal]:not([data-shown]) {
-  opacity: 0;
+/* ─── Hero entrance (on page load) ───────────────────────────────── */
+/* One sequence when the page opens. The screen starts dark; the hall opens
+   from a thin slit to full screen like a cinema curtain while settling from a
+   deep zoom; the logo and date appear; then each headline word slides up from
+   behind its own mask. Animations only fill backwards, so once they finish the
+   scroll motion takes over cleanly. */
+.hero__photo .duo {
+  animation: hero-curtain 1700ms cubic-bezier(0.77, 0, 0.175, 1) backwards;
 }
 
-[data-reveal="grow"]:not([data-shown]),
-[data-reveal="wipe"]:not([data-shown]) {
-  opacity: 1;
-  clip-path: inset(100% 0 0 0);
+.hero__photo .duo img {
+  animation: hero-zoom 2600ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-[data-reveal][data-shown] {
-  animation: 800ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * var(--stagger));
+.hero__mark,
+.hero__when {
+  animation: hero-fade 900ms var(--ease-out) 1000ms backwards;
 }
 
-[data-reveal="rise"][data-shown] {
-  animation-name: reveal-rise;
+.hero__mask {
+  display: inline-block;
+  overflow: hidden;
+  /* Room for descenders inside the mask, given back so lines don't spread. */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+  vertical-align: top;
 }
 
-[data-reveal="slide"][data-shown] {
-  animation-name: reveal-slide;
-  animation-duration: 900ms;
+.hero__word {
+  display: inline-block;
+  animation: hero-word 1100ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(1100ms + var(--w) * 110ms);
 }
 
-[data-reveal="pop"][data-shown] {
-  animation-name: reveal-pop;
-  animation-duration: 600ms;
+.hero__cue {
+  animation: hero-fade 900ms ease 2200ms backwards;
 }
 
-[data-reveal="fade"][data-shown] {
-  animation-name: reveal-fade;
-  animation-duration: 600ms;
-  --stagger: 60ms;
+/* Held at the first frame (dark, words hidden) until the hall photo is ready. */
+.hero:not(.hero--ready) .hero__photo .duo,
+.hero:not(.hero--ready) .hero__photo .duo img,
+.hero:not(.hero--ready) .hero__mark,
+.hero:not(.hero--ready) .hero__when,
+.hero:not(.hero--ready) .hero__word,
+.hero:not(.hero--ready) .hero__cite,
+.hero:not(.hero--ready) .hero__cue {
+  animation-play-state: paused;
 }
 
-/* The tier staircase builds up from its baseline, cheapest first. */
-[data-reveal="grow"][data-shown] {
-  animation-name: reveal-grow;
-  animation-duration: 900ms;
-  animation-timing-function: var(--ease-in-out);
-  --stagger: 110ms;
-}
-
-[data-reveal="wipe"][data-shown] {
-  animation-name: reveal-grow;
-  animation-duration: 1100ms;
-  animation-timing-function: var(--ease-in-out);
-}
-
-/* Photos settle from a slight zoom as their card or panel arrives. */
-.role[data-shown] img,
-.contact__pic[data-shown] img {
-  animation: settle 1400ms var(--ease-out) both;
-  animation-delay: inherit;
-}
-
-@keyframes reveal-rise {
+@keyframes hero-curtain {
   from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-}
-
-@keyframes reveal-slide {
-  from {
-    opacity: 0;
-    transform: translateX(64px);
-  }
-}
-
-@keyframes reveal-pop {
-  from {
-    opacity: 0;
-    transform: scale(0.85);
-  }
-}
-
-@keyframes reveal-fade {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-}
-
-@keyframes reveal-grow {
-  from {
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(49.5% 0 49.5% 0);
   }
   to {
     clip-path: inset(0 0 0 0);
   }
 }
 
-@keyframes settle {
+@keyframes hero-zoom {
   from {
-    transform: scale(1.08);
+    transform: scale(1.35);
   }
 }
 
-/* Numbers that count up keep their width steady while they change. */
-.countup {
-  font-variant-numeric: tabular-nums;
-}
-
-/* ─── Responsive ─────────────────────────────────────────────────── */
-@media (max-width: 1000px) {
-  .roles__grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  /* Tablets: each role is a horizontal card, photo beside the copy. */
-  .role {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-  }
-  .role img {
-    height: 100%;
-    min-height: 220px;
-    aspect-ratio: auto;
-  }
-  .role__body {
-    align-self: center;
-    padding: 28px 32px;
-  }
-  .sentence {
-    padding: 120px 0 104px;
-  }
-  .sentence__gallery {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  .reel,
-  .roles,
-  .tiers {
-    padding-top: 104px;
-    padding-bottom: 104px;
-  }
-  .tier-detail,
-  .menu {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .contact__box {
-    grid-template-columns: 1fr;
-  }
-  .contact__pic {
-    min-height: 420px;
+@keyframes hero-fade {
+  from {
+    opacity: 0;
   }
 }
 
-@media (max-width: 760px) {
-  .nav__links {
-    display: none;
-  }
-  .crowd {
-    display: none;
-  }
-  /* Cards sliding in sideways look like the carousel moving by itself while
-     you scroll down, so on touch screens they simply fade in. */
-  [data-reveal="slide"][data-shown] {
-    animation-name: reveal-fade;
-    animation-duration: 600ms;
-  }
-  .compare tr:not(.compare__group) > :first-child {
-    min-width: 150px;
-    max-width: 46vw;
-    padding-right: 12px;
-    box-shadow: 1px 0 0 var(--line);
-  }
-  .compare table {
-    font-size: 14px;
+@keyframes hero-word {
+  from {
+    transform: translateY(110%);
   }
 }
 
-@media (max-width: 640px) {
-  :root {
-    --gutter: 20px;
-    --nav-h: 68px;
-  }
-  .role {
-    display: block;
-  }
-  .role img {
-    height: auto;
-    min-height: 0;
-    aspect-ratio: 3 / 2;
-  }
-  .role__body {
-    padding: 22px 22px 26px;
-  }
-  .roles__grid {
-    margin-top: 40px;
-  }
-  .hero__lede {
-    font-size: 18px;
-  }
-  .hero__ctas {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  .hero__ctas .btn {
-    width: min(100%, 250px);
-  }
-  .step__price-full {
-    display: none;
-  }
-  .step__price-short {
-    display: inline;
-  }
-  .stairs {
-    margin-top: 40px;
-  }
-  .tier-detail {
-    padding-top: 28px;
-  }
-  .menu {
-    margin-top: 64px;
-    padding-top: 32px;
-  }
-  .reel__track {
-    padding-top: 32px;
-  }
-  .roles,
-  .tiers {
-    padding-top: 84px;
-    padding-bottom: 84px;
-  }
-  .reel {
-    padding-bottom: 84px;
-  }
-  .footer {
-    padding-top: 52px;
-  }
-  .footer__top {
-    grid-template-columns: 1fr 1fr;
-    gap: 36px 24px;
-  }
-  .footer__brand {
-    grid-column: 1 / -1;
-  }
-  .footer__col a {
-    padding: 9px 0;
-  }
-  .footer__bottom {
-    margin-top: 40px;
-  }
-  .nav .wrap {
-    display: flex;
-    justify-content: space-between;
-  }
-  .nav .btn {
-    padding: 12px 18px;
-    font-size: 14px;
-  }
-  .nav__logo img {
-    height: 20px;
-  }
-  .hero {
-    height: auto;
-    max-height: none;
-    min-height: 0;
-  }
-  .strip {
-    flex: none;
-    height: 260px;
-  }
-  .strip__toggle {
-    right: 16px;
-  }
-  .tier-detail__list {
-    columns: 1;
-  }
-  .stairs {
-    height: 220px;
-    gap: 6px;
-  }
-  .step {
-    padding: 14px 4px 0;
-    border-radius: 12px 12px 0 0;
-    text-align: center;
-    align-items: center;
-    gap: 4px;
-  }
-  .step__name {
-    font-size: clamp(10.5px, 3.1vw, 13px);
-    letter-spacing: -0.01em;
-  }
-  .step__price {
-    font-size: clamp(17px, 5.4vw, 24px);
-  }
-  .menu__group li {
-    flex-wrap: wrap;
-    row-gap: 2px;
-  }
-  .menu__req {
-    order: 3;
-    flex-basis: 100%;
-  }
-  .menu__name {
-    flex: 1;
-  }
-  .form__row {
-    grid-template-columns: 1fr;
-  }
-  .contact__form {
-    padding: 32px 22px;
-  }
-  .contact__pic-copy {
-    left: 22px;
-    right: 22px;
-    bottom: 26px;
-  }
-  .reel__arrows {
-    display: none;
-  }
-  .sentence {
-    padding: 100px 0 90px;
-  }
-  .sentence__statement {
-    font-size: clamp(24px, 5.2vw, 36px);
-  }
-  .sentence__sub {
-    flex-direction: column;
-    gap: 6px;
-    font-size: 14px;
-    margin-top: 24px;
-  }
-  .sentence__sub-sep {
-    display: none;
-  }
-  .sentence__gallery {
-    grid-template-columns: 1fr;
-    max-width: 420px;
-    margin: 40px auto 0;
-    gap: 18px;
-  }
-  .reel {
-    padding-top: 84px;
-  }
-  .logos {
-    padding: 80px 0 90px;
-  }
-  .logos ul {
-    gap: 28px 36px;
-  }
-}
-
-/* The smallest phones: the headline steps down so no word is orphaned. */
-@media (max-width: 360px) {
-  .hero h1 {
-    font-size: 39px;
-  }
-  .nav__logo img {
-    height: 18px;
-  }
-  .contact {
-    padding: 10px;
-  }
-  .contact__box {
-    border-radius: 24px;
-  }
-}
-
-/* Short, wide screens (a phone on its side): don't force a full-height hero. */
-@media (max-height: 520px) and (min-width: 641px) {
-  .hero {
-    height: auto;
-    min-height: 0;
-    max-height: none;
-  }
-  .strip {
-    flex: none;
-    height: 240px;
-  }
-}
-
-/* Fewer, gentler animations: keep fades, drop movement. */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  /* Reveals become plain fades: no movement, no wipes. */
-  [data-reveal]:not([data-shown]),
-  [data-reveal="grow"]:not([data-shown]),
-  [data-reveal="wipe"]:not([data-shown]) {
-    clip-path: none;
-    opacity: 0;
-  }
-  [data-reveal][data-shown],
-  [data-reveal="grow"][data-shown],
-  [data-reveal="wipe"][data-shown] {
-    animation: fade 400ms ease both;
-  }
-  .role[data-shown] img,
-  .contact__pic[data-shown] img {
+  .hero__photo .duo,
+  .hero__photo .duo img,
+  .hero__cite,
+  .hero__mark,
+  .hero__when,
+  .hero__word,
+  .hero__cue {
     animation: none;
-  }
-  .strip__track {
-    animation: none;
-  }
-  .strip__toggle {
-    display: none;
-  }
-  .strip {
-    overflow-x: auto;
-  }
-  .hero__mark svg {
-    animation: none;
-    clip-path: none;
-  }
-  .hero [data-enter] {
-    animation-name: fade;
-    animation-duration: 300ms;
-  }
-  .tier-detail__side,
-  .tier-detail__list {
-    animation: fade 150ms ease;
-  }
-  .nav[data-hidden="true"] {
-    transform: none;
-  }
-  .step,
-  .moment__img img,
-  .btn,
-  .reel__arrows button {
-    transition: none;
-  }
-  .btn:active,
-  .reel__arrows button:active {
-    transform: none;
-  }
-  .form__sent {
-    transition: opacity 200ms ease;
   }
 }
 
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
+/* ─── Ways to get involved: the triptych (wide screens) ──────────── */
+/* Pinned. The three photos start as one full-screen triptych and pull apart
+   into framed columns; the frames below mark where each photo lands. */
+.roles--pinned {
+  height: 260vh;
+  padding: 0;
+  overflow: visible;
+}
+
+.roles__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.roles__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.roles__slat {
+  position: absolute;
+  --color: 0;
+  will-change: clip-path;
+}
+
+.roles__slat .duo {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  /* The slat's clip-path frames the photo; a clip here would shrink with the scale. */
+  overflow: visible;
+}
+
+.roles--pinned .roles__front {
+  position: relative;
+  z-index: 1;
+  padding-top: 9vh;
+}
+
+.roles--pinned .roles__head h2 {
+  font-size: clamp(42px, min(6.4vw, 9.5vh), 104px);
+}
+
+.roles--pinned .roles__cols {
+  margin-top: 4vh;
+  gap: 2.4vw;
+}
+
+.roles--pinned .role:nth-child(2) {
+  margin-top: 0;
+}
+
+.role__frame {
+  height: 44vh;
+}
+
+.roles--pinned .role h3 {
+  margin-top: 2.2vh;
 }

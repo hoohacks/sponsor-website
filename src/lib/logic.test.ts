@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { benefits, tiers } from "../content";
+import { benefits, tiers, weekend } from "../content";
 import { formatPrice, formatPriceShort, logoSize } from "./format";
-import { benefitsForTier } from "./tiers";
-import { CHARLOTTESVILLE, insideUS, projectUS, randomUSPoint } from "./crowd";
+import { addedAtTier, benefitsForTier } from "./tiers";
 import { LIMITS, validateInquiry } from "./inquiry";
 
 describe("formatPrice", () => {
@@ -18,21 +17,6 @@ describe("formatPriceShort", () => {
     expect(formatPriceShort(2500)).toBe("$2.5K");
     expect(formatPriceShort(750)).toBe("$750");
     expect(formatPriceShort(1250)).toBe("$1,250");
-  });
-});
-
-describe("crowd map", () => {
-  it("knows land from sea", () => {
-    expect(insideUS(...CHARLOTTESVILLE)).toBe(true);
-    expect(insideUS(...projectUS(-98.5, 39.8))).toBe(true); // Kansas
-    expect(insideUS(...projectUS(-90, 26))).toBe(false); // Gulf of Mexico
-    expect(insideUS(...projectUS(-70, 35))).toBe(false); // Atlantic
-  });
-
-  it("only places dots on land", () => {
-    let seed = 7;
-    const random = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-    for (let i = 0; i < 200; i++) expect(insideUS(...randomUSPoint(random))).toBe(true);
   });
 });
 
@@ -106,5 +90,50 @@ describe("validateInquiry", () => {
     const r = validateInquiry({ ...ok, website: "http://spam.example" });
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.spam).toBe(true);
+  });
+});
+
+describe("addedAtTier", () => {
+  it("lists every benefit at Bronze", () => {
+    expect(addedAtTier(benefits, 0)).toEqual(benefitsForTier(benefits, 0));
+  });
+
+  it("lists only what Gold adds over Silver", () => {
+    expect(addedAtTier(benefits, 2).map((b) => b.label)).toEqual(["Social media shoutout", "Resume book"]);
+  });
+
+  it("includes upgrades, like the large logo at Platinum", () => {
+    expect(addedAtTier(benefits, 3).find((b) => b.label === "Logo on the website")?.change).toBe("upgraded");
+  });
+});
+
+describe("copy", () => {
+  it("uses the plain tier summaries", () => {
+    expect(tiers.map((t) => t.pitch)).toEqual([
+      "Support the event, send mentors and judges, and put your logo on the website.",
+      "Adds a table at the sponsorship fair, the sponsor lounge, and your logo on the T-shirt.",
+      "Adds the resume book and a social media shoutout.",
+      "Adds a workshop, a sponsored prize, and an email to all attendees after the event.",
+      "Adds your own competition track, the keynote, and coffee chats with students.",
+    ]);
+  });
+});
+
+describe("weekend schedule", () => {
+  it("uses the real times from the 2026 schedule", () => {
+    expect(weekend.map((m) => `${m.title}: ${m.day} ${m.time}`)).toEqual([
+      "Opening ceremony: Saturday 10:30 AM",
+      "Sponsorship fair: Saturday 3:00 PM",
+      "Heads down: Overnight 12:00 AM",
+      "Judging: Sunday 1:30 PM",
+      "Closing ceremony: Sunday 5:00 PM",
+    ]);
+  });
+});
+
+describe("season content", () => {
+  it("keeps the hero's date line in content.ts", async () => {
+    const { event } = await import("../content");
+    expect(event.dateLine).toBe("March 2027, University of Virginia");
   });
 });

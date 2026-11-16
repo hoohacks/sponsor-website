@@ -106,7 +106,7 @@ export function InquiryForm({ interest }: Props) {
       {field("company", "Company", "text", "organization")}
       <div className="field" data-invalid={Boolean(errors.message)}>
         <label htmlFor={`${id}-message-input`}>
-          Questions, comments, or concerns <span className="field__opt">(optional)</span>
+          Questions or comments <span className="field__opt">(optional)</span>
         </label>
         <textarea
           id={`${id}-message-input`}

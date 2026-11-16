@@ -1,75 +1,103 @@
-import { useState, type CSSProperties } from "react";
-import { event, heroPhotos } from "../content";
-import { Photo } from "./Photo";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { event } from "../content";
+import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
+import { DuoPhoto } from "./DuoPhoto";
 
-const i = (n: number) => ({ "--i": n }) as CSSProperties;
+// Jefferson on founding the University of Virginia, letter to William Roscoe, 1820.
+const HEADLINE = "The illimitable freedom of the human mind.";
 
+/** The headline as separate words, so each can rise in when the page opens. */
+const Words = () => (
+  <>
+    {HEADLINE.split(" ").map((w, i) => (
+      <span key={i}>
+        {/* Each word slides up from behind its own mask when the page opens. */}
+        <span className="hero__mask">
+          <span className="hero__word" style={{ "--w": i } as CSSProperties}>
+            {w}
+          </span>
+        </span>{" "}
+      </span>
+    ))}
+  </>
+);
+
+/**
+ * The hall comes into color while the outlined headline fills in, left to
+ * right, with the scroll. Then the supporting line and buttons rise in.
+ */
 export function Hero() {
-  const [paused, setPaused] = useState(false);
+  const section = useRef<HTMLElement>(null);
+  const photo = useRef<HTMLDivElement>(null);
+  const solid = useRef<HTMLSpanElement>(null);
+  const row = useRef<HTMLDivElement>(null);
+  const cue = useRef<HTMLDivElement>(null);
+  // The opening plays once the hall photo is ready, so the curtain never opens on an empty screen.
+  // If the photo is slow, it plays anyway after a moment.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const img = photo.current?.querySelector("img");
+    if (img?.complete && img.naturalWidth > 0) setReady(true);
+    const t = setTimeout(() => setReady(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
+
+  useScrollFrame(() => {
+    if (!section.current || !photo.current || !solid.current || !row.current || !cue.current) return;
+    const p = pinProgress(section.current.getBoundingClientRect(), innerHeight);
+    photo.current.style.transform = `scale(${lerp(1.14, 1, ease(p))})`;
+    photo.current.style.setProperty("--color", String(clamp((p - 0.1) / 0.6)));
+    solid.current.style.clipPath = `inset(0 ${100 - inOut(clamp(p / 0.7)) * 100}% 0 0)`;
+    const r = ease(clamp((p - 0.68) / 0.22));
+    row.current.style.opacity = String(r);
+    row.current.style.transform = `translateY(${(1 - r) * 20}px)`;
+    cue.current.style.opacity = String(1 - clamp(p / 0.06));
+  });
 
   return (
-    <section className="hero" id="top">
-      <div className="wrap">
-        <p className="hero__when" data-enter style={i(0)}>
-          {event.dateLine}
-        </p>
-        <h1 data-enter style={i(1)}>
-          Meet the people building{" "}
-          <span className="hero__mark">
-            what's next.
-            <svg viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M4 15 C 60 7, 120 6, 180 9 S 270 14, 296 8" />
-            </svg>
-          </span>
-        </h1>
-        <p className="hero__lede" data-enter style={i(2)}>
-          HooHacks brings 760+ students from across the country to Charlottesville for one weekend.
-        </p>
-        <div className="hero__ctas" data-enter style={i(3)}>
-          <a className="btn" href="#contact">
-            Become a sponsor
-          </a>
-          <a className="btn btn--outline" href="#tiers">
-            See packages
-          </a>
+    <section className={ready ? "hero hero--ready" : "hero"} id="hero" ref={section}>
+      <div className="hero__pin">
+        <img className="hero__mark" src="/img/logo-long-white.svg" alt="HooHacks" width={159} height={22} />
+        <div className="hero__photo" ref={photo}>
+          <DuoPhoto
+            name="opening-crowd"
+            alt="Hackers filling the lecture hall for the opening ceremony"
+            sizes="100vw"
+            loading="eager"
+            onLoad={() => setReady(true)}
+          />
         </div>
-      </div>
-
-      {/* An endless, slow strip of event photos. The list is rendered three times so the loop stays seamless on ultrawide screens. */}
-      <div className="strip" data-enter style={i(4)} data-paused={paused}>
-        <div className="strip__track">
-          {[0, 1, 2].map((copy) => (
-            <div className="strip__set" key={copy} aria-hidden={copy > 0 || undefined}>
-              {heroPhotos.map((p, n) => (
-                <div className="strip__photo" key={p.photo}>
-                  <Photo
-                    name={p.photo}
-                    alt={copy > 0 ? "" : p.alt}
-                    sizes="(max-width: 640px) 60vw, 360px"
-                    loading={copy === 0 && n < 5 ? "eager" : "lazy"}
-                    fetchPriority={copy === 0 && n === 2 ? "high" : "auto"}
-                  />
-                </div>
-              ))}
+        <div className="hero__copy">
+          <div className="wrap">
+            <p className="hero__when">{event.dateLine}</p>
+            <h1 className="hero__title">
+              <span className="hero__outline">
+                <span className="visually-hidden">{HEADLINE}</span>
+                <span aria-hidden="true">
+                  <Words />
+                </span>
+              </span>
+              <span className="hero__solid" ref={solid} aria-hidden="true">
+                <Words />
+              </span>
+            </h1>
+            <p className="hero__cite">Thomas Jefferson</p>
+            <div className="hero__row" ref={row}>
+              <p>HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes.</p>
+              <div className="hero__ctas">
+                <a className="hero__link" href="#contact">
+                  Become a sponsor
+                </a>
+                <a className="hero__link hero__link--quiet" href="#tiers">
+                  See packages
+                </a>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
-        <button
-          type="button"
-          className="strip__toggle"
-          onClick={() => setPaused((p) => !p)}
-          aria-label={paused ? "Play the photo strip" : "Pause the photo strip"}
-        >
-          {paused ? (
-            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-              <path d="M3 1.5v9l7.5-4.5z" fill="currentColor" />
-            </svg>
-          ) : (
-            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-              <path d="M2.5 1.5h2.5v9H2.5zM7 1.5h2.5v9H7z" fill="currentColor" />
-            </svg>
-          )}
-        </button>
+        <div className="hero__cue" ref={cue} aria-hidden="true">
+          <i />
+        </div>
       </div>
     </section>
   );

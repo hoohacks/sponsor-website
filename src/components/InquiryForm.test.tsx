@@ -79,6 +79,6 @@ describe("InquiryForm", () => {
 
   it("mentions the tier someone asked about", () => {
     render(<InquiryForm interest="Gold" />);
-    expect(screen.getByLabelText(/Questions, comments, or concerns/)).toHaveValue("We're interested in the Gold tier.");
+    expect(screen.getByLabelText(/^Questions or comments/)).toHaveValue("We're interested in the Gold tier.");
   });
 });
