@@ -13,4 +13,14 @@ describe("Weekend", () => {
     render(<Weekend />);
     expect(screen.getByText("Each team presents its project to the judges.")).toBeInTheDocument();
   });
+
+  it("describes each photo instead of repeating its title", () => {
+    render(<Weekend />);
+    for (const article of screen.getAllByRole("article")) {
+      const title = article.querySelector("h3")!.textContent!.trim();
+      const alt = article.querySelector("img[alt]:not([alt=''])")!.getAttribute("alt")!;
+      expect(alt).not.toBe(title);
+      expect(alt.length).toBeGreaterThan(title.length);
+    }
+  });
 });

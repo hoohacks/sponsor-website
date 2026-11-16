@@ -95,7 +95,7 @@ export function Tiers({ onAsk }: Props) {
             e.currentTarget.scrollLeft = 0;
           }}
         >
-          <Ridges seed={37} layers={5} drift="x" className="tiers__ridges" />
+          <Ridges seed={37} layers={5} drift="x" follow=".tiers__track" className="tiers__ridges" />
           <div className="wrap tiers__head">
             <h2 id="tiers-title" data-rise="left">
               Sponsorship packages.

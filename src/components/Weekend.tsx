@@ -36,7 +36,7 @@ export function Weekend() {
             scenes.current[i] = el;
           }}
         >
-          <DuoPhoto name={m.photo} alt={m.title} sizes="100vw" className="scene__photo" />
+          <DuoPhoto name={m.photo} alt={m.alt} sizes="100vw" className="scene__photo" />
           <div className="scene__dim" />
           <div className="scene__copy">
             <div className="wrap">

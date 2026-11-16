@@ -7,6 +7,8 @@ interface Props {
   layers: number;
   /** "x": drifts sideways through a pinned section. "y": drifts as the section scrolls past. */
   drift: "x" | "y";
+  /** The ancestor whose scroll progress drives the drift. Defaults to the section. */
+  follow?: string;
   className?: string;
 }
 
@@ -14,7 +16,7 @@ interface Props {
  * Faint Blue Ridge ridgelines behind a section. Sized to its own box, redrawn
  * on resize, and moved as one layer so the lines never cross.
  */
-export function Ridges({ seed, layers, drift, className }: Props) {
+export function Ridges({ seed, layers, drift, follow = "section", className }: Props) {
   const box = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
 
@@ -31,7 +33,7 @@ export function Ridges({ seed, layers, drift, className }: Props) {
 
   useScrollFrame(() => {
     const el = box.current;
-    const section = el?.closest("section");
+    const section = el?.closest<HTMLElement>(follow);
     if (!el || !section) return;
     const r = section.getBoundingClientRect();
     const vh = innerHeight;

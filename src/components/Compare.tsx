@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { benefits, tiers } from "../content";
 import { formatPrice } from "../lib/format";
 
-/** The full comparison of every benefit at every tier, folded away until asked for. */
-export function Compare() {
+/** The full comparison of every benefit at every tier, folded away until asked for. Memoized: it never changes. */
+export const Compare = memo(function Compare() {
   return (
     <details className="compare" data-rise>
       <summary>Compare every tier</summary>
@@ -51,4 +52,4 @@ export function Compare() {
       </div>
     </details>
   );
-}
+});
