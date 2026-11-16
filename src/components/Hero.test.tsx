@@ -21,4 +21,11 @@ describe("Hero", () => {
     render(<Hero />);
     expect(screen.getByText("March 2027, University of Virginia")).toBeInTheDocument();
   });
+
+  it("splits the headline into words so they can rise in when the page opens", () => {
+    const { container } = render(<Hero />);
+    const words = "Meet the people building what's next.".split(" ").length;
+    expect(container.querySelectorAll(".hero__outline .hero__word")).toHaveLength(words);
+    expect(container.querySelectorAll(".hero__solid .hero__word")).toHaveLength(words);
+  });
 });

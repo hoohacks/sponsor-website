@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { roles } from "../content";
-import { wipeAt } from "../lib/reveal";
-import { clamp, ease, enterProgress, throughProgress, useScrollFrame } from "../lib/scroll";
+import { columnLift, wipeAt } from "../lib/reveal";
+import { clamp, ease, enterProgress, PHONE, throughProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 import { Ridges } from "./Ridges";
 
@@ -14,14 +14,19 @@ export function Roles() {
 
   useScrollFrame(() => {
     const vh = innerHeight;
+    // Side by side, the columns open one after another; stacked on a phone, each opens as it arrives.
+    const stagger = !window.matchMedia(PHONE).matches;
     cols.current.forEach((col, i) => {
       const photo = col?.querySelector<HTMLElement>(".role__photo");
       if (!col || !photo) return;
       const r = col.getBoundingClientRect();
       photo.style.transform = `translateY(${(0.5 - throughProgress(r, vh)) * DRIFT[i]}px)`;
       photo.style.setProperty("--color", String(ease(clamp(enterProgress(r, vh, 0.35) * 1.2 - 0.2))));
-      // The photo wipes open from the bottom as it arrives, one column after another.
-      photo.style.setProperty("--open", String(wipeAt({ top: r.top, vh, index: i })));
+      // The column rises into place while its photo wipes open, one column after another.
+      // Measured without the lift itself, so the motion doesn't feed back into the timing.
+      const open = wipeAt({ top: r.top - columnLift(Number(photo.style.getPropertyValue("--open") || 1)), vh, index: stagger ? i : 0 });
+      photo.style.setProperty("--open", String(open));
+      col.style.transform = `translateY(${columnLift(open)}px)`;
     });
   });
 

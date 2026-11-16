@@ -1,8 +1,21 @@
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
 const HEADLINE = "Meet the people building what's next.";
+
+/** The headline as separate words, so each can rise in when the page opens. */
+const Words = () => (
+  <>
+    {HEADLINE.split(" ").map((w, i) => (
+      <span key={i}>
+        <span className="hero__word" style={{ "--w": i } as CSSProperties}>
+          {w}
+        </span>{" "}
+      </span>
+    ))}
+  </>
+);
 
 /**
  * The hall comes into color while the outlined headline fills in, left to
@@ -43,9 +56,14 @@ export function Hero() {
           <div className="wrap">
             <p className="hero__when">March 2027, University of Virginia</p>
             <h1 className="hero__title">
-              <span className="hero__outline">{HEADLINE}</span>
+              <span className="hero__outline">
+                <span className="visually-hidden">{HEADLINE}</span>
+                <span aria-hidden="true">
+                  <Words />
+                </span>
+              </span>
               <span className="hero__solid" ref={solid} aria-hidden="true">
-                {HEADLINE}
+                <Words />
               </span>
             </h1>
             <div className="hero__row" ref={row}>
