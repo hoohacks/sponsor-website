@@ -56,3 +56,6 @@ export function useReveals() {
 export function wipeAt({ top, vh, index = 0 }: { top: number; vh: number; index?: number }) {
   return Math.round(ease(clamp(enterProgress({ top }, vh, 0.6) * 1.2 - index * 0.12)) * 1000) / 1000;
 }
+
+/** How far below its place a column sits, in pixels, while its photo is `open` (0 to 1). */
+export const columnLift = (open: number) => Math.round((1 - open) * 180 * 1000) / 1000 || 0;

@@ -606,7 +606,7 @@ h2 {
 }
 
 .role__photo img {
-  transform: scale(calc(1.18 - 0.18 * var(--open, 1)));
+  transform: scale(calc(1.35 - 0.35 * var(--open, 1)));
   transform-origin: 50% 100%;
 }
 
@@ -1273,5 +1273,58 @@ h2 {
   .tiers--stacked .pkg {
     border-bottom: 0;
     padding-bottom: 0;
+  }
+}
+
+/* ─── Hero entrance (on page load) ───────────────────────────────── */
+/* One sequence when the page opens: the hall fades up out of the dark, the
+   logo and date appear, then the headline rises in word by word. Animations
+   only fill backwards, so once they end the scroll motion takes over. */
+.hero__photo .duo {
+  animation: hero-photo 1600ms var(--ease-out) backwards;
+}
+
+.hero__mark,
+.hero__when {
+  animation: hero-fade 900ms var(--ease-out) 300ms backwards;
+}
+
+.hero__word {
+  display: inline-block;
+  animation: hero-word 1000ms var(--ease-out) backwards;
+  animation-delay: calc(450ms + var(--w) * 90ms);
+}
+
+.hero__cue {
+  animation: hero-fade 900ms ease 1500ms backwards;
+}
+
+@keyframes hero-photo {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-word {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__photo .duo,
+  .hero__mark,
+  .hero__when,
+  .hero__word,
+  .hero__cue {
+    animation: none;
   }
 }

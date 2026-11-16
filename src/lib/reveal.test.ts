@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { revealAt, wipeAt } from "./reveal";
+import { columnLift, revealAt, wipeAt } from "./reveal";
 
 describe("revealAt", () => {
   it("is hidden and lowered before the block reaches the screen", () => {
@@ -33,5 +33,13 @@ describe("wipeAt", () => {
 
   it("opens later photos in a row a little after earlier ones", () => {
     expect(wipeAt({ top: 800, vh: 1000, index: 2 })).toBeLessThan(wipeAt({ top: 800, vh: 1000, index: 0 }));
+  });
+});
+
+describe("columnLift", () => {
+  it("starts a column well below its place and settles it as the photo opens", () => {
+    expect(columnLift(0)).toBe(180);
+    expect(columnLift(0.5)).toBe(90);
+    expect(columnLift(1)).toBe(0);
   });
 });
