@@ -1316,6 +1316,7 @@ h2 {
 .hero:not(.hero--ready) .hero__mark,
 .hero:not(.hero--ready) .hero__when,
 .hero:not(.hero--ready) .hero__word,
+.hero:not(.hero--ready) .hero__cite,
 .hero:not(.hero--ready) .hero__cue {
   animation-play-state: paused;
 }
@@ -1350,6 +1351,7 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .hero__photo .duo,
   .hero__photo .duo img,
+  .hero__cite,
   .hero__mark,
   .hero__when,
   .hero__word,
