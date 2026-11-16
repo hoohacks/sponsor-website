@@ -601,6 +601,13 @@ h2 {
   border-radius: 6px;
   --color: 0;
   will-change: transform;
+  /* Entrance: --open goes 0 → 1 as it scrolls in; without it the photo just shows. */
+  clip-path: inset(calc((1 - var(--open, 1)) * 100%) 0 0 0 round 6px);
+}
+
+.role__photo img {
+  transform: scale(calc(1.18 - 0.18 * var(--open, 1)));
+  transform-origin: 50% 100%;
 }
 
 .role h3 {

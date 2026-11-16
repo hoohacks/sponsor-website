@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { roles } from "../content";
+import { wipeAt } from "../lib/reveal";
 import { clamp, ease, enterProgress, throughProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 import { Ridges } from "./Ridges";
@@ -7,7 +8,7 @@ import { Ridges } from "./Ridges";
 /** How far each photo drifts, in pixels, as the section scrolls past. */
 const DRIFT = [60, -40, 90];
 
-/** Three tall photos drifting at different speeds and coming into color. */
+/** Three tall photos that wipe open, drift at different speeds, and come into color. */
 export function Roles() {
   const cols = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -19,6 +20,8 @@ export function Roles() {
       const r = col.getBoundingClientRect();
       photo.style.transform = `translateY(${(0.5 - throughProgress(r, vh)) * DRIFT[i]}px)`;
       photo.style.setProperty("--color", String(ease(clamp(enterProgress(r, vh, 0.35) * 1.2 - 0.2))));
+      // The photo wipes open from the bottom as it arrives, one column after another.
+      photo.style.setProperty("--open", String(wipeAt({ top: r.top, vh, index: i })));
     });
   });
 
