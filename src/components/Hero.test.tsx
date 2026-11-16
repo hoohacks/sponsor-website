@@ -5,7 +5,7 @@ import { Hero } from "./Hero";
 describe("Hero", () => {
   it("states the headline once for assistive tech", () => {
     render(<Hero />);
-    expect(screen.getByRole("heading", { level: 1, name: "This institution will be based on the illimitable freedom of the human mind." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "The illimitable freedom of the human mind." })).toBeInTheDocument();
   });
 
   it("says what HooHacks is and links to packages and the form", () => {
@@ -24,7 +24,7 @@ describe("Hero", () => {
 
   it("splits the headline into words so they can rise in when the page opens", () => {
     const { container } = render(<Hero />);
-    const words = "This institution will be based on the illimitable freedom of the human mind.".split(" ").length;
+    const words = "The illimitable freedom of the human mind.".split(" ").length;
     expect(container.querySelectorAll(".hero__outline .hero__mask > .hero__word")).toHaveLength(words);
     expect(container.querySelectorAll(".hero__solid .hero__mask > .hero__word")).toHaveLength(words);
   });
