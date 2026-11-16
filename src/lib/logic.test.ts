@@ -130,3 +130,10 @@ describe("weekend schedule", () => {
     ]);
   });
 });
+
+describe("season content", () => {
+  it("keeps the hero's date line in content.ts", async () => {
+    const { event } = await import("../content");
+    expect(event.dateLine).toBe("March 2027, University of Virginia");
+  });
+});

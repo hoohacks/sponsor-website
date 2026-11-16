@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { event } from "../content";
 import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
@@ -68,7 +69,7 @@ export function Hero() {
         </div>
         <div className="hero__copy">
           <div className="wrap">
-            <p className="hero__when">March 2027, University of Virginia</p>
+            <p className="hero__when">{event.dateLine}</p>
             <h1 className="hero__title">
               <span className="hero__outline">
                 <span className="visually-hidden">{HEADLINE}</span>

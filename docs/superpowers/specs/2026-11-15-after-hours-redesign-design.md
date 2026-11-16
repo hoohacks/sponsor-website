@@ -1,6 +1,6 @@
 # After Hours: sponsor site redesign
 
-Status: draft for approval, 2026-11-15
+Status: approved 2026-11-15 and built. The design below is what was approved; "Changes after the build" at the end records what the client changed once they saw the real site, and wins where the two disagree.
 Reference prototype: `.superpowers/proto/after-hours-3.html` (throwaway, kept out of git; run the dev server and open `/.superpowers/proto/after-hours-3.html`). Its bottom-right headline switcher is prototype-only; headline 1 is the chosen one.
 
 ## Intent
@@ -132,3 +132,19 @@ Nothing pins or slides. Photos show in color, the headline is solid, the scroll 
 - Scrolling stays smooth on a typical laptop (no long frames while scrolling, checked in the browser's performance panel).
 - The inquiry form sends, validates, and pre-fills from "Ask about [tier]" as it does today; `npm test` and `npm run build` pass.
 - No orange, no cards, no dot canvas, no top nav left in the code.
+
+## Changes after the build
+
+Decided by the client after reviewing the built site, 2026-11-15 to 2026-11-16. Where these disagree with the sections above, these win.
+
+- **Headline.** "The illimitable freedom of the human mind.", from Jefferson's 1820 letter about founding UVA, with a small italic attribution under it: "Thomas Jefferson". Replaces "Meet the people building what's next."
+- **Type.** Every statement heading (hero, section titles, weekend scene titles, role names, "À la carte", "Message sent.") is set in Instrument Serif. Funnel Display is kept only for numbers (stats line, prices, weekend times). Funnel Sans stays for body text, labels, buttons and the form.
+- **Hero.** The headline fades from faint to solid with the scroll (no outline). The date line is small and dim after a short hairline, and its text comes from `event.dateLine` in `content.ts`. The two calls to action are underlined text links, not buttons.
+- **Hero opening.** When the page opens, the hall photo opens from a thin horizontal slit to full screen while settling from a deep zoom. Then the logo and date fade in and each headline word slides up from behind its own mask. The sequence waits for the photo to load (or 2.5 seconds at most).
+- **Buttons and fields.** Every other button and form field has square corners (2px), not pills.
+- **Ways to get involved.** On wide screens it's a pinned triptych: the three photos fill the screen edge to edge in black and white, then pull apart into framed columns, come into color, and the words rise in under each. Each photo shrinks around its own frame and ends fully framed, never as a cropped slice. Phones, short screens (under 600px tall) and reduced motion get stacked columns that rise into place as their photos wipe open.
+- **Entrances everywhere.** Every block of content fades and slides in with the scroll and rewinds when you scroll back up. On phones, side slides become rises so nothing is cut off at the screen edge.
+- **Weekend.** Times are the real 2026 schedule: opening ceremony 10:30 AM, sponsorship fair 3:00 PM, heads down 12:00 AM, judging 1:30 PM, closing ceremony 5:00 PM. "Demos" became "Judging" and "Awards" became "Closing ceremony".
+- **No footer.** The page ends at the contact section, which keeps the email and packet links. The team page, Devpost and social links went with it.
+- **Short screens.** Packages and the hero size their type by window height as well as width, so everything fits from 720px tall up. Under 600px tall (a phone on its side) the packages stack.
+- **Link previews.** `public/og.jpg` is a capture of the hero, and the share description leads with the quote.

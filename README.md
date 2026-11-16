@@ -16,8 +16,9 @@ npm run dev
 
 ## Where things live
 
-- `src/content.ts`: everything that changes each year (date, stats, tiers, benefits, add-ons, photos, past sponsors, and the weekend schedule times). Most yearly updates only touch this file.
-- `docs/superpowers/specs/2026-11-15-after-hours-redesign-design.md`: the design this site follows (After Hours: dark, scroll-driven, lightening to morning toward the form).
+- `src/content.ts`: everything that changes each year (the hero's date line, stats, tiers, benefits, add-ons, photos, past sponsors, and the weekend schedule times). Most yearly updates only touch this file.
+- `docs/superpowers/specs/2026-11-15-after-hours-redesign-design.md`: the design this site follows (After Hours: dark, scroll-driven, lightening to morning toward the form). Read its last section, "Changes after the build", first.
+- `src/lib/scroll.ts`: the one scroll loop every animation runs on. Animations only change `transform`, `opacity`, `clip-path` and the `--color`/`--open` variables, which keeps scrolling smooth; keep it that way.
 - `src/components/`: one component per page section.
 - `src/lib/inquiry.ts`: form validation and the Firestore write. Its limits match the `sponsorInquiries` rule in HackX.
 - `public/`: photos (WebP at 800 and 1600 wide), trimmed sponsor logos, and the packet PDF.
@@ -28,8 +29,9 @@ The form writes one document to `sponsorInquiries` in the current season's HackX
 
 ## Each new season
 
-1. Update `src/content.ts` (date line, stats, tiers, sponsors) and swap in new photos or the new packet PDF if they changed.
-2. Point the `VITE_FIREBASE_*` variables in Netlify at the new HackX production project, then redeploy.
-3. Make sure the new HackX project has the `sponsorInquiries` rule, the Discord function and its webhook secret (see HackX's `docs/MIGRATION.md`).
+1. Update `src/content.ts` (date line, stats, tiers, sponsors, weekend times) and swap in new photos or the new packet PDF if they changed.
+2. Update the dates and figures in `index.html`'s description tags, and retake `public/og.jpg` (a 1200×630 capture of the hero) if the hero changed.
+3. Point the `VITE_FIREBASE_*` variables in Netlify at the new HackX production project, then redeploy.
+4. Make sure the new HackX project has the `sponsorInquiries` rule, the Discord function and its webhook secret (see HackX's `docs/MIGRATION.md`).
 
 Adding a sponsor logo: trim the whitespace around it, save it as a PNG in `public/logos/`, and add it to `sponsors` in `content.ts` with its width ÷ height as `ratio`. Logos are sized for equal visual area, so the ratio matters.
