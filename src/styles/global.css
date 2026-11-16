@@ -190,3 +190,159 @@ h2 {
     transition: none;
   }
 }
+
+/* ─── Hero ───────────────────────────────────────────────────────── */
+/* Pinned for about 2.3 screens: the hall comes into color, the headline fills in. */
+.hero {
+  height: 230vh;
+}
+
+.hero__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  --color: 0;
+  will-change: transform;
+}
+
+.hero__photo .duo {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__pin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 19, 48, 0.55), rgba(10, 19, 48, 0.25) 40%, rgba(10, 19, 48, 0.92));
+  pointer-events: none;
+}
+
+/* The logo, quiet: small in the corner, and it scrolls away with the hero. */
+.hero__mark {
+  position: absolute;
+  top: 30px;
+  left: var(--pad);
+  width: auto;
+  height: 15px;
+  opacity: 0.8;
+  z-index: 3;
+}
+
+.hero__copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 11vh;
+  z-index: 2;
+}
+
+.hero__when {
+  color: var(--silver);
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+
+.hero__title {
+  position: relative;
+  max-width: 11ch;
+  font: 600 clamp(56px, 9.6vw, 164px) / 0.9 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.hero__outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 237, 247, 0.55);
+}
+
+.hero__solid {
+  position: absolute;
+  inset: 0;
+  color: var(--ice);
+  clip-path: inset(0 100% 0 0);
+}
+
+.hero__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 32px;
+  margin-top: 32px;
+  opacity: 0;
+}
+
+.hero__row p {
+  color: var(--silver);
+  max-width: 44ch;
+  font-size: 19px;
+}
+
+.hero__ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Scroll cue: a hairline with light running down it, gone once you start scrolling. */
+.hero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 1px;
+  height: 56px;
+  margin-left: -0.5px;
+  overflow: hidden;
+  background: rgba(232, 237, 247, 0.2);
+  z-index: 3;
+}
+
+.hero__cue i {
+  position: absolute;
+  left: 0;
+  top: -40%;
+  width: 1px;
+  height: 40%;
+  background: var(--ice);
+  animation: cue 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes cue {
+  to {
+    top: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero__row {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    height: auto;
+  }
+  .hero__pin {
+    position: relative;
+  }
+  .hero__photo {
+    --color: 1;
+  }
+  .hero__solid {
+    clip-path: none;
+  }
+  .hero__row {
+    opacity: 1;
+  }
+  .hero__cue {
+    display: none;
+  }
+}
