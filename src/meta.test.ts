@@ -38,3 +38,20 @@ describe("hero opening", () => {
     expect(rule).toMatch(/transform:\s*none\s*!important/);
   });
 });
+
+describe("fonts", () => {
+  const css = readFileSync(resolve(process.cwd(), "src/styles/global.css"), "utf8");
+
+  it("loads UVA's free brand substitutes, Libre Caslon and Libre Franklin", () => {
+    expect(html).toMatch(/family=Libre\+Caslon\+Display/);
+    expect(html).toMatch(/family=Libre\+Caslon\+Text/);
+    expect(html).toMatch(/family=Libre\+Franklin/);
+  });
+
+  it("no longer uses the old fonts anywhere", () => {
+    for (const old of ["Funnel", "Instrument"]) {
+      expect(html).not.toContain(old);
+      expect(css).not.toContain(old);
+    }
+  });
+});

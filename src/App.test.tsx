@@ -53,4 +53,9 @@ describe("App", () => {
     const { container } = render(<App />);
     expect(container.querySelector("footer")).toBeNull();
   });
+
+  it("keeps the sponsor actions one click away from anywhere on the page", () => {
+    render(<App />);
+    expect(screen.getByRole("navigation", { name: "Sponsor HooHacks", hidden: true })).toBeInTheDocument();
+  });
 });
