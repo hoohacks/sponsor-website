@@ -51,3 +51,8 @@ export function useReveals() {
     });
   });
 }
+
+/** How open a photo's entrance wipe is, from 0 (closed) to 1 (fully shown). */
+export function wipeAt({ top, vh, index = 0 }: { top: number; vh: number; index?: number }) {
+  return Math.round(ease(clamp(enterProgress({ top }, vh, 0.6) * 1.2 - index * 0.12)) * 1000) / 1000;
+}
