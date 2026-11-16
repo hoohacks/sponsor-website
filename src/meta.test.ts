@@ -54,4 +54,14 @@ describe("fonts", () => {
     const rule = css.match(/\n\.hero__row\s*\{([^}]*)\}/)?.[1] ?? "";
     expect(rule).not.toMatch(/opacity:\s*0/);
   });
+
+  it("keeps the hero to one screen instead of pinning it for a long scroll", () => {
+    const rule = css.match(/\n\.hero\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).not.toMatch(/height:\s*2\d\dvh/);
+  });
+
+  it("fills the headline in on its own as part of the opening", () => {
+    const rule = css.match(/\n\.hero__solid\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).toMatch(/animation:\s*hero-/);
+  });
 });

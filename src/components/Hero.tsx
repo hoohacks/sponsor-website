@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { event } from "../content";
-import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
+import { clamp, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
 // Jefferson on founding the University of Virginia, letter to William Roscoe, 1820.
@@ -23,13 +23,12 @@ const Words = () => (
 );
 
 /**
- * The hall comes into color while the outlined headline fills in, left to
- * right, with the scroll. Then the supporting line and buttons rise in.
+ * One screen, all automatic: when the site opens, the hall opens up and comes
+ * into color, the headline rises in and fills solid, and the description
+ * follows. Scrolling just moves on to the next section.
  */
 export function Hero() {
-  const section = useRef<HTMLElement>(null);
   const photo = useRef<HTMLDivElement>(null);
-  const solid = useRef<HTMLSpanElement>(null);
   const cue = useRef<HTMLDivElement>(null);
   // The opening plays once the hall photo is ready, so the curtain never opens on an empty screen.
   // If the photo is slow, it plays anyway after a moment.
@@ -41,17 +40,13 @@ export function Hero() {
     return () => clearTimeout(t);
   }, []);
 
+  // The scroll cue fades as soon as someone starts scrolling.
   useScrollFrame(() => {
-    if (!section.current || !photo.current || !solid.current || !cue.current) return;
-    const p = pinProgress(section.current.getBoundingClientRect(), innerHeight);
-    photo.current.style.transform = `scale(${lerp(1.14, 1, ease(p))})`;
-    photo.current.style.setProperty("--color", String(clamp((p - 0.1) / 0.6)));
-    solid.current.style.clipPath = `inset(0 ${100 - inOut(clamp(p / 0.7)) * 100}% 0 0)`;
-    cue.current.style.opacity = String(1 - clamp(p / 0.06));
+    if (cue.current) cue.current.style.opacity = String(1 - clamp(scrollY / 120));
   });
 
   return (
-    <section className={ready ? "hero hero--ready" : "hero"} id="hero" ref={section}>
+    <section className={ready ? "hero hero--ready" : "hero"} id="hero">
       <div className="hero__pin">
         <img className="hero__mark" src="/img/logo-long-white.svg" alt="HooHacks" width={159} height={22} />
         <div className="hero__photo" ref={photo}>
@@ -73,7 +68,7 @@ export function Hero() {
                   <Words />
                 </span>
               </span>
-              <span className="hero__solid" ref={solid} aria-hidden="true">
+              <span className="hero__solid" aria-hidden="true">
                 <Words />
               </span>
             </h1>

@@ -200,15 +200,15 @@ h2 {
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
 /* Pinned for about 2.3 screens: the hall comes into color, the headline fills in. */
+/* One screen. Everything plays on its own when the site opens. */
 .hero {
-  height: 230vh;
+  height: 100vh;
+  height: 100svh;
 }
 
 .hero__pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  position: relative;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -216,7 +216,17 @@ h2 {
   position: absolute;
   inset: 0;
   --color: 0;
-  will-change: transform;
+}
+
+/* The hall comes into color after the curtain opens. */
+.hero__photo .duo .duo__bw {
+  animation: hero-color 1800ms ease 1500ms forwards;
+}
+
+@keyframes hero-color {
+  to {
+    opacity: 0;
+  }
 }
 
 .hero__photo .duo {
@@ -282,11 +292,19 @@ h2 {
   color: rgba(232, 237, 247, 0.22);
 }
 
+/* The headline starts faint and fills solid, left to right, once the words are in. */
 .hero__solid {
   position: absolute;
   inset: 0;
   color: var(--ice);
   clip-path: inset(0 100% 0 0);
+  animation: hero-fill 1700ms cubic-bezier(0.65, 0, 0.35, 1) 2300ms forwards;
+}
+
+@keyframes hero-fill {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 .hero__row {
@@ -390,12 +408,6 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero {
-    height: auto;
-  }
-  .hero__pin {
-    position: relative;
-  }
   .hero__photo {
     --color: 1;
   }
@@ -1301,6 +1313,7 @@ h2 {
 .hero:not(.hero--ready) .hero__when,
 .hero:not(.hero--ready) .hero__word,
 .hero:not(.hero--ready) .hero__cite,
+.hero:not(.hero--ready) .hero__solid,
 .hero:not(.hero--ready) .hero__row,
 .hero:not(.hero--ready) .hero__cue {
   animation-play-state: paused;
@@ -1337,6 +1350,7 @@ h2 {
   .hero__photo .duo,
   .hero__photo .duo img,
   .hero__cite,
+  .hero__solid,
   .hero__row,
   .hero__mark,
   .hero__when,

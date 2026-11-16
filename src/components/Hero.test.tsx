@@ -63,4 +63,15 @@ describe("Hero", () => {
     expect(row.style.opacity).toBe("");
     expect(row.style.transform).toBe("");
   });
+
+  it("doesn't tie the headline fill or the photo's color to scrolling", async () => {
+    const { container } = render(<Hero />);
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(r));
+    });
+    expect(container.querySelector<HTMLElement>(".hero__solid")!.style.clipPath).toBe("");
+    expect(container.querySelector<HTMLElement>(".hero__photo")!.style.transform).toBe("");
+    expect(container.querySelector<HTMLElement>(".hero__photo")!.style.getPropertyValue("--color")).toBe("");
+  });
 });
