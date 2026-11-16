@@ -131,20 +131,6 @@ export type Photo =
   | "atrium"
   | "speaker";
 
-/** Hero strip. Every photo here is used nowhere else on the page. */
-export const heroPhotos: { photo: Photo; alt: string }[] = [
-  { photo: "team-desk", alt: "A team smiling at their laptops mid-build" },
-  { photo: "opening-crowd", alt: "Hackers filling the lecture hall for the opening ceremony" },
-  { photo: "booth-talk", alt: "Students talking with a sponsor at their booth" },
-  { photo: "balloon-group", alt: "A group of hackers posing under a balloon arch" },
-  { photo: "countdown-team", alt: "A team giving a thumbs up next to a four-hour countdown" },
-  { photo: "lettuce", alt: "A crowd cheering on the lettuce-eating competition" },
-  { photo: "pizza-team", alt: "A team working late around their laptops and a pizza box" },
-  { photo: "team-peace", alt: "A team throwing peace signs at their table" },
-  { photo: "happy-hacking", alt: "A full hall under the Happy Hacking slide at kickoff" },
-  { photo: "winners-team", alt: "A winning team posing on stage" },
-];
-
 // TODO(confirm): times are placeholders from the prototype; replace with the real 2026 schedule.
 export const weekend: { photo: Photo; when: string; day: string; time: string; title: string; body: string }[] = [
   { photo: "hall", when: "Kickoff", day: "Saturday", time: "12:30 PM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
