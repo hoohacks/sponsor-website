@@ -16,7 +16,7 @@
   --wrap: 1320px;
   --pad: clamp(20px, 4vw, 64px);
   --display: "Funnel Display", system-ui, sans-serif;
-  /* The hero headline only: a tall editorial serif for the Jefferson line. */
+  /* Headings and the hero: a tall editorial serif. */
   --serif: "Instrument Serif", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
@@ -86,9 +86,10 @@ button {
   white-space: nowrap;
 }
 
+/* Statements are set in the serif; numbers (stats, prices, times) stay in Funnel Display. */
 h2 {
-  font: 500 clamp(40px, 5.6vw, 88px) / 0.98 var(--display);
-  letter-spacing: -0.04em;
+  font: 400 clamp(46px, 6.4vw, 104px) / 0.98 var(--serif);
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
@@ -528,8 +529,8 @@ h2 {
 }
 
 .scene h3 {
-  font: 500 clamp(30px, 3vw, 46px) / 1 var(--display);
-  letter-spacing: -0.035em;
+  font: 400 clamp(36px, 3.6vw, 56px) / 1 var(--serif);
+  letter-spacing: -0.01em;
   text-align: right;
 }
 
@@ -618,8 +619,8 @@ h2 {
 
 .role h3 {
   margin-top: 24px;
-  font: 500 30px / 1.1 var(--display);
-  letter-spacing: -0.03em;
+  font: 400 34px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
 }
 
 .role p {
@@ -676,7 +677,7 @@ h2 {
 }
 
 .tiers__head h2 {
-  font-size: clamp(36px, min(5.6vw, 9vh), 88px);
+  font-size: clamp(42px, min(6.4vw, 10.5vh), 104px);
 }
 
 .tiers__pin > :not(.ridges) {
@@ -825,6 +826,7 @@ h2 {
 
 .tiers--stacked .tiers__names {
   flex-wrap: wrap;
+  gap: 4px 20px;
 }
 
 .tiers--stacked .tiers__rail {
@@ -940,8 +942,8 @@ h2 {
 }
 
 .addons h3 {
-  font: 500 32px / 1.1 var(--display);
-  letter-spacing: -0.03em;
+  font: 400 38px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
 }
 
 .addons > div > p {
@@ -1187,8 +1189,8 @@ h2 {
 }
 
 .form__sent h3 {
-  font: 500 32px / 1.1 var(--display);
-  letter-spacing: -0.03em;
+  font: 400 38px / 1.05 var(--serif);
+  letter-spacing: -0.01em;
   outline: none;
 }
 
@@ -1346,7 +1348,7 @@ h2 {
 }
 
 .roles--pinned .roles__head h2 {
-  font-size: clamp(36px, min(5.6vw, 8vh), 88px);
+  font-size: clamp(42px, min(6.4vw, 9.5vh), 104px);
 }
 
 .roles--pinned .roles__cols {
