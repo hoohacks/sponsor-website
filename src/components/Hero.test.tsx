@@ -5,7 +5,7 @@ import { Hero } from "./Hero";
 describe("Hero", () => {
   it("states the headline once for assistive tech", () => {
     render(<Hero />);
-    expect(screen.getByRole("heading", { level: 1, name: "For the illimitable mind." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "This institution will be based on the illimitable freedom of the human mind." })).toBeInTheDocument();
   });
 
   it("says what HooHacks is and links to packages and the form", () => {
@@ -24,7 +24,7 @@ describe("Hero", () => {
 
   it("splits the headline into words so they can rise in when the page opens", () => {
     const { container } = render(<Hero />);
-    const words = "For the illimitable mind.".split(" ").length;
+    const words = "This institution will be based on the illimitable freedom of the human mind.".split(" ").length;
     expect(container.querySelectorAll(".hero__outline .hero__mask > .hero__word")).toHaveLength(words);
     expect(container.querySelectorAll(".hero__solid .hero__mask > .hero__word")).toHaveLength(words);
   });
@@ -45,5 +45,10 @@ describe("Hero", () => {
     });
     expect(container.querySelector("#hero")).toHaveClass("hero--ready");
     vi.useRealTimers();
+  });
+
+  it("credits the quote to Jefferson", () => {
+    render(<Hero />);
+    expect(screen.getByText("Thomas Jefferson, on founding the University of Virginia, 1820")).toBeInTheDocument();
   });
 });
