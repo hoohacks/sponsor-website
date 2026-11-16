@@ -16,6 +16,8 @@
   --wrap: 1320px;
   --pad: clamp(20px, 4vw, 64px);
   --display: "Funnel Display", system-ui, sans-serif;
+  /* The hero headline only: a tall editorial serif for the Jefferson line. */
+  --serif: "Instrument Serif", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
@@ -252,14 +254,14 @@ h2 {
 
 .hero__title {
   position: relative;
-  max-width: 11ch;
-  font: 600 clamp(40px, min(9.6vw, 15vh), 164px) / 0.9 var(--display);
-  letter-spacing: -0.05em;
+  max-width: 12ch;
+  font: 400 clamp(44px, min(10.5vw, 16.5vh), 180px) / 0.95 var(--serif);
+  letter-spacing: -0.02em;
 }
 
+/* The headline starts faint and fills in solid, left to right, with the scroll. */
 .hero__outline {
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(232, 237, 247, 0.75);
+  color: rgba(232, 237, 247, 0.22);
 }
 
 .hero__solid {
@@ -343,6 +345,10 @@ h2 {
 }
 
 @media (max-width: 760px) {
+  /* Phones: the serif is narrow, so it can run larger and still fit. */
+  .hero__title {
+    font-size: min(15vw, 9vh);
+  }
   .hero__row {
     flex-direction: column;
     align-items: start;
