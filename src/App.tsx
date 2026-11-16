@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero";
 import { Logos } from "./components/Logos";
 import { Roles } from "./components/Roles";
 import { StatsLine } from "./components/StatsLine";
+import { StickyCta } from "./components/StickyCta";
 import { Tiers } from "./components/Tiers";
 import { Weekend } from "./components/Weekend";
 import { useReveals } from "./lib/reveal";
@@ -26,6 +27,7 @@ export function App() {
         <Logos />
         <Contact interest={interest} />
       </main>
+      <StickyCta />
     </>
   );
 }

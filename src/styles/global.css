@@ -15,9 +15,12 @@
 
   --wrap: 1320px;
   --pad: clamp(20px, 4vw, 64px);
-  --display: "Funnel Display", system-ui, sans-serif;
+  /* UVA's free brand substitutes: Libre Franklin for Franklin Gothic, Libre Caslon for Adobe Caslon. */
+  --sans: "Libre Franklin", system-ui, sans-serif;
+  --display: "Libre Franklin", system-ui, sans-serif;
   /* Headings and the hero: a tall editorial serif. */
-  --serif: "Instrument Serif", Georgia, serif;
+  --serif: "Libre Caslon Display", Georgia, serif;
+  --serif-text: "Libre Caslon Text", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
@@ -39,7 +42,7 @@ html {
 }
 
 body {
-  font: 400 18px/1.6 "Funnel Sans", system-ui, sans-serif;
+  font: 400 18px/1.6 var(--sans);
   color: var(--ice);
   background: var(--night);
   -webkit-font-smoothing: antialiased;
@@ -86,10 +89,10 @@ button {
   white-space: nowrap;
 }
 
-/* Statements are set in the serif; numbers (stats, prices, times) stay in Funnel Display. */
+/* Statements are set in the serif; numbers (stats, prices, times) in light Libre Franklin. */
 h2 {
-  font: 400 clamp(46px, 6.4vw, 104px) / 0.98 var(--serif);
-  letter-spacing: -0.015em;
+  font: 400 clamp(38px, 5vw, 80px) / 1.04 var(--serif);
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -110,7 +113,7 @@ h2 {
   border-radius: 2px;
   background: var(--ice);
   color: var(--night);
-  font: 500 14px "Funnel Sans", system-ui, sans-serif;
+  font: 500 14px var(--sans);
   letter-spacing: 0.02em;
   text-decoration: none;
   white-space: nowrap;
@@ -269,9 +272,9 @@ h2 {
 
 .hero__title {
   position: relative;
-  max-width: 14ch;
-  font: 400 clamp(40px, min(8.2vw, 12.5vh), 148px) / 0.96 var(--serif);
-  letter-spacing: -0.02em;
+  max-width: 12ch;
+  font: 400 clamp(38px, min(7.4vw, 11.5vh), 132px) / 1.02 var(--serif);
+  letter-spacing: -0.015em;
 }
 
 /* The headline starts faint and fills in solid, left to right, with the scroll. */
@@ -304,7 +307,7 @@ h2 {
 .hero__cite {
   margin-top: 18px;
   color: var(--silver);
-  font: italic 400 20px / 1.3 var(--serif);
+  font: italic 400 18px / 1.3 var(--serif-text);
   animation: hero-fade 900ms var(--ease-out) 2300ms backwards;
 }
 
@@ -319,7 +322,7 @@ h2 {
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(232, 237, 247, 0.9);
   color: var(--ice);
-  font: 500 16px "Funnel Sans", system-ui, sans-serif;
+  font: 500 16px var(--sans);
   text-decoration: none;
   transition:
     color 200ms ease,
@@ -380,7 +383,7 @@ h2 {
     bottom: 6vh;
   }
   .hero__title {
-    font-size: 10vh;
+    font-size: 8vh;
   }
   .hero__cite {
     margin-top: 6px;
@@ -404,7 +407,7 @@ h2 {
 @media (max-width: 760px) {
   /* Phones: the serif is narrow, so it can run larger and still fit. */
   .hero__title {
-    font-size: min(13vw, 7.5vh);
+    font-size: min(11.5vw, 7vh);
   }
   .hero__cite {
     font-size: 17px;
@@ -471,7 +474,7 @@ h2 {
   align-items: baseline;
   gap: 0.25em;
   font: 300 clamp(96px, 16vw, 260px) / 1 var(--display);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
 }
 
 .stats__line b {
@@ -576,19 +579,19 @@ h2 {
 
 .scene__time {
   font: 300 clamp(64px, 9vw, 150px) / 0.85 var(--display);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
 }
 
 .scene__time small {
   display: block;
   margin-bottom: 14px;
-  font: 500 16px "Funnel Sans", system-ui, sans-serif;
+  font: 500 16px var(--sans);
   letter-spacing: 0;
   color: var(--silver);
 }
 
 .scene h3 {
-  font: 400 clamp(36px, 3.6vw, 56px) / 1 var(--serif);
+  font: 400 clamp(30px, 2.9vw, 46px) / 1.05 var(--serif);
   letter-spacing: -0.01em;
   text-align: right;
 }
@@ -603,6 +606,10 @@ h2 {
 @media (max-width: 760px) {
   .stats__next br {
     display: none;
+  }
+  /* Clear the sticky sponsor bar along the bottom edge. */
+  .scene__copy {
+    bottom: calc(5vh + 76px);
   }
   .scene__copy .wrap {
     grid-template-columns: 1fr;
@@ -678,7 +685,7 @@ h2 {
 
 .role h3 {
   margin-top: 24px;
-  font: 400 34px / 1.05 var(--serif);
+  font: 400 28px / 1.1 var(--serif);
   letter-spacing: -0.01em;
 }
 
@@ -736,7 +743,7 @@ h2 {
 }
 
 .tiers__head h2 {
-  font-size: clamp(42px, min(6.4vw, 10.5vh), 104px);
+  font-size: clamp(34px, min(5vw, 8.5vh), 80px);
 }
 
 .tiers__pin > :not(.ridges) {
@@ -824,7 +831,7 @@ h2 {
 .pkg__price {
   margin-top: 8px;
   font: 300 clamp(40px, min(5.6vw, 9.5vh), 96px) / 1 var(--display);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
 }
 
 .pkg__pitch {
@@ -1001,7 +1008,7 @@ h2 {
 }
 
 .addons h3 {
-  font: 400 38px / 1.05 var(--serif);
+  font: 400 32px / 1.1 var(--serif);
   letter-spacing: -0.01em;
 }
 
@@ -1190,7 +1197,7 @@ h2 {
   border-radius: 2px;
   background: #fff;
   color: var(--day-ink);
-  font: 400 17px "Funnel Sans", system-ui, sans-serif;
+  font: 400 17px var(--sans);
   outline: none;
   transition: border-color 160ms ease;
 }
@@ -1248,7 +1255,7 @@ h2 {
 }
 
 .form__sent h3 {
-  font: 400 38px / 1.05 var(--serif);
+  font: 400 32px / 1.1 var(--serif);
   letter-spacing: -0.01em;
   outline: none;
 }
@@ -1409,7 +1416,7 @@ h2 {
 }
 
 .roles--pinned .roles__head h2 {
-  font-size: clamp(42px, min(6.4vw, 9.5vh), 104px);
+  font-size: clamp(34px, min(5vw, 7.5vh), 80px);
 }
 
 .roles--pinned .roles__cols {
@@ -1427,4 +1434,59 @@ h2 {
 
 .roles--pinned .role h3 {
   margin-top: 2.2vh;
+}
+
+/* ─── Sticky sponsor actions ─────────────────────────────────────── */
+/* Pinned to the bottom of the screen between the hero and the form. */
+.sticky-cta {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid rgba(232, 237, 247, 0.14);
+  border-radius: 4px;
+  background: rgba(10, 19, 48, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px -18px rgba(5, 10, 30, 0.7);
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+
+.sticky-cta[data-show] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.sticky-cta .btn {
+  height: 42px;
+  padding: 0 20px;
+}
+
+/* Phones: a full-width bar along the bottom edge, buttons sharing the space. */
+@media (max-width: 760px) {
+  .sticky-cta {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .sticky-cta .btn {
+    flex: 1;
+    padding: 0 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-cta {
+    transform: none;
+    transition: opacity 150ms ease;
+  }
 }
