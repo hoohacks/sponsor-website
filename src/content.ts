@@ -132,12 +132,12 @@ export type Photo =
   | "speaker";
 
 // TODO(confirm): times are placeholders from the prototype; replace with the real 2026 schedule.
-export const weekend: { photo: Photo; when: string; day: string; time: string; title: string; body: string }[] = [
-  { photo: "hall", when: "Kickoff", day: "Saturday", time: "12:30 PM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
-  { photo: "fair-crowd", when: "First afternoon", day: "Saturday", time: "2:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
-  { photo: "late-night", when: "Overnight", day: "Overnight", time: "3:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
-  { photo: "judging", when: "Final morning", day: "Sunday", time: "9:00 AM", title: "Demos", body: "Each team presents its project to the judges." },
-  { photo: "winners-stage", when: "Closing", day: "Sunday", time: "11:00 AM", title: "Awards", body: "Winners are announced on stage, including the sponsor prizes." },
+export const weekend: { photo: Photo; day: string; time: string; title: string; body: string }[] = [
+  { photo: "hall", day: "Saturday", time: "12:30 PM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
+  { photo: "fair-crowd", day: "Saturday", time: "2:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
+  { photo: "late-night", day: "Overnight", time: "3:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
+  { photo: "judging", day: "Sunday", time: "9:00 AM", title: "Demos", body: "Each team presents its project to the judges." },
+  { photo: "winners-stage", day: "Sunday", time: "11:00 AM", title: "Awards", body: "Winners are announced on stage, including the sponsor prizes." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [
