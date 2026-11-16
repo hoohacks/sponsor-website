@@ -47,3 +47,10 @@ describe("Roles", () => {
     expect(container.querySelector(".roles--pinned")).toBeNull();
   });
 });
+
+describe("Roles triptych images", () => {
+  it("asks for photos big enough to stay sharp at full screen", () => {
+    const { container } = render(<Roles />);
+    for (const img of container.querySelectorAll(".roles__slat img")) expect(img.getAttribute("sizes")).toBe("110vw");
+  });
+});

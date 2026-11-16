@@ -17,7 +17,7 @@ npm run dev
 ## Where things live
 
 - `src/content.ts`: everything that changes each year (the hero's date line, stats, tiers, benefits, add-ons, photos, past sponsors, and the weekend schedule times). Most yearly updates only touch this file.
-- `src/lib/scroll.ts`: the one scroll loop every animation runs on. Animations only change `transform`, `opacity`, `clip-path` and the `--color`/`--open` variables, which keeps scrolling smooth; keep it that way.
+- `src/lib/scroll.ts`: the one scroll loop every animation runs on. Each frame only changes `transform`, `opacity`, `clip-path` and the `--color`/`--open` variables, which keeps scrolling smooth; keep it that way. Sizes and positions are only written when the window is measured (on load and resize), never per frame.
 - `src/components/`: one component per page section.
 - `src/lib/inquiry.ts`: form validation and the Firestore write. Its limits match the `sponsorInquiries` rule in HackX.
 - `public/`: photos (WebP at 800 and 1600 wide), trimmed sponsor logos, and the packet PDF.

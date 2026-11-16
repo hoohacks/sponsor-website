@@ -308,6 +308,12 @@ h2 {
   animation: hero-fade 900ms var(--ease-out) 2300ms backwards;
 }
 
+/* Keyboard users can reach the links before the scroll reveals them: show them as soon as one is focused. */
+.hero__row:focus-within {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* Calls to action as underlined text links, quiet next to the quote. */
 .hero__link {
   padding-bottom: 6px;

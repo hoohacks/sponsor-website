@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* Scroll-driven motion. Progress math is pure; one shared animation frame runs
    every subscriber after a scroll or resize. Subscribers should only write
-   transform, opacity, clip-path or the --color variable. */
+   transform, opacity, clip-path, or the --color and --open variables. */
 
 export const REDUCED = "(prefers-reduced-motion: reduce)";
 export const PHONE = "(max-width: 760px)";
