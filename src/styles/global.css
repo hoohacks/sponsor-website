@@ -22,6 +22,9 @@
   --serif: "Libre Caslon Display", Georgia, serif;
   --serif-text: "Libre Caslon Text", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* The strip at the bottom of the screen the sticky sponsor block lives in.
+     Anything that stays put on screen keeps out of it. */
+  --cta-clear: 104px;
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
   color-scheme: dark;
@@ -475,7 +478,8 @@ h2 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 10vh;
+  /* Starts its 40px rise above the sponsor block's strip. */
+  bottom: max(10vh, calc(var(--cta-clear) + 40px));
   z-index: 1;
   opacity: 0;
 }
@@ -549,7 +553,7 @@ h2 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 9vh;
+  bottom: max(9vh, var(--cta-clear));
   z-index: 2;
 }
 
@@ -592,7 +596,7 @@ h2 {
   }
   /* Clear the sticky sponsor bar along the bottom edge. */
   .scene__copy {
-    bottom: calc(5vh + 76px);
+    bottom: calc(2vh + var(--cta-clear));
   }
   .scene__copy .wrap {
     grid-template-columns: 1fr;
@@ -722,7 +726,8 @@ h2 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 7vh;
+  padding-top: 5vh;
+  padding-bottom: var(--cta-clear);
 }
 
 .tiers__head h2 {
@@ -776,7 +781,7 @@ h2 {
 .tiers__rail {
   display: flex;
   flex: 1;
-  margin-top: 4vh;
+  margin-top: 2.5vh;
   padding-left: max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
   will-change: transform;
 }
@@ -813,7 +818,7 @@ h2 {
 
 .pkg__price {
   margin-top: 8px;
-  font: 300 clamp(40px, min(5.6vw, 9.5vh), 96px) / 1 var(--display);
+  font: 300 clamp(40px, min(5.6vw, 8vh), 96px) / 1 var(--display);
   letter-spacing: -0.04em;
 }
 
@@ -827,7 +832,7 @@ h2 {
 .pkg ul {
   list-style: none;
   padding: 0;
-  margin-top: 2.4vh;
+  margin-top: 1.6vh;
   border-top: 1px solid var(--rule);
 }
 
@@ -835,7 +840,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding: calc(0.45vh + 1px) 0;
+  padding: calc(0.3vh + 1px) 0;
   border-bottom: 1px solid var(--rule);
   font-size: clamp(13px, 1.9vh, 16px);
   line-height: 1.45;
@@ -857,7 +862,7 @@ h2 {
 
 .pkg .btn {
   height: clamp(38px, 5.4vh, 48px);
-  margin-top: 2vh;
+  margin-top: 1.4vh;
 }
 
 /* Phones and reduced motion: the tiers stack and nothing pins. */
@@ -1416,7 +1421,7 @@ h2 {
 }
 
 .role__frame {
-  height: 44vh;
+  height: calc(44vh - var(--cta-clear) * 0.6);
 }
 
 .roles--pinned .role h3 {
@@ -1463,6 +1468,9 @@ h2 {
 /* Phones: a full-width bar along the bottom edge, buttons sharing the space.
    It takes over from the scroll cue, which would sit behind it. */
 @media (max-width: 760px) {
+  :root {
+    --cta-clear: 88px;
+  }
   .hero__cue {
     display: none;
   }

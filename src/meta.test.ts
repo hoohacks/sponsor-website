@@ -65,3 +65,21 @@ describe("fonts", () => {
     expect(rule).toMatch(/animation:\s*hero-/);
   });
 });
+
+describe("sticky sponsor block", () => {
+  const css = readFileSync(resolve(process.cwd(), "src/styles/global.css"), "utf8").replace(/\r\n/g, "\n");
+  /** Every block of declarations for a selector, including inside media queries. */
+  const rule = (sel: string) =>
+    css
+      .split("\n")
+      .flatMap((line, i, lines) => (line.trim() === `${sel} {` ? [lines.slice(i + 1, i + 12).join("\n")] : []))
+      .join("\n");
+
+  it("has a reserved strip at the bottom of the screen", () => {
+    expect(css).toMatch(/--cta-clear:\s*\d+px/);
+  });
+
+  it("keeps text that stays put on screen out of that strip", () => {
+    for (const sel of [".scene__copy", ".stats__next", ".tiers__pin", ".role__frame"]) expect(rule(sel), sel).toContain("var(--cta-clear)");
+  });
+});
