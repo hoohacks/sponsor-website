@@ -32,11 +32,6 @@ describe("hero opening", () => {
     for (const name of animated) expect(still.slice(0, 400), name).toContain(`.${name}`);
   });
 
-  it("shows the hero's links the moment one gets keyboard focus, even before the scroll reveals them", () => {
-    const rule = css.match(/\.hero__row:focus-within\s*\{([^}]*)\}/)?.[1] ?? "";
-    expect(rule).toMatch(/opacity:\s*1\s*!important/);
-    expect(rule).toMatch(/transform:\s*none\s*!important/);
-  });
 });
 
 describe("fonts", () => {
@@ -53,5 +48,38 @@ describe("fonts", () => {
       expect(html).not.toContain(old);
       expect(css).not.toContain(old);
     }
+  });
+
+  it("doesn't hide the hero's sponsor line until a scroll", () => {
+    const rule = css.match(/\n\.hero__row\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).not.toMatch(/opacity:\s*0/);
+  });
+
+  it("keeps the hero to one screen instead of pinning it for a long scroll", () => {
+    const rule = css.match(/\n\.hero\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).not.toMatch(/height:\s*2\d\dvh/);
+  });
+
+  it("fills the headline in on its own as part of the opening", () => {
+    const rule = css.match(/\n\.hero__solid\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).toMatch(/animation:\s*hero-/);
+  });
+});
+
+describe("sticky sponsor block", () => {
+  const css = readFileSync(resolve(process.cwd(), "src/styles/global.css"), "utf8").replace(/\r\n/g, "\n");
+  /** Every block of declarations for a selector, including inside media queries. */
+  const rule = (sel: string) =>
+    css
+      .split("\n")
+      .flatMap((line, i, lines) => (line.trim() === `${sel} {` ? [lines.slice(i + 1, i + 12).join("\n")] : []))
+      .join("\n");
+
+  it("has a reserved strip at the bottom of the screen", () => {
+    expect(css).toMatch(/--cta-clear:\s*\d+px/);
+  });
+
+  it("keeps text that stays put on screen out of that strip", () => {
+    for (const sel of [".scene__copy", ".stats__next", ".tiers__pin", ".role__frame"]) expect(rule(sel), sel).toContain("var(--cta-clear)");
   });
 });

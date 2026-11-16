@@ -22,6 +22,9 @@
   --serif: "Libre Caslon Display", Georgia, serif;
   --serif-text: "Libre Caslon Text", Georgia, serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* The strip at the bottom of the screen the sticky sponsor block lives in.
+     Anything that stays put on screen keeps out of it. */
+  --cta-clear: 104px;
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
   color-scheme: dark;
@@ -200,15 +203,15 @@ h2 {
 
 /* ─── Hero ───────────────────────────────────────────────────────── */
 /* Pinned for about 2.3 screens: the hall comes into color, the headline fills in. */
+/* One screen. Everything plays on its own when the site opens. */
 .hero {
-  height: 230vh;
+  height: 100vh;
+  height: 100svh;
 }
 
 .hero__pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
+  position: relative;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -216,7 +219,17 @@ h2 {
   position: absolute;
   inset: 0;
   --color: 0;
-  will-change: transform;
+}
+
+/* The hall comes into color after the curtain opens. */
+.hero__photo .duo .duo__bw {
+  animation: hero-color 1800ms ease 1500ms forwards;
+}
+
+@keyframes hero-color {
+  to {
+    opacity: 0;
+  }
 }
 
 .hero__photo .duo {
@@ -282,11 +295,19 @@ h2 {
   color: rgba(232, 237, 247, 0.22);
 }
 
+/* The headline starts faint and fills solid, left to right, once the words are in. */
 .hero__solid {
   position: absolute;
   inset: 0;
   color: var(--ice);
   clip-path: inset(0 100% 0 0);
+  animation: hero-fill 1700ms cubic-bezier(0.65, 0, 0.35, 1) 2300ms forwards;
+}
+
+@keyframes hero-fill {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 .hero__row {
@@ -295,7 +316,15 @@ h2 {
   align-items: end;
   gap: 32px;
   margin-top: 32px;
-  opacity: 0;
+  /* Part of the opening: in place a moment after the quote, no scrolling needed. */
+  animation: hero-row 900ms var(--ease-out) 2000ms backwards;
+}
+
+@keyframes hero-row {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 .hero__row p {
@@ -309,43 +338,6 @@ h2 {
   color: var(--silver);
   font: italic 400 18px / 1.3 var(--serif-text);
   animation: hero-fade 900ms var(--ease-out) 2300ms backwards;
-}
-
-/* Keyboard users can reach the links before the scroll reveals them: show them as soon as one is focused. */
-.hero__row:focus-within {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* Calls to action as underlined text links, quiet next to the quote. */
-.hero__link {
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(232, 237, 247, 0.9);
-  color: var(--ice);
-  font: 500 16px var(--sans);
-  text-decoration: none;
-  transition:
-    color 200ms ease,
-    border-color 200ms ease;
-}
-
-.hero__link--quiet {
-  color: var(--silver);
-  border-bottom-color: rgba(188, 200, 230, 0.4);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero__link:hover {
-    color: #fff;
-    border-bottom-color: #fff;
-  }
-}
-
-.hero__ctas {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  flex-wrap: wrap;
 }
 
 /* Scroll cue: a hairline with light running down it, gone once you start scrolling. */
@@ -419,12 +411,6 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero {
-    height: auto;
-  }
-  .hero__pin {
-    position: relative;
-  }
   .hero__photo {
     --color: 1;
   }
@@ -492,7 +478,8 @@ h2 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 10vh;
+  /* Starts its 40px rise above the sponsor block's strip. */
+  bottom: max(10vh, calc(var(--cta-clear) + 40px));
   z-index: 1;
   opacity: 0;
 }
@@ -566,7 +553,7 @@ h2 {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 9vh;
+  bottom: max(9vh, var(--cta-clear));
   z-index: 2;
 }
 
@@ -609,7 +596,7 @@ h2 {
   }
   /* Clear the sticky sponsor bar along the bottom edge. */
   .scene__copy {
-    bottom: calc(5vh + 76px);
+    bottom: calc(2vh + var(--cta-clear));
   }
   .scene__copy .wrap {
     grid-template-columns: 1fr;
@@ -739,7 +726,8 @@ h2 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 7vh;
+  padding-top: 5vh;
+  padding-bottom: var(--cta-clear);
 }
 
 .tiers__head h2 {
@@ -793,7 +781,7 @@ h2 {
 .tiers__rail {
   display: flex;
   flex: 1;
-  margin-top: 4vh;
+  margin-top: 2.5vh;
   padding-left: max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
   will-change: transform;
 }
@@ -830,7 +818,7 @@ h2 {
 
 .pkg__price {
   margin-top: 8px;
-  font: 300 clamp(40px, min(5.6vw, 9.5vh), 96px) / 1 var(--display);
+  font: 300 clamp(40px, min(5.6vw, 8vh), 96px) / 1 var(--display);
   letter-spacing: -0.04em;
 }
 
@@ -844,7 +832,7 @@ h2 {
 .pkg ul {
   list-style: none;
   padding: 0;
-  margin-top: 2.4vh;
+  margin-top: 1.6vh;
   border-top: 1px solid var(--rule);
 }
 
@@ -852,7 +840,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding: calc(0.45vh + 1px) 0;
+  padding: calc(0.3vh + 1px) 0;
   border-bottom: 1px solid var(--rule);
   font-size: clamp(13px, 1.9vh, 16px);
   line-height: 1.45;
@@ -874,7 +862,7 @@ h2 {
 
 .pkg .btn {
   height: clamp(38px, 5.4vh, 48px);
-  margin-top: 2vh;
+  margin-top: 1.4vh;
 }
 
 /* Phones and reduced motion: the tiers stack and nothing pins. */
@@ -1330,6 +1318,8 @@ h2 {
 .hero:not(.hero--ready) .hero__when,
 .hero:not(.hero--ready) .hero__word,
 .hero:not(.hero--ready) .hero__cite,
+.hero:not(.hero--ready) .hero__solid,
+.hero:not(.hero--ready) .hero__row,
 .hero:not(.hero--ready) .hero__cue {
   animation-play-state: paused;
 }
@@ -1365,6 +1355,8 @@ h2 {
   .hero__photo .duo,
   .hero__photo .duo img,
   .hero__cite,
+  .hero__solid,
+  .hero__row,
   .hero__mark,
   .hero__when,
   .hero__word,
@@ -1429,7 +1421,7 @@ h2 {
 }
 
 .role__frame {
-  height: 44vh;
+  height: calc(44vh - var(--cta-clear) * 0.6);
 }
 
 .roles--pinned .role h3 {
@@ -1437,8 +1429,10 @@ h2 {
 }
 
 /* ─── Sticky sponsor actions ─────────────────────────────────────── */
-/* Pinned to the bottom of the screen between the hero and the form. */
+/* Pinned to the bottom of the screen from the start; it hides only at the form.
+   On load it arrives with the rest of the hero's opening. */
 .sticky-cta {
+  animation: hero-row 900ms var(--ease-out) 2000ms backwards;
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -1471,8 +1465,15 @@ h2 {
   padding: 0 20px;
 }
 
-/* Phones: a full-width bar along the bottom edge, buttons sharing the space. */
+/* Phones: a full-width bar along the bottom edge, buttons sharing the space.
+   It takes over from the scroll cue, which would sit behind it. */
 @media (max-width: 760px) {
+  :root {
+    --cta-clear: 88px;
+  }
+  .hero__cue {
+    display: none;
+  }
   .sticky-cta {
     left: 12px;
     right: 12px;
@@ -1486,6 +1487,7 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   .sticky-cta {
+    animation: none;
     transform: none;
     transition: opacity 150ms ease;
   }

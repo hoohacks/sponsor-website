@@ -8,13 +8,14 @@ describe("Hero", () => {
     expect(screen.getByRole("heading", { level: 1, name: "The illimitable freedom of the human mind." })).toBeInTheDocument();
   });
 
-  it("says what HooHacks is and links to packages and the form", () => {
+  it("says what HooHacks is, leaving the sponsor buttons to the sticky block", () => {
     render(<Hero />);
     expect(
       screen.getByText("HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes."),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Become a sponsor" })).toHaveAttribute("href", "#contact");
-    expect(screen.getByRole("link", { name: "See packages" })).toHaveAttribute("href", "#tiers");
+    // The sponsor buttons live in the sticky block, not in the hero.
+    expect(screen.queryByRole("link", { name: "Become a sponsor" })).toBeNull();
+    expect(screen.queryByRole("link", { name: "See packages" })).toBeNull();
   });
 
   it("shows when and where", () => {
@@ -50,5 +51,27 @@ describe("Hero", () => {
   it("credits the quote to Jefferson", () => {
     render(<Hero />);
     expect(screen.getByText("Thomas Jefferson")).toBeInTheDocument();
+  });
+
+  it("shows the sponsor line and links from the start, without waiting for a scroll", async () => {
+    const { container } = render(<Hero />);
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(r));
+    });
+    const row = container.querySelector<HTMLElement>(".hero__row")!;
+    expect(row.style.opacity).toBe("");
+    expect(row.style.transform).toBe("");
+  });
+
+  it("doesn't tie the headline fill or the photo's color to scrolling", async () => {
+    const { container } = render(<Hero />);
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(r));
+    });
+    expect(container.querySelector<HTMLElement>(".hero__solid")!.style.clipPath).toBe("");
+    expect(container.querySelector<HTMLElement>(".hero__photo")!.style.transform).toBe("");
+    expect(container.querySelector<HTMLElement>(".hero__photo")!.style.getPropertyValue("--color")).toBe("");
   });
 });
