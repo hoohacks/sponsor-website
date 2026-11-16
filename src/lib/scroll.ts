@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 
 export const REDUCED = "(prefers-reduced-motion: reduce)";
 export const PHONE = "(max-width: 760px)";
+/** Too short to pin the packages, like a phone on its side. */
+export const SHORT = "(max-height: 600px)";
 
 export const clamp = (v: number) => Math.max(0, Math.min(1, v));
 export const ease = (t: number) => 1 - Math.pow(1 - t, 3);

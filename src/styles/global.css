@@ -253,7 +253,7 @@ h2 {
 .hero__title {
   position: relative;
   max-width: 11ch;
-  font: 600 clamp(56px, 9.6vw, 164px) / 0.9 var(--display);
+  font: 600 clamp(40px, min(9.6vw, 15vh), 164px) / 0.9 var(--display);
   letter-spacing: -0.05em;
 }
 
@@ -316,6 +316,29 @@ h2 {
 @keyframes cue {
   to {
     top: 100%;
+  }
+}
+
+/* Short, wide screens (a phone on its side): tighter hero so nothing runs off the top. */
+@media (max-height: 500px) and (min-width: 761px) {
+  .hero__copy {
+    bottom: 6vh;
+  }
+  .hero__title {
+    font-size: 12vh;
+  }
+  .hero__when {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .hero__row {
+    margin-top: 14px;
+  }
+  .hero__row p {
+    font-size: 15px;
+  }
+  .hero__cue {
+    display: none;
   }
 }
 
@@ -636,7 +659,11 @@ h2 {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 9vh;
+  padding-top: 7vh;
+}
+
+.tiers__head h2 {
+  font-size: clamp(36px, min(5.6vw, 9vh), 88px);
 }
 
 .tiers__pin > :not(.ridges) {
@@ -686,7 +713,7 @@ h2 {
 .tiers__rail {
   display: flex;
   flex: 1;
-  margin-top: 6vh;
+  margin-top: 4vh;
   padding-left: max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
   will-change: transform;
 }
@@ -723,20 +750,21 @@ h2 {
 
 .pkg__price {
   margin-top: 8px;
-  font: 300 clamp(56px, 5.6vw, 96px) / 1 var(--display);
+  font: 300 clamp(40px, min(5.6vw, 9.5vh), 96px) / 1 var(--display);
   letter-spacing: -0.05em;
 }
 
 .pkg__pitch {
   max-width: 34ch;
-  margin-top: 12px;
+  margin-top: 1.4vh;
   color: var(--silver);
+  font-size: clamp(15px, 2.2vh, 18px);
 }
 
 .pkg ul {
   list-style: none;
   padding: 0;
-  margin-top: 22px;
+  margin-top: 2.4vh;
   border-top: 1px solid var(--rule);
 }
 
@@ -744,9 +772,10 @@ h2 {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding: 6px 0;
+  padding: calc(0.45vh + 1px) 0;
   border-bottom: 1px solid var(--rule);
-  font-size: 16px;
+  font-size: clamp(13px, 1.9vh, 16px);
+  line-height: 1.45;
 }
 
 .pkg li em {
@@ -758,13 +787,14 @@ h2 {
 }
 
 .pkg__base {
-  margin-top: 16px;
+  margin-top: 1.6vh;
   color: var(--mist);
   font-size: 15px;
 }
 
 .pkg .btn {
-  margin-top: 20px;
+  height: clamp(38px, 5.4vh, 48px);
+  margin-top: 2vh;
 }
 
 /* Phones and reduced motion: the tiers stack and nothing pins. */
