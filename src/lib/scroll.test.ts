@@ -2,7 +2,7 @@ import { act, render } from "@testing-library/react";
 import { createElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ridgeLines, toPath } from "./ridges";
-import { enterProgress, pinProgress, REDUCED, throughProgress, useScrollFrame } from "./scroll";
+import { enterProgress, pinProgress, railDistance, REDUCED, throughProgress, useScrollFrame } from "./scroll";
 
 describe("scroll progress", () => {
   it("pin progress runs 0 to 1 across the extra height", () => {
@@ -42,6 +42,12 @@ describe("ridges", () => {
     expect((first.length - 1) * 12).toBeGreaterThanOrEqual(1300);
   });
 
+  it("stay smooth on a narrow phone screen", () => {
+    const h = 400;
+    for (const ys of ridgeLines({ width: 390, height: h, layers: 6, seed: 11 }))
+      for (let k = 1; k < ys.length; k++) expect(Math.abs(ys[k] - ys[k - 1])).toBeLessThan(h * 0.02);
+  });
+
   it("turn into an SVG path", () => {
     expect(toPath([10, 20.25, 30])).toBe("M0 10L12 20.3L24 30");
   });
@@ -77,5 +83,17 @@ describe("useScrollFrame", () => {
       await new Promise((r) => requestAnimationFrame(r));
     });
     expect(cb).not.toHaveBeenCalled();
+  });
+});
+
+describe("railDistance", () => {
+  it("stops with the last tier at the rail's starting edge", () => {
+    // Rail starts 118px in; five 608px columns; the last one is 560px wide plus its right padding.
+    const starts = [118, 726, 1334, 1942, 2550];
+    expect(railDistance(starts, 118)).toBe(2550 - 118);
+  });
+
+  it("never travels backwards", () => {
+    expect(railDistance([118], 118)).toBe(0);
   });
 });

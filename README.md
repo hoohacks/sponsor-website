@@ -16,7 +16,7 @@ npm run dev
 
 ## Where things live
 
-- `src/content.ts`: everything that changes each year (date, stats, tiers, benefits, add-ons, photos, past sponsors). Most yearly updates only touch this file.
+- `src/content.ts`: everything that changes each year (date, stats, tiers, benefits, add-ons, photos, past sponsors, and the weekend schedule times). Most yearly updates only touch this file.
 - `src/components/`: one component per page section.
 - `src/lib/inquiry.ts`: form validation and the Firestore write. Its limits match the `sponsorInquiries` rule in HackX.
 - `public/`: photos (WebP at 800 and 1600 wide), trimmed sponsor logos, and the packet PDF.

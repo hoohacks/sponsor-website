@@ -110,26 +110,14 @@ export const addOns = [
 /** Photo base names in /public/img, each available as -800.webp and -1600.webp. Mostly HooHacks 2026. */
 export type Photo =
   | "hall"
-  | "booth"
-  | "booth-chat"
   | "fair-crowd"
-  | "team-desk"
   | "late-night"
   | "judging"
   | "winners-stage"
-  | "lettuce"
+  | "booth-chat"
+  | "speaker"
   | "award-handshake"
-  | "crowd-smiles"
-  | "opening-crowd"
-  | "booth-talk"
-  | "balloon-group"
-  | "countdown-team"
-  | "pizza-team"
-  | "happy-hacking"
-  | "winners-team"
-  | "team-peace"
-  | "atrium"
-  | "speaker";
+  | "opening-crowd";
 
 // TODO(confirm): times are placeholders from the prototype; replace with the real 2026 schedule.
 export const weekend: { photo: Photo; day: string; time: string; title: string; body: string }[] = [

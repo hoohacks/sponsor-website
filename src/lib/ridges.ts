@@ -20,7 +20,8 @@ export function ridgeLines({ width, height: h, layers, seed, step = 12 }: RidgeO
   for (let i = 0; i < layers; i++) {
     const base = h * (0.3 + (0.62 * i) / Math.max(1, layers - 1));
     const tall = h * 0.15 * (1 - i * 0.09);
-    const wave = (turns: number) => [(turns * 2 * Math.PI) / span, random() * 6.28] as const;
+    // Hills keep a real-world size: a phone sees a slice of gentle ridges, not squeezed ones.
+    const wave = (turns: number) => [(turns * 2 * Math.PI) / Math.max(span, 1400), random() * 6.28] as const;
     const [f1, p1] = wave(1.2 + random() * 1.1);
     const [f2, p2] = wave(3.5 + random() * 2);
     const [f3, p3] = wave(10 + random() * 6);

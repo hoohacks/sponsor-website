@@ -512,6 +512,9 @@ h2 {
 }
 
 @media (max-width: 760px) {
+  .stats__next br {
+    display: none;
+  }
   .scene__copy .wrap {
     grid-template-columns: 1fr;
   }
@@ -1220,5 +1223,18 @@ h2 {
   }
   .footer__brand {
     grid-column: 1 / -1;
+  }
+}
+
+/* Reduced motion on a wide screen: the stacked tiers sit in a grid, not one narrow column. */
+@media (min-width: 761px) {
+  .tiers--stacked .tiers__rail {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 56px 48px;
+  }
+  .tiers--stacked .pkg {
+    border-bottom: 0;
+    padding-bottom: 0;
   }
 }

@@ -4,6 +4,7 @@ import { formatPrice } from "../lib/format";
 import {
   PHONE,
   pinProgress,
+  railDistance,
   REDUCED,
   scrollToPin,
   useMediaQuery,
@@ -20,6 +21,15 @@ interface Props {
 }
 
 const LAST = tiers.length - 1;
+
+/** Sideways travel for the rail: until Diamond reaches where Bronze starts. */
+function travel(rail: HTMLElement) {
+  const kids = [...rail.children] as HTMLElement[];
+  return railDistance(
+    kids.map((k) => k.offsetLeft),
+    kids[0]?.offsetLeft ?? 0,
+  );
+}
 
 /**
  * The five packages. On a laptop the section pins and the tiers pass by
@@ -44,7 +54,7 @@ export function Tiers({ onAsk }: Props) {
     const size = () => {
       const r = rail.current;
       if (r)
-        el.style.height = `${Math.max(0, r.scrollWidth - innerWidth * 0.55) + innerHeight}px`;
+        el.style.height = `${travel(r) + innerHeight}px`;
     };
     size();
     addEventListener("resize", size);
@@ -58,7 +68,7 @@ export function Tiers({ onAsk }: Props) {
   useScrollFrame(() => {
     if (stacked || !track.current || !rail.current) return;
     const p = pinProgress(track.current.getBoundingClientRect(), innerHeight);
-    rail.current.style.transform = `translateX(${-p * Math.max(0, rail.current.scrollWidth - innerWidth * 0.55)}px)`;
+    rail.current.style.transform = `translateX(${-p * travel(rail.current)}px)`;
     const i = Math.round(p * LAST);
     setActive((a) => (a === i ? a : i));
   });
