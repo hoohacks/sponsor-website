@@ -295,7 +295,15 @@ h2 {
   align-items: end;
   gap: 32px;
   margin-top: 32px;
-  opacity: 0;
+  /* Part of the opening: in place a moment after the quote, no scrolling needed. */
+  animation: hero-row 900ms var(--ease-out) 2000ms backwards;
+}
+
+@keyframes hero-row {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 .hero__row p {
@@ -1330,6 +1338,7 @@ h2 {
 .hero:not(.hero--ready) .hero__when,
 .hero:not(.hero--ready) .hero__word,
 .hero:not(.hero--ready) .hero__cite,
+.hero:not(.hero--ready) .hero__row,
 .hero:not(.hero--ready) .hero__cue {
   animation-play-state: paused;
 }
@@ -1365,6 +1374,7 @@ h2 {
   .hero__photo .duo,
   .hero__photo .duo img,
   .hero__cite,
+  .hero__row,
   .hero__mark,
   .hero__when,
   .hero__word,

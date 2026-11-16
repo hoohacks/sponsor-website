@@ -30,7 +30,6 @@ export function Hero() {
   const section = useRef<HTMLElement>(null);
   const photo = useRef<HTMLDivElement>(null);
   const solid = useRef<HTMLSpanElement>(null);
-  const row = useRef<HTMLDivElement>(null);
   const cue = useRef<HTMLDivElement>(null);
   // The opening plays once the hall photo is ready, so the curtain never opens on an empty screen.
   // If the photo is slow, it plays anyway after a moment.
@@ -43,14 +42,11 @@ export function Hero() {
   }, []);
 
   useScrollFrame(() => {
-    if (!section.current || !photo.current || !solid.current || !row.current || !cue.current) return;
+    if (!section.current || !photo.current || !solid.current || !cue.current) return;
     const p = pinProgress(section.current.getBoundingClientRect(), innerHeight);
     photo.current.style.transform = `scale(${lerp(1.14, 1, ease(p))})`;
     photo.current.style.setProperty("--color", String(clamp((p - 0.1) / 0.6)));
     solid.current.style.clipPath = `inset(0 ${100 - inOut(clamp(p / 0.7)) * 100}% 0 0)`;
-    const r = ease(clamp((p - 0.68) / 0.22));
-    row.current.style.opacity = String(r);
-    row.current.style.transform = `translateY(${(1 - r) * 20}px)`;
     cue.current.style.opacity = String(1 - clamp(p / 0.06));
   });
 
@@ -82,7 +78,7 @@ export function Hero() {
               </span>
             </h1>
             <p className="hero__cite">Thomas Jefferson</p>
-            <div className="hero__row" ref={row}>
+            <div className="hero__row">
               <p>HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes.</p>
               <div className="hero__ctas">
                 <a className="hero__link" href="#contact">

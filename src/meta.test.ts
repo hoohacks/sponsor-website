@@ -54,4 +54,9 @@ describe("fonts", () => {
       expect(css).not.toContain(old);
     }
   });
+
+  it("doesn't hide the hero's sponsor line until a scroll", () => {
+    const rule = css.match(/\n\.hero__row\s*\{([^}]*)\}/)?.[1] ?? "";
+    expect(rule).not.toMatch(/opacity:\s*0/);
+  });
 });

@@ -51,4 +51,15 @@ describe("Hero", () => {
     render(<Hero />);
     expect(screen.getByText("Thomas Jefferson")).toBeInTheDocument();
   });
+
+  it("shows the sponsor line and links from the start, without waiting for a scroll", async () => {
+    const { container } = render(<Hero />);
+    await act(async () => {
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(r));
+    });
+    const row = container.querySelector<HTMLElement>(".hero__row")!;
+    expect(row.style.opacity).toBe("");
+    expect(row.style.transform).toBe("");
+  });
 });
