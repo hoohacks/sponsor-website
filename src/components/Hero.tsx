@@ -80,7 +80,7 @@ export function Hero() {
                 <Words />
               </span>
             </h1>
-            <p className="hero__cite">Thomas Jefferson, on founding the University of Virginia, 1820</p>
+            <p className="hero__cite">Thomas Jefferson</p>
             <div className="hero__row" ref={row}>
               <p>HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes.</p>
               <div className="hero__ctas">

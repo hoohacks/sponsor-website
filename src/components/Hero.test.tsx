@@ -49,6 +49,6 @@ describe("Hero", () => {
 
   it("credits the quote to Jefferson", () => {
     render(<Hero />);
-    expect(screen.getByText("Thomas Jefferson, on founding the University of Virginia, 1820")).toBeInTheDocument();
+    expect(screen.getByText("Thomas Jefferson")).toBeInTheDocument();
   });
 });
