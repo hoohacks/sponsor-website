@@ -619,3 +619,348 @@ h2 {
     --color: 1;
   }
 }
+
+/* ─── Sponsorship packages ───────────────────────────────────────── */
+/* Pinned: the tiers pass by sideways. The night keeps lightening behind them. */
+.tiers {
+  background: linear-gradient(180deg, #101c46 0%, #172660 55%, #26397a 100%);
+}
+
+.tiers__pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: 9vh;
+}
+
+.tiers__pin > :not(.ridges) {
+  position: relative;
+  z-index: 1;
+}
+
+.tiers__ridges {
+  bottom: 0;
+  height: 30vh;
+  --lc: #c9d5f2;
+  --lo: 0.55;
+}
+
+.tiers__head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+}
+
+.tiers__names {
+  display: flex;
+  gap: 22px;
+  font-size: 15px;
+}
+
+.tiers__names button,
+.tiers__names a {
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  color: var(--mist);
+  text-decoration: none;
+  transition:
+    color 300ms,
+    border-color 300ms;
+}
+
+.tiers__names [aria-current] {
+  color: var(--ice);
+  border-bottom-color: var(--ice);
+}
+
+.tiers__rail {
+  display: flex;
+  flex: 1;
+  margin-top: 6vh;
+  padding-left: max(var(--pad), calc((100vw - var(--wrap)) / 2 + var(--pad)));
+  will-change: transform;
+}
+
+.pkg {
+  flex: none;
+  width: min(560px, 80vw);
+  margin-right: 48px;
+  padding-right: 48px;
+  border-right: 1px solid var(--rule);
+  opacity: 0.35;
+  transition: opacity 400ms;
+}
+
+.pkg[data-on] {
+  opacity: 1;
+}
+
+.pkg__name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--silver);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.pkg__name i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.pkg__price {
+  margin-top: 8px;
+  font: 300 clamp(56px, 5.6vw, 96px) / 1 var(--display);
+  letter-spacing: -0.05em;
+}
+
+.pkg__pitch {
+  max-width: 34ch;
+  margin-top: 12px;
+  color: var(--silver);
+}
+
+.pkg ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 22px;
+  border-top: 1px solid var(--rule);
+}
+
+.pkg li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 16px;
+}
+
+.pkg li em {
+  font-style: normal;
+  color: var(--mist);
+  font-size: 14px;
+  text-align: right;
+  max-width: 45%;
+}
+
+.pkg__base {
+  margin-top: 16px;
+  color: var(--mist);
+  font-size: 15px;
+}
+
+.pkg .btn {
+  margin-top: 20px;
+}
+
+/* Phones and reduced motion: the tiers stack and nothing pins. */
+.tiers--stacked .tiers__pin {
+  position: relative;
+  height: auto;
+  overflow: visible;
+  padding: 16vh 0 4vh;
+}
+
+.tiers--stacked .tiers__head {
+  flex-direction: column;
+  align-items: start;
+}
+
+.tiers--stacked .tiers__names {
+  flex-wrap: wrap;
+}
+
+.tiers--stacked .tiers__rail {
+  flex-direction: column;
+  gap: 56px;
+  padding: 0 var(--pad);
+  margin: 6vh auto 0;
+  max-width: var(--wrap);
+  transform: none !important;
+}
+
+.tiers--stacked .pkg {
+  width: auto;
+  margin: 0;
+  padding: 0 0 56px;
+  border-right: 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Compare and à la carte, below the rail. */
+.tiers__more {
+  padding-top: 8vh;
+  padding-bottom: 18vh;
+}
+
+.compare summary {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 0;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ice);
+}
+
+.compare summary::-webkit-details-marker {
+  display: none;
+}
+
+.compare summary::after {
+  content: "+";
+  font-size: 20px;
+  line-height: 1;
+}
+
+.compare[open] summary::after {
+  content: "–";
+}
+
+.compare__scroll {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.compare table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.compare th,
+.compare td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  text-align: center;
+  font-weight: 400;
+}
+
+.compare th:first-child,
+.compare td:first-child {
+  padding-left: 0;
+  text-align: left;
+}
+
+.compare thead th {
+  font-weight: 600;
+}
+
+.compare thead span {
+  display: block;
+  color: var(--mist);
+  font-weight: 400;
+}
+
+.compare__group th {
+  padding-top: 24px;
+  color: var(--silver);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.compare__yes {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ice);
+}
+
+.compare__no {
+  color: var(--mist);
+}
+
+.addons {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 56px;
+  margin-top: 10vh;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+
+.addons h3 {
+  font: 500 32px / 1.1 var(--display);
+  letter-spacing: -0.03em;
+}
+
+.addons > div > p {
+  max-width: 32ch;
+  margin-top: 10px;
+  color: var(--mist);
+  font-size: 16px;
+}
+
+.addons__groups {
+  display: grid;
+  gap: 32px;
+}
+
+.addons h4 {
+  margin-bottom: 4px;
+  color: var(--silver);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.addons ul {
+  list-style: none;
+  padding: 0;
+}
+
+.addons li {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.addons__name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.addons__req {
+  flex: 1;
+  color: var(--mist);
+  font-size: 14px;
+}
+
+.addons__price {
+  font-size: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .addons {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .addons li {
+    flex-wrap: wrap;
+    row-gap: 2px;
+  }
+  .addons__name {
+    flex: 1;
+  }
+  .addons__req {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
