@@ -964,3 +964,55 @@ h2 {
     flex-basis: 100%;
   }
 }
+
+/* ─── Past sponsors ──────────────────────────────────────────────── */
+/* Dawn: the sky turns blue, then pale. Logos stay white on the blue middle. */
+.sponsors {
+  position: relative;
+  overflow: hidden;
+  padding: 20vh 0;
+  background: linear-gradient(180deg, #26397a 0%, #4f629c 55%, #9fafd6 88%, #c9d3eb 100%);
+}
+
+.sponsors > :not(.ridges) {
+  position: relative;
+  z-index: 1;
+}
+
+.sponsors__ridges {
+  bottom: 0;
+  height: 60%;
+  --lc: var(--day-ink);
+}
+
+.sponsors__row {
+  display: flex;
+  align-items: center;
+  gap: 96px;
+  width: max-content;
+  margin-top: 64px;
+  will-change: transform;
+}
+
+.sponsors__row + .sponsors__row {
+  margin-top: 56px;
+}
+
+.sponsors__row img {
+  flex: none;
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsors__row {
+    width: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 64px;
+    padding: 0 var(--pad);
+  }
+  .sponsors__row img[aria-hidden] {
+    display: none;
+  }
+}
