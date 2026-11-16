@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
-const HEADLINE = "For the illimitable mind.";
+// Jefferson on founding the University of Virginia, letter to William Roscoe, 1820.
+const HEADLINE = "This institution will be based on the illimitable freedom of the human mind.";
 
 /** The headline as separate words, so each can rise in when the page opens. */
 const Words = () => (
@@ -79,13 +80,14 @@ export function Hero() {
                 <Words />
               </span>
             </h1>
+            <p className="hero__cite">Thomas Jefferson, on founding the University of Virginia, 1820</p>
             <div className="hero__row" ref={row}>
               <p>HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes.</p>
               <div className="hero__ctas">
-                <a className="btn" href="#contact">
+                <a className="hero__link" href="#contact">
                   Become a sponsor
                 </a>
-                <a className="btn btn--ghost" href="#tiers">
+                <a className="hero__link hero__link--quiet" href="#tiers">
                   See packages
                 </a>
               </div>
