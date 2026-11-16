@@ -53,11 +53,11 @@ export const stats = {
 };
 
 export const tiers: Tier[] = [
-  { id: "bronze", name: "Bronze", price: 1000, color: "#B8763E", pitch: "A simple way to support the event and get in front of hackers." },
-  { id: "silver", name: "Silver", price: 3000, color: "#A9B1C0", pitch: "Meet students in person at the fair and the sponsor lounge." },
-  { id: "gold", name: "Gold", price: 5000, color: "#D4A72C", pitch: "Add recruiting with the resume book and social reach." },
-  { id: "platinum", name: "Platinum", price: 10000, color: "#6E8FE0", pitch: "Teach, award a prize, and reach every attendee after the event." },
-  { id: "diamond", name: "Diamond", price: 15000, color: "#E26DAE", pitch: "The full weekend: your own track, the keynote, and coffee chats." },
+  { id: "bronze", name: "Bronze", price: 1000, color: "#B8763E", pitch: "Support the event, send mentors and judges, and put your logo on the website." },
+  { id: "silver", name: "Silver", price: 3000, color: "#A9B1C0", pitch: "Adds a table at the sponsorship fair, the sponsor lounge, and your logo on the T-shirt." },
+  { id: "gold", name: "Gold", price: 5000, color: "#D4A72C", pitch: "Adds the resume book and a social media shoutout." },
+  { id: "platinum", name: "Platinum", price: 10000, color: "#6E8FE0", pitch: "Adds a workshop, a sponsored prize, and an email to all attendees after the event." },
+  { id: "diamond", name: "Diamond", price: 15000, color: "#E26DAE", pitch: "Adds your own competition track, the keynote, and coffee chats with students." },
 ];
 
 const from = (first: number): Benefit["cells"] =>
@@ -145,18 +145,19 @@ export const heroPhotos: { photo: Photo; alt: string }[] = [
   { photo: "winners-team", alt: "A winning team posing on stage" },
 ];
 
-export const weekend: { photo: Photo; when: string; title: string; body: string }[] = [
-  { photo: "hall", when: "Kickoff", title: "Opening ceremony", body: "Hundreds of hackers pack the hall. Sponsors introduce themselves and their challenges." },
-  { photo: "fair-crowd", when: "First afternoon", title: "Sponsorship fair", body: "Students make the rounds, ask about internships, and pick which APIs to build on." },
-  { photo: "late-night", when: "Overnight", title: "Heads down", body: "Teams build through the night. Mentors make rounds and unblock the hard problems." },
-  { photo: "judging", when: "Final morning", title: "Demos", body: "Every team shows what they made. Judges walk the floor and ask the tough questions." },
-  { photo: "winners-stage", when: "Closing", title: "Awards", body: "Winners are named on stage, and sponsor prizes go to the projects that earned them." },
+// TODO(confirm): times are placeholders from the prototype; replace with the real 2026 schedule.
+export const weekend: { photo: Photo; when: string; day: string; time: string; title: string; body: string }[] = [
+  { photo: "hall", when: "Kickoff", day: "Saturday", time: "12:30 PM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
+  { photo: "fair-crowd", when: "First afternoon", day: "Saturday", time: "2:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
+  { photo: "late-night", when: "Overnight", day: "Overnight", time: "3:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
+  { photo: "judging", when: "Final morning", day: "Sunday", time: "9:00 AM", title: "Demos", body: "Each team presents its project to the judges." },
+  { photo: "winners-stage", when: "Closing", day: "Sunday", time: "11:00 AM", title: "Awards", body: "Winners are announced on stage, including the sponsor prizes." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [
-  { photo: "booth-chat", alt: "Sponsor representatives talking with a crowd of students", title: "Meet students", body: "Talk to hackers at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
-  { photo: "speaker", alt: "A speaker talking to a full lecture hall", title: "Teach something", body: "Run a workshop or give the keynote. Hackers remember the companies that taught them something.", tag: "Platinum and up" },
-  { photo: "award-handshake", alt: "A judge congratulating a winning team on stage", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a whole track built around your product.", tag: "All tiers" },
+  { photo: "booth-chat", alt: "Sponsor representatives talking with a crowd of students", title: "Meet students", body: "Talk with students at the sponsorship fair, hand out swag, and follow up with the resume book.", tag: "Silver and up" },
+  { photo: "speaker", alt: "A speaker talking to a full lecture hall", title: "Run a workshop", body: "Teach a technical workshop, or give the keynote at Diamond.", tag: "Platinum and up" },
+  { photo: "award-handshake", alt: "A judge congratulating a winning team on stage", title: "Judge and award", body: "Send mentors and judges, sponsor a prize, or run a competition track at Diamond.", tag: "Every tier" },
 ];
 
 /** Past sponsors. `ratio` is the trimmed logo's width / height, used for equal-area sizing. */
