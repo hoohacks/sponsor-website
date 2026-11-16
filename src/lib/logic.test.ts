@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { benefits, tiers } from "../content";
 import { formatPrice, formatPriceShort, logoSize } from "./format";
-import { benefitsForTier } from "./tiers";
+import { addedAtTier, benefitsForTier } from "./tiers";
 import { CHARLOTTESVILLE, insideUS, projectUS, randomUSPoint } from "./crowd";
 import { LIMITS, validateInquiry } from "./inquiry";
 
@@ -106,5 +106,31 @@ describe("validateInquiry", () => {
     const r = validateInquiry({ ...ok, website: "http://spam.example" });
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.spam).toBe(true);
+  });
+});
+
+describe("addedAtTier", () => {
+  it("lists every benefit at Bronze", () => {
+    expect(addedAtTier(benefits, 0)).toEqual(benefitsForTier(benefits, 0));
+  });
+
+  it("lists only what Gold adds over Silver", () => {
+    expect(addedAtTier(benefits, 2).map((b) => b.label)).toEqual(["Social media shoutout", "Resume book"]);
+  });
+
+  it("includes upgrades, like the large logo at Platinum", () => {
+    expect(addedAtTier(benefits, 3).find((b) => b.label === "Logo on the website")?.change).toBe("upgraded");
+  });
+});
+
+describe("copy", () => {
+  it("uses the plain tier summaries", () => {
+    expect(tiers.map((t) => t.pitch)).toEqual([
+      "Support the event, send mentors and judges, and put your logo on the website.",
+      "Adds a table at the sponsorship fair, the sponsor lounge, and your logo on the T-shirt.",
+      "Adds the resume book and a social media shoutout.",
+      "Adds a workshop, a sponsored prize, and an email to all attendees after the event.",
+      "Adds your own competition track, the keynote, and coffee chats with students.",
+    ]);
   });
 });

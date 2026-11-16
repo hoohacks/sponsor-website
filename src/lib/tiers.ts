@@ -20,3 +20,9 @@ export function benefitsForTier(groups: BenefitGroup[], tierIndex: number): Incl
       return { label: b.label, detail: typeof cell === "string" ? cell : null, change };
     });
 }
+
+/** What a tier adds or improves over the one below. At Bronze, that's everything it includes. */
+export function addedAtTier(groups: BenefitGroup[], tierIndex: number): IncludedBenefit[] {
+  const all = benefitsForTier(groups, tierIndex);
+  return tierIndex === 0 ? all : all.filter((b) => b.change !== null);
+}
