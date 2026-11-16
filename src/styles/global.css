@@ -9,7 +9,7 @@
   --mist: #8e9ab9;
   --silver: #bcc8e6;
   --rule: rgba(232, 237, 247, 0.12);
-  /* Morning (contact and footer). */
+  /* Morning (the contact section). */
   --day-ink: #0a1330;
   --day-muted: #4a5677;
 
@@ -1191,75 +1191,10 @@ h2 {
   color: var(--day-muted);
 }
 
-/* ─── Footer (morning) ───────────────────────────────────────────── */
-.footer {
-  padding: 0 0 48px;
-  background: #e8edf7;
-  color: var(--day-muted);
-  font-size: 15px;
-}
-
-.footer__top {
-  padding-top: 48px;
-  border-top: 1px solid rgba(10, 19, 48, 0.12);
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 32px;
-}
-
-.footer__brand p {
-  margin-top: 14px;
-  max-width: 32ch;
-}
-
-.footer__col {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-}
-
-.footer__col h2 {
-  margin-bottom: 4px;
-  font: 600 14px "Funnel Sans", system-ui, sans-serif;
-  letter-spacing: 0;
-  color: var(--day-ink);
-}
-
-.footer a {
-  color: var(--day-muted);
-  text-decoration: none;
-}
-
-.footer a:hover {
-  color: var(--day-ink);
-}
-
-.footer__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-top: 48px;
-  font-size: 14px;
-}
-
-.footer__socials {
-  display: flex;
-  gap: 16px;
-  list-style: none;
-  padding: 0;
-}
-
 @media (max-width: 760px) {
   .contact__grid,
   .form__row {
     grid-template-columns: 1fr;
-  }
-  .footer__top {
-    grid-template-columns: 1fr 1fr;
-  }
-  .footer__brand {
-    grid-column: 1 / -1;
   }
 }
 
