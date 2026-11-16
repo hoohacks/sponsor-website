@@ -42,7 +42,8 @@ describe("App", () => {
     const { container } = render(<App />);
     const rising = (sel: string) => container.querySelectorAll(`${sel} [data-rise]`).length;
     expect(rising("#weekend")).toBeGreaterThanOrEqual(10);
-    expect(rising("#roles")).toBeGreaterThanOrEqual(4);
+    // Ways to get involved runs its own pinned triptych on wide screens.
+    expect(container.querySelectorAll("#roles .roles__slat")).toHaveLength(3);
     expect(rising("#tiers")).toBeGreaterThanOrEqual(7);
     expect(rising("#sponsors")).toBeGreaterThanOrEqual(1);
     expect(rising("#contact")).toBeGreaterThanOrEqual(2);

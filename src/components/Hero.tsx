@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/scroll";
 import { DuoPhoto } from "./DuoPhoto";
 
@@ -9,8 +9,11 @@ const Words = () => (
   <>
     {HEADLINE.split(" ").map((w, i) => (
       <span key={i}>
-        <span className="hero__word" style={{ "--w": i } as CSSProperties}>
-          {w}
+        {/* Each word slides up from behind its own mask when the page opens. */}
+        <span className="hero__mask">
+          <span className="hero__word" style={{ "--w": i } as CSSProperties}>
+            {w}
+          </span>
         </span>{" "}
       </span>
     ))}
@@ -27,6 +30,15 @@ export function Hero() {
   const solid = useRef<HTMLSpanElement>(null);
   const row = useRef<HTMLDivElement>(null);
   const cue = useRef<HTMLDivElement>(null);
+  // The opening plays once the hall photo is ready, so the curtain never opens on an empty screen.
+  // If the photo is slow, it plays anyway after a moment.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const img = photo.current?.querySelector("img");
+    if (img?.complete && img.naturalWidth > 0) setReady(true);
+    const t = setTimeout(() => setReady(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   useScrollFrame(() => {
     if (!section.current || !photo.current || !solid.current || !row.current || !cue.current) return;
@@ -41,7 +53,7 @@ export function Hero() {
   });
 
   return (
-    <section className="hero" id="hero" ref={section}>
+    <section className={ready ? "hero hero--ready" : "hero"} id="hero" ref={section}>
       <div className="hero__pin">
         <img className="hero__mark" src="/img/logo-long-white.svg" alt="HooHacks" width={159} height={22} />
         <div className="hero__photo" ref={photo}>
@@ -50,6 +62,7 @@ export function Hero() {
             alt="Hackers filling the lecture hall for the opening ceremony"
             sizes="100vw"
             loading="eager"
+            onLoad={() => setReady(true)}
           />
         </div>
         <div className="hero__copy">
