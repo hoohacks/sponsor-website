@@ -2,7 +2,7 @@ import { useEffect, useRef, type CSSProperties } from "react";
 import { roles } from "../content";
 import { columnLift, wipeAt } from "../lib/reveal";
 import { clamp, ease, enterProgress, PHONE, pinProgress, REDUCED, SHORT, useMediaQuery, useScrollFrame } from "../lib/scroll";
-import { insetBetween, rolesScene } from "../lib/triptych";
+import { insetBetween, layerAround, photoScale, rolesScene } from "../lib/triptych";
 import { DuoPhoto } from "./DuoPhoto";
 import { Ridges } from "./Ridges";
 
@@ -50,13 +50,14 @@ function Triptych() {
         const c = f!.getBoundingClientRect();
         const card = new DOMRect(c.left - o.left, c.top - o.top, c.width, c.height);
         const third = new DOMRect((i * w) / 3, 0, w / 3, h);
-        const left = Math.min(card.left, third.left);
-        const right = Math.max(card.right, third.right);
-        const box = new DOMRect(left, 0, right - left, h);
+        const b = layerAround(third, card);
+        const box = new DOMRect(b.left, b.top, b.width, b.height);
         const slat = slats.current[i];
         if (slat) {
           slat.style.left = `${box.left}px`;
+          slat.style.top = `${box.top}px`;
           slat.style.width = `${box.width}px`;
+          slat.style.height = `${box.height}px`;
         }
         return { box, third, card };
       });
@@ -79,6 +80,35 @@ function Triptych() {
       const slat = slats.current[i];
       if (!slat) return;
       slat.style.clipPath = insetBetween(box, third, card, s.split);
+      // The photo shrinks around its frame as it splits, ending framed like a normal photo,
+      // with a little extra zoom at the start that settles out.
+      const duo = slat.querySelector<HTMLElement>(".duo");
+      const img = duo?.querySelector("img");
+      if (duo) {
+        const nat = img?.naturalWidth ? { width: img.naturalWidth, height: img.naturalHeight } : { width: 3, height: 2 };
+        // Lay the whole photo out at its own proportions, covering the layer, so there is
+        // picture to show as it shrinks into the frame (object-fit would crop it away first).
+        const c = Math.max(box.width / nat.width, box.height / nat.height);
+        const size = `${(nat.width * c).toFixed(1)}px ${(nat.height * c).toFixed(1)}px`;
+        if (duo.dataset.size !== size) {
+          duo.dataset.size = size;
+          const [w, h] = [nat.width * c, nat.height * c];
+          duo.querySelectorAll("img").forEach((im) => {
+            Object.assign(im.style, {
+              width: `${w}px`,
+              maxWidth: "none",
+              height: `${h}px`,
+              left: `${(box.width - w) / 2}px`,
+              top: `${(box.height - h) / 2}px`,
+              right: "auto",
+              bottom: "auto",
+            });
+          });
+        }
+        const scale = photoScale(box, third, card, nat, s.split) * (1 + 0.12 * (1 - s.split));
+        duo.style.transformOrigin = `${card.left + card.width / 2 - box.left}px ${card.top + card.height / 2 - box.top}px`;
+        duo.style.transform = `scale(${scale.toFixed(4)})`;
+      }
       slat.style.setProperty("--color", String(s.color));
       slat.style.setProperty("--open", String(s.split));
     });
@@ -106,7 +136,12 @@ function Triptych() {
                 slats.current[i] = el;
               }}
             >
-              <DuoPhoto name={r.photo} alt="" sizes="(max-width: 1400px) 40vw, 560px" />
+              <DuoPhoto
+                name={r.photo}
+                alt=""
+                sizes="(max-width: 1400px) 40vw, 560px"
+                onLoad={() => dispatchEvent(new Event("scroll"))}
+              />
             </div>
           ))}
         </div>

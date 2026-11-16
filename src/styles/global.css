@@ -1321,8 +1321,6 @@ h2 {
 
 .roles__slat {
   position: absolute;
-  top: 0;
-  bottom: 0;
   --color: 0;
   will-change: clip-path;
 }
@@ -1330,10 +1328,9 @@ h2 {
 .roles__slat .duo {
   position: absolute;
   inset: 0;
-}
-
-.roles__slat .duo img {
-  transform: scale(calc(1.25 - 0.25 * var(--open, 1)));
+  will-change: transform;
+  /* The slat's clip-path frames the photo; a clip here would shrink with the scale. */
+  overflow: visible;
 }
 
 .roles--pinned .roles__front {
