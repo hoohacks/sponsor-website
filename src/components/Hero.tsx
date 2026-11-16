@@ -3,7 +3,7 @@ import { clamp, ease, inOut, lerp, pinProgress, useScrollFrame } from "../lib/sc
 import { DuoPhoto } from "./DuoPhoto";
 
 // Jefferson on founding the University of Virginia, letter to William Roscoe, 1820.
-const HEADLINE = "This institution will be based on the illimitable freedom of the human mind.";
+const HEADLINE = "The illimitable freedom of the human mind.";
 
 /** The headline as separate words, so each can rise in when the page opens. */
 const Words = () => (

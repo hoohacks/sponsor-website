@@ -269,8 +269,8 @@ h2 {
 
 .hero__title {
   position: relative;
-  max-width: 19ch;
-  font: 400 clamp(36px, min(6.2vw, 9.5vh), 112px) / 0.98 var(--serif);
+  max-width: 14ch;
+  font: 400 clamp(40px, min(8.2vw, 12.5vh), 148px) / 0.96 var(--serif);
   letter-spacing: -0.02em;
 }
 
@@ -374,7 +374,7 @@ h2 {
     bottom: 6vh;
   }
   .hero__title {
-    font-size: 8vh;
+    font-size: 10vh;
   }
   .hero__cite {
     margin-top: 6px;
@@ -398,7 +398,7 @@ h2 {
 @media (max-width: 760px) {
   /* Phones: the serif is narrow, so it can run larger and still fit. */
   .hero__title {
-    font-size: min(10.5vw, 6vh);
+    font-size: min(13vw, 7.5vh);
   }
   .hero__cite {
     font-size: 17px;
