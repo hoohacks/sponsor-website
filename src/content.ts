@@ -119,13 +119,13 @@ export type Photo =
   | "award-handshake"
   | "opening-crowd";
 
-// TODO(confirm): times are placeholders from the prototype; replace with the real 2026 schedule.
+// Times from the HooHacks 2026 schedule (March 21–22). Update with each season's schedule.
 export const weekend: { photo: Photo; day: string; time: string; title: string; body: string }[] = [
-  { photo: "hall", day: "Saturday", time: "12:30 PM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
-  { photo: "fair-crowd", day: "Saturday", time: "2:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
-  { photo: "late-night", day: "Overnight", time: "3:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
-  { photo: "judging", day: "Sunday", time: "9:00 AM", title: "Demos", body: "Each team presents its project to the judges." },
-  { photo: "winners-stage", day: "Sunday", time: "11:00 AM", title: "Awards", body: "Winners are announced on stage, including the sponsor prizes." },
+  { photo: "hall", day: "Saturday", time: "10:30 AM", title: "Opening ceremony", body: "Everyone meets in the lecture hall. Sponsors can introduce themselves and their challenges." },
+  { photo: "fair-crowd", day: "Saturday", time: "3:00 PM", title: "Sponsorship fair", body: "Students visit sponsor tables to ask about jobs, internships, and the tools they can use." },
+  { photo: "late-night", day: "Overnight", time: "12:00 AM", title: "Heads down", body: "Teams work through the night, and mentors help them when they get stuck." },
+  { photo: "judging", day: "Sunday", time: "1:30 PM", title: "Judging", body: "Each team presents its project to the judges." },
+  { photo: "winners-stage", day: "Sunday", time: "5:00 PM", title: "Closing ceremony", body: "Winners are announced on stage, including the sponsor prizes." },
 ];
 
 export const roles: { photo: Photo; alt: string; title: string; body: string; tag: string }[] = [

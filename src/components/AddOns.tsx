@@ -5,7 +5,7 @@ export function AddOns() {
   const groups = [...new Set(addOns.map((a) => a.group))];
   return (
     <div className="addons">
-      <div>
+      <div data-rise="left">
         <h3>À la carte</h3>
         <p>Add any of these to your tier. Meal prices depend on whether it's breakfast, lunch, or dinner.</p>
       </div>
@@ -16,8 +16,8 @@ export function AddOns() {
             <ul>
               {addOns
                 .filter((a) => a.group === g)
-                .map((a) => (
-                  <li key={a.name}>
+                .map((a, i) => (
+                  <li key={a.name} data-rise="right" data-i={i}>
                     <span className="addons__name">{a.name}</span>
                     <span className="addons__req">{a.minTier} and up</span>
                     <span className="addons__price">{a.price}</span>

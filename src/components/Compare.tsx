@@ -4,7 +4,7 @@ import { formatPrice } from "../lib/format";
 /** The full comparison of every benefit at every tier, folded away until asked for. */
 export function Compare() {
   return (
-    <details className="compare">
+    <details className="compare" data-rise>
       <summary>Compare every tier</summary>
       <div className="compare__scroll">
         <table>

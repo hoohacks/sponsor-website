@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { benefits, tiers } from "../content";
+import { benefits, tiers, weekend } from "../content";
 import { formatPrice, formatPriceShort, logoSize } from "./format";
 import { addedAtTier, benefitsForTier } from "./tiers";
 import { LIMITS, validateInquiry } from "./inquiry";
@@ -115,6 +115,18 @@ describe("copy", () => {
       "Adds the resume book and a social media shoutout.",
       "Adds a workshop, a sponsored prize, and an email to all attendees after the event.",
       "Adds your own competition track, the keynote, and coffee chats with students.",
+    ]);
+  });
+});
+
+describe("weekend schedule", () => {
+  it("uses the real times from the 2026 schedule", () => {
+    expect(weekend.map((m) => `${m.title}: ${m.day} ${m.time}`)).toEqual([
+      "Opening ceremony: Saturday 10:30 AM",
+      "Sponsorship fair: Saturday 3:00 PM",
+      "Heads down: Overnight 12:00 AM",
+      "Judging: Sunday 1:30 PM",
+      "Closing ceremony: Sunday 5:00 PM",
     ]);
   });
 });

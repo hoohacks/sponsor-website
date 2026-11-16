@@ -40,13 +40,17 @@ export function Weekend() {
           <div className="scene__dim" />
           <div className="scene__copy">
             <div className="wrap">
-              <p className="scene__time">
+              <p className="scene__time" data-rise="left" data-end="0.75">
                 <small>{m.day}</small>
                 {m.time}
               </p>
               <div>
-                <h3>{m.title}</h3>
-                <p>{m.body}</p>
+                <h3 data-rise="right" data-end="0.75">
+                  {m.title}
+                </h3>
+                <p data-rise="right" data-i="1" data-end="0.75">
+                  {m.body}
+                </p>
               </div>
             </div>
           </div>

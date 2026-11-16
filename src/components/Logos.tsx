@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { sponsors } from "../content";
 import { logoSize } from "../lib/format";
 import { throughProgress, useScrollFrame } from "../lib/scroll";
-import { useRise } from "../lib/useRise";
 import { Ridges } from "./Ridges";
 
 type Sponsor = (typeof sponsors)[number];
@@ -38,7 +37,6 @@ function Row({ list, rowRef }: { list: Sponsor[]; rowRef: (el: HTMLDivElement | 
 export function Logos() {
   const section = useRef<HTMLElement>(null);
   const rowEls = useRef<(HTMLDivElement | null)[]>([]);
-  const head = useRise<HTMLDivElement>();
 
   useScrollFrame(() => {
     if (!section.current) return;
@@ -51,7 +49,7 @@ export function Logos() {
   return (
     <section className="sponsors" id="sponsors" ref={section} aria-labelledby="sponsors-title">
       <Ridges seed={41} layers={5} drift="y" className="sponsors__ridges" />
-      <div className="wrap" ref={head}>
+      <div className="wrap" data-rise>
         <h2 id="sponsors-title">
           Past sponsors <br />
           and partners.

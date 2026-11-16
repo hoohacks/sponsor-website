@@ -7,9 +7,11 @@ import { Roles } from "./components/Roles";
 import { StatsLine } from "./components/StatsLine";
 import { Tiers } from "./components/Tiers";
 import { Weekend } from "./components/Weekend";
+import { useReveals } from "./lib/reveal";
 
 export function App() {
   const [interest, setInterest] = useState<string | null>(null);
+  useReveals();
 
   return (
     <>

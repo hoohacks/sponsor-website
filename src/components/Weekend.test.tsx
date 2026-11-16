@@ -6,7 +6,7 @@ describe("Weekend", () => {
   it("shows each moment with its day and time", () => {
     render(<Weekend />);
     expect(screen.getAllByRole("article")).toHaveLength(5);
-    expect(screen.getByRole("heading", { name: "Demos" }).closest("article")).toHaveTextContent("Sunday9:00 AM");
+    expect(screen.getByRole("heading", { name: "Judging" }).closest("article")).toHaveTextContent("Sunday1:30 PM");
   });
 
   it("describes each moment plainly", () => {
