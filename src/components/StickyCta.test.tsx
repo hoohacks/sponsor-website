@@ -31,12 +31,12 @@ describe("StickyCta", () => {
     expect(screen.getByRole("link", { name: "See packages", hidden: true })).toHaveAttribute("href", "#tiers");
   });
 
-  it("stays hidden, and out of the tab order, while the hero is on screen", async () => {
-    const { container } = setup(-200, 9000);
+  it("shows from the start, on the hero", async () => {
+    const { container } = setup(0, 9000);
     await scroll();
     const bar = container.querySelector(".sticky-cta")!;
-    expect(bar).not.toHaveAttribute("data-show");
-    expect(bar).toHaveAttribute("inert");
+    expect(bar).toHaveAttribute("data-show");
+    expect(bar).not.toHaveAttribute("inert");
   });
 
   it("appears once the hero has scrolled away", async () => {
@@ -47,9 +47,11 @@ describe("StickyCta", () => {
     expect(bar).not.toHaveAttribute("inert");
   });
 
-  it("gets out of the way when the contact form is on screen", async () => {
+  it("gets out of the way, and out of the tab order, when the contact form is on screen", async () => {
     const { container } = setup(-9000, 200);
     await scroll();
-    expect(container.querySelector(".sticky-cta")).not.toHaveAttribute("data-show");
+    const bar = container.querySelector(".sticky-cta")!;
+    expect(bar).not.toHaveAttribute("data-show");
+    expect(bar).toHaveAttribute("inert");
   });
 });

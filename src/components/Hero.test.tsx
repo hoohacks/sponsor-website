@@ -8,13 +8,14 @@ describe("Hero", () => {
     expect(screen.getByRole("heading", { level: 1, name: "The illimitable freedom of the human mind." })).toBeInTheDocument();
   });
 
-  it("says what HooHacks is and links to packages and the form", () => {
+  it("says what HooHacks is, leaving the sponsor buttons to the sticky block", () => {
     render(<Hero />);
     expect(
       screen.getByText("HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes."),
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Become a sponsor" })).toHaveAttribute("href", "#contact");
-    expect(screen.getByRole("link", { name: "See packages" })).toHaveAttribute("href", "#tiers");
+    // The sponsor buttons live in the sticky block, not in the hero.
+    expect(screen.queryByRole("link", { name: "Become a sponsor" })).toBeNull();
+    expect(screen.queryByRole("link", { name: "See packages" })).toBeNull();
   });
 
   it("shows when and where", () => {

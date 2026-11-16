@@ -319,43 +319,6 @@ h2 {
   animation: hero-fade 900ms var(--ease-out) 2300ms backwards;
 }
 
-/* Keyboard users can reach the links before the scroll reveals them: show them as soon as one is focused. */
-.hero__row:focus-within {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* Calls to action as underlined text links, quiet next to the quote. */
-.hero__link {
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(232, 237, 247, 0.9);
-  color: var(--ice);
-  font: 500 16px var(--sans);
-  text-decoration: none;
-  transition:
-    color 200ms ease,
-    border-color 200ms ease;
-}
-
-.hero__link--quiet {
-  color: var(--silver);
-  border-bottom-color: rgba(188, 200, 230, 0.4);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero__link:hover {
-    color: #fff;
-    border-bottom-color: #fff;
-  }
-}
-
-.hero__ctas {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  flex-wrap: wrap;
-}
-
 /* Scroll cue: a hairline with light running down it, gone once you start scrolling. */
 .hero__cue {
   position: absolute;
@@ -1447,8 +1410,10 @@ h2 {
 }
 
 /* ─── Sticky sponsor actions ─────────────────────────────────────── */
-/* Pinned to the bottom of the screen between the hero and the form. */
+/* Pinned to the bottom of the screen from the start; it hides only at the form.
+   On load it arrives with the rest of the hero's opening. */
 .sticky-cta {
+  animation: hero-row 900ms var(--ease-out) 2000ms backwards;
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -1481,8 +1446,12 @@ h2 {
   padding: 0 20px;
 }
 
-/* Phones: a full-width bar along the bottom edge, buttons sharing the space. */
+/* Phones: a full-width bar along the bottom edge, buttons sharing the space.
+   It takes over from the scroll cue, which would sit behind it. */
 @media (max-width: 760px) {
+  .hero__cue {
+    display: none;
+  }
   .sticky-cta {
     left: 12px;
     right: 12px;
@@ -1496,6 +1465,7 @@ h2 {
 
 @media (prefers-reduced-motion: reduce) {
   .sticky-cta {
+    animation: none;
     transform: none;
     transition: opacity 150ms ease;
   }

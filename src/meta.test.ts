@@ -32,11 +32,6 @@ describe("hero opening", () => {
     for (const name of animated) expect(still.slice(0, 400), name).toContain(`.${name}`);
   });
 
-  it("shows the hero's links the moment one gets keyboard focus, even before the scroll reveals them", () => {
-    const rule = css.match(/\.hero__row:focus-within\s*\{([^}]*)\}/)?.[1] ?? "";
-    expect(rule).toMatch(/opacity:\s*1\s*!important/);
-    expect(rule).toMatch(/transform:\s*none\s*!important/);
-  });
 });
 
 describe("fonts", () => {

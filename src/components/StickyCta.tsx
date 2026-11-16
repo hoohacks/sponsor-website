@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 
-/** Shown once the hero is mostly gone, hidden again when the form is in view. */
+/** Shown everywhere except when the contact form, which has its own button, is in view. */
 function shouldShow() {
-  const hero = document.getElementById("hero")?.getBoundingClientRect();
   const contact = document.getElementById("contact")?.getBoundingClientRect();
-  if (!hero || !contact) return false;
-  const vh = innerHeight;
-  return hero.bottom < vh * 0.35 && contact.top > vh * 0.8;
+  if (!contact) return true;
+  return contact.top > innerHeight * 0.8;
 }
 
 /**
- * The two sponsor actions, pinned to the bottom of the screen while you read,
- * so they're never more than a click away. Not a scroll animation: it runs
+ * The two sponsor actions, pinned to the bottom of the screen from the moment
+ * the site opens, so they're never more than a click away. The hero has no
+ * buttons of its own; this block is the one place for them. Not a scroll animation: it runs
  * with reduced motion too, it just doesn't slide.
  */
 export function StickyCta() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     let frame = 0;

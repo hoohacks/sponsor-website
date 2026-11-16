@@ -80,14 +80,6 @@ export function Hero() {
             <p className="hero__cite">Thomas Jefferson</p>
             <div className="hero__row">
               <p>HooHacks is UVA's 24-hour hackathon. Sponsors meet students, mentor teams, run workshops, and award prizes.</p>
-              <div className="hero__ctas">
-                <a className="hero__link" href="#contact">
-                  Become a sponsor
-                </a>
-                <a className="hero__link hero__link--quiet" href="#tiers">
-                  See packages
-                </a>
-              </div>
             </div>
           </div>
         </div>
