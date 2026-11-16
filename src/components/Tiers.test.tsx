@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { REDUCED } from "../lib/scroll";
+import { REDUCED, SHORT } from "../lib/scroll";
 import { Tiers } from "./Tiers";
 
 describe("Tiers", () => {
@@ -27,6 +27,12 @@ describe("Tiers", () => {
 
   it("stacks the tiers under reduced motion", () => {
     window.matchMedia = ((q: string) => ({ ...original(q), matches: q === REDUCED })) as typeof window.matchMedia;
+    const { container } = render(<Tiers onAsk={() => {}} />);
+    expect(container.querySelector(".tiers--stacked")).not.toBeNull();
+  });
+
+  it("stacks the tiers on a short screen, like a phone on its side", () => {
+    window.matchMedia = ((q: string) => ({ ...original(q), matches: q === SHORT })) as typeof window.matchMedia;
     const { container } = render(<Tiers onAsk={() => {}} />);
     expect(container.querySelector(".tiers--stacked")).not.toBeNull();
   });

@@ -6,6 +6,7 @@ import {
   pinProgress,
   railDistance,
   REDUCED,
+  SHORT,
   scrollToPin,
   useMediaQuery,
   useScrollFrame,
@@ -38,7 +39,8 @@ function travel(rail: HTMLElement) {
 export function Tiers({ onAsk }: Props) {
   const phone = useMediaQuery(PHONE);
   const reduced = useMediaQuery(REDUCED);
-  const stacked = phone || reduced;
+  const short = useMediaQuery(SHORT);
+  const stacked = phone || reduced || short;
   const track = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
