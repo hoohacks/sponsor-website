@@ -27,7 +27,7 @@ export interface BenefitGroup {
 
 export const event = {
   year: 2027,
-  dateLine: "March 2027 at the University of Virginia",
+  dateLine: "March 2027, University of Virginia",
   email: "team@hoohacks.io",
   packetUrl: "/hoohacks-sponsorship-packet-2027.pdf",
 };
