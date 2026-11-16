@@ -139,7 +139,8 @@ function Triptych() {
               <DuoPhoto
                 name={r.photo}
                 alt=""
-                sizes="(max-width: 1400px) 40vw, 560px"
+                // Each photo starts drawn about 1.1x the screen width, so ask for the large file.
+                sizes="110vw"
                 onLoad={() => dispatchEvent(new Event("scroll"))}
               />
             </div>
