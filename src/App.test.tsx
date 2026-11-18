@@ -58,4 +58,10 @@ describe("App", () => {
     render(<App />);
     expect(screen.getByRole("navigation", { name: "Sponsor HooHacks", hidden: true })).toBeInTheDocument();
   });
+
+  it("doesn't offer the sponsorship packet anywhere", () => {
+    const { container } = render(<App />);
+    expect(container.textContent).not.toMatch(/packet/i);
+    expect(container.querySelector('a[href$=".pdf"]')).toBeNull();
+  });
 });
