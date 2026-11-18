@@ -1,5 +1,4 @@
 // Everything that changes from year to year lives in this file.
-// Source of truth: the HooHacks 2027 sponsorship packet.
 
 export type TierId = "bronze" | "silver" | "gold" | "platinum" | "diamond";
 
@@ -29,7 +28,6 @@ export const event = {
   year: 2027,
   dateLine: "March 2027, University of Virginia",
   email: "team@hoohacks.io",
-  packetUrl: "/hoohacks-sponsorship-packet-2027.pdf",
 };
 
 export const stats = {

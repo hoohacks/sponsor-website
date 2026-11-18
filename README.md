@@ -20,7 +20,7 @@ npm run dev
 - `src/lib/scroll.ts`: the one scroll loop every animation runs on. Each frame only changes `transform`, `opacity`, `clip-path` and the `--color`/`--open` variables, which keeps scrolling smooth; keep it that way. Sizes and positions are only written when the window is measured (on load and resize), never per frame.
 - `src/components/`: one component per page section.
 - `src/lib/inquiry.ts`: form validation and the Firestore write. Its limits match the `sponsorInquiries` rule in HackX.
-- `public/`: photos (WebP at 800 and 1600 wide), trimmed sponsor logos, and the packet PDF.
+- `public/`: photos (WebP at 800 and 1600 wide), and trimmed sponsor logos.
 
 ## How inquiries flow
 
@@ -28,7 +28,7 @@ The form writes one document to `sponsorInquiries` in the current season's HackX
 
 ## Each new season
 
-1. Update `src/content.ts` (date line, stats, tiers, sponsors, weekend times) and swap in new photos or the new packet PDF if they changed.
+1. Update `src/content.ts` (date line, stats, tiers, sponsors, weekend times) and swap in new photos if they changed.
 2. Update the dates and figures in `index.html`'s description tags, and retake `public/og.jpg` (a 1200×630 capture of the hero) if the hero changed.
 3. Point the `VITE_FIREBASE_*` variables in Netlify at the new HackX production project, then redeploy.
 4. Make sure the new HackX project has the `sponsorInquiries` rule, the Discord function and its webhook secret (see HackX's `docs/MIGRATION.md`).

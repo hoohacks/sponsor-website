@@ -13,8 +13,6 @@ export function Contact({ interest }: { interest: string | null }) {
           </p>
           <p className="contact__meta">
             Prefer email? <a href={`mailto:${event.email}`}>{event.email}</a>
-            <br />
-            Want the details offline? <a href={event.packetUrl}>Download the sponsorship packet (PDF)</a>
           </p>
         </div>
         <div data-rise="right" data-i="1">
